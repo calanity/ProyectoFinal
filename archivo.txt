@@ -1,0 +1,21 @@
+/*if(TempData["producto"] !=null)
+        {
+
+    
+           if (variable == 0)
+          {
+            var stock= producto.ObtenerStockActual((int)TempData["producto"]);
+            var stock2= stock - variable;
+            if(stock2<0) {
+                         window.alert(stock2)}
+                         }
+        
+        }
+        <input type="button" value="Validar" name="Validar" id="Validar" onclick="ValidacionTodo(cantidad.value)" />
+
+                         */
+        //    document.getElementById("categ").innerHTML = "Ingrese una categoria"
+
+
+    
+

@@ -1,0 +1,139 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.Selects
+{
+        width:200px;
+        height: 20px;
+       
+}
+
+.TextoInicio
+{
+        width:80px;
+        height: 20px;
+        color:darkcyan;  
+             
+}
+
+#Agregar
+{
+    margin-left:0px;
+    margin-top:10px;    
+}
+
+.tabla
+{
+    border: 2px;
+    
+}
+
+.TextoAgregar
+{
+        width:100px;
+        height: 20px;
+        color:darkcyan;  
+             
+}
+
+.mensaje 
+{
+    color:red;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+li {
+float:left;
+}
+			
+li a {
+	background-color:#000;
+	color:#fff;
+	text-decoration:none;
+	padding:10px 12px;
+	display:block;
+}
+			
+li a:hover {
+background-color:#434343;
+}
+			
+li ul {
+display:none;
+position:absolute;
+min-width:140px;
+}
+
+li:hover > ul {
+display:block;
+}
+			
+.nav li ul li {
+position:relative;
+}
+			
+.nav li ul li ul {
+right:-140px;
+top:0px;
+}

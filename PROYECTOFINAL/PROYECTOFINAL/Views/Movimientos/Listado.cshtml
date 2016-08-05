@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Listado";
+}
+@using PROYECTOFINAL.Models
+
+<h2>Listado</h2>
+
+<table class="table-bordered">
+    <tr>
+        <th>Concepto</th>
+        <th>Monto</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+
+
+    </tr>
+
+    @foreach (movimientosmodel item in movimientos.ListarMovimientos())
+    {
+        <tr>
+            <td>@item.concepto</td>
+            <td>@item.monto</td>
+            <td>@item.Fecha</td>
+            <td>@item.entradaSalida</td>
+
+
+
+        </tr>
+
+    }
+
+    </table>
+
+<a href="/Movimientos/Index">Volver</a>

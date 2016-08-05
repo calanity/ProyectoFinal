@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "IngresosYSalidas";
+}
+@using PROYECTOFINAL.Models
+
+<h2>Ingresos y salidas</h2>
+
+<form action="../Movimientos/mostrar" method="POST">
+   
+
+    @Html.Label("Concepto:")
+    <select name="concepto" id="concepto" required>
+        @foreach (conceptomodel item in movimientos.listarConceptos())
+        {
+           <option value="@item.idConceptos"> @item.nombre </option>
+        }
+    </select>
+    
+    @Html.Label("Monto:")
+    <input type="number" id="monto" name="monto" required>
+
+    <input type="submit" id="Aceptar" name="Aceptar" value="Aceptar">
+
+</form>
+

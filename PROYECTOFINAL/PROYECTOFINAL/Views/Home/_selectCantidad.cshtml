@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "_selectCantidad";
+}
+@using PROYECTOFINAL.Models
+@model cantidadmodel
+  
+
+<script>
+    function completar()
+    {
+
+        // alert ('@Model.resultado');
+
+            if ('@Model.resultado.ToString().ToLower()' == 'false')
+            {
+               // window.alert("No hay stock disponible");
+                document.getElementById("canti").innerHTML = "No hay stock disponible";
+            }
+                
+           else
+           {
+
+               //alert('Model.resultado')
+                document.getElementById("canti").innerHTML= "";
+            }
+            //si es true no hay stock
+
+
+    }
+    $(document).ready(completar);
+</script>
+
+
+

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+
+
+@using PROYECTOFINAL.Models
+@model categoriamodel
+
+<h2>Editar</h2>
+
+
+<form action="../Editar" method="POST" name="formulario" id="formulario">
+
+
+    @Html.Label("Nombre")
+    <input type="text" name="nombre" id="nombre" value="@Model.nombre">
+    <br /> <br />
+    <h6 hidden name="nombre" id="nombre" value="@Model.id"></h6>
+    <input type="submit" value="Actualizar categoria" />
+</form>

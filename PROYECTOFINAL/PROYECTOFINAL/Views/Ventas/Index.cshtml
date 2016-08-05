@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using PROYECTOFINAL.Models
+@model ventamodel
+
+<h2>Caja</h2>
+
+ <h4>Elija dia a listar ventas</h4>
+
+   <form action="../Ventas/MostrarVentas" method="POST">
+
+   @Html.Label("Ingrese dia: ")    
+      <input class="Selects" type="date" value="Fecha" id="fecha" name="fecha" />
+
+      <input type="submit" value="Listar" name="Listar" />
+   </form>
+
+<a href="/Ventas/VentasMensual">Ventas mensuales</a>

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categorias</h2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using PROYECTOFINAL.Models;
+@model List<categoriamodel>
+
+
+
+<br><br><br>
+
+<a href="/Categorias/Agreg">Crear categoria nueva</a>
+
+<table class="table-bordered">
+    <tr>
+        <th>Nombre</th>
+        <th>Accion</th>
+
+
+    </tr>
+
+    @foreach (categoriamodel item in @categoria.ListarCategorias())
+    {
+        <tr>
+            <td>@item.nombre</td>           
+
+            <td>
+                @Html.ActionLink("Editar", "editar", "categorias", new { id = item.id }, null)
+                @Html.ActionLink("Eliminar", "eliminar", "categorias", new { id = item.id }, null)
+            </td>
+
+
+        </tr>
+
+    }
+
+</table>
