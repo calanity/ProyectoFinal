@@ -71,6 +71,86 @@ namespace PROYECTOFINAL.Models
             return l2;
 
         }
+        public static List<movimientosmodel> ListarMovxMes(int mes, int año)
+        {
+            List<movimientosmodel> l2 = new List<movimientosmodel>();
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ListarMovimentosPorMes";
+            cmd.Parameters.AddWithValue("mes", mes);
+            cmd.Parameters.AddWithValue("año", año);
+
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+            while (lector.Read())
+            {
+                movimientosmodel mov = new movimientosmodel();
+                mov.concepto = (string)(lector["Nombre"]);
+                mov.entradaSalida = (string)(lector["SalidaEntrada"]);                
+                mov.monto = (int)(lector["Monto"]);
+                mov.Fecha = (DateTime)(lector["Fecha"]);
+
+                l2.Add(mov);
+            }
+
+            con.Close();
+            return l2;
+        }
+
+        public static int TotalEntradasPorMes(DateTime fecha)
+        {           
+           int totalEntrada = 0;
+
+
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "TotalEntradasPorMes";
+            cmd.Parameters.AddWithValue("Anio", fecha.Year );
+            cmd.Parameters.AddWithValue("Mes", fecha.Month);
+
+
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+            while (lector.Read())
+            {
+                if (lector.FieldCount>0)
+                { 
+                    totalEntrada = Convert.ToInt16(lector["Monto"]);
+                }
+            }
+
+            con.Close();
+
+            return totalEntrada;
+        }
+        public static int TotalSalidasPorMes(DateTime fecha)
+        {
+            int totalSalida = 0;
+
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "TotalSalidasPorMes";
+            cmd.Parameters.AddWithValue("Anio", fecha.Year);
+            cmd.Parameters.AddWithValue("Mes", fecha.Month);
+
+
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+            while (lector.Read())
+            {
+                if(lector.FieldCount>0)
+                { 
+                    totalSalida = Convert.ToInt16(lector["Monto"]);
+                }
+            }
+
+            con.Close();
+
+            return totalSalida; 
+        }
 
 
     }

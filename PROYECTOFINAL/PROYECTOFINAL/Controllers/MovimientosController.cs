@@ -98,5 +98,29 @@ namespace PROYECTOFINAL.Controllers
             int func = movimientos.AgregarMovimiento(monto, idConc, fecha);
             return View("Listado");
         }
+
+        public ActionResult MostrarMovMensuales(FormCollection formulario)
+        {
+
+            var mes = (Request.Form["mes"]);
+            var año = (Request.Form["año"]);
+            if (mes == null && año == null)
+            {
+                return View("Index");
+            }
+            else
+            {
+                List<movimientosmodel> lista  = movimientos.ListarMovxMes(Convert.ToInt16(mes), Convert.ToInt16(año));
+                TempData.Keep();
+                return View(lista);
+            }            
+        }
+
+        public ActionResult ElegirMes()
+        {
+            return View();
+
+        }
+
     }
 }

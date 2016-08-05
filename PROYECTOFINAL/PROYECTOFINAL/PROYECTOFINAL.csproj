@@ -331,6 +331,8 @@
     <Content Include="Views\Caja\Inicio.cshtml" />
     <Content Include="Views\Productos\Eliminar.cshtml" />
     <Content Include="Views\Categorias\Error.cshtml" />
+    <Content Include="Views\Movimientos\ElegirMes.cshtml" />
+    <Content Include="Views\Movimientos\MostrarMovMensuales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
