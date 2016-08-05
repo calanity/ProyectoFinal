@@ -22,16 +22,26 @@
                 
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                    
-                    <li> <a href="/Ventas/Index">Ventas</a></li>
-                    <li> <a href="/Movimientos/Index">Movimientos</a></li>    
-                    <li><a href="/Caja/Index">Caja</a>             
+                <ul class="nav navbar-nav">    
+                                    
+                    <li> <a href="/Ventas/Index">Ventas</a>
+                        <ul>
+                            <li><a href="/Ventas/Index">Por dia</a></li>
+                            <li><a href="/Ventas/VentasMensual">Por mes</a></li>
+                        </ul>
+                    </li>
+
+                    <li> <a href="/Movimientos/Index">Movimientos</a>
+                       <ul>
+                           <li><a href="/Movimientos/Index">Nuevo</a></li>
+                           <li><a href="/Movimientos/listado">Listado</a></li>
+                       </ul>
+                    </li> 
+                       
+                    <li><a href="/Caja/Index">Caja</a></li>       
+                    <li><a href="/Productos/Index">Productos</a></li>      
+                    <li><a href="/Categorias/Index">Categorias</a></li>             
                     
-                    <li>@Html.ActionLink("Caja", "Index", "Caja")</li>
-                    <li>@Html.ActionLink("Productos", "Index", "Productos")</li>
-                    <li>@Html.ActionLink("Categorias", "Index", "Categorias")</li>
-
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -56,5 +66,7 @@
 <!--"   Html.ActionLink("FIFOS", "Index", "Home", new { area = "" }, new { class = "navbar-brand" })
  <li>@Html.ActionLink("Ventas", "Index", "Ventas") 
    @Html.ActionLink("Movimientos", "Index", "Movimientos") 
-   
+   <li>@Html.ActionLink("Caja", "Index", "Caja")</li>
+      <li>@Html.ActionLink("Productos", "Index", "Productos")</li>
+                    <li>@Html.ActionLink("Categorias", "Index", "Categorias")</li>
 -->

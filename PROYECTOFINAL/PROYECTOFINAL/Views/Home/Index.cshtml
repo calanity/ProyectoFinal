@@ -5,7 +5,7 @@
 <script>
     $(document).ready(function () {
         $("#cate").change(function (e) {
-            $.get("SelectProductos", { idCategoria: e.target.value }, function (response) {
+            $.get("/Home/SelectProductos", { idCategoria: e.target.value }, function (response) {
                 $("#divSelectProductos").html(response);
             });
         });
@@ -14,7 +14,7 @@
 
     $(document).ready(function () {
         $("#cantidad").change(function (e) {            
-            $.get("SelectCantidad", { cantidad: e.target.value }, function (response) {
+            $.get("/Home/SelectCantidad", { cantidad: e.target.value }, function (response) {
                 $("#divSelectCantidad").html(response);
             });
         });        
@@ -22,7 +22,7 @@
 
 
     function CargarPrecio(id) {
-        $.get("SelectPrecio", { idProducto: id }, function (response) {
+        $.get("/Home/SelectPrecio", { idProducto: id }, function (response) {
             $("#divSelectPrecio").html(response);
         });
     }
