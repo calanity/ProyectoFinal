@@ -60,6 +60,7 @@ namespace PROYECTOFINAL.Models
             while (lector.Read())
             {
                 movimientosmodel mov = new movimientosmodel();
+                mov.IdMovimientos = (int)(lector["IdMovimientos"]);
                 mov.concepto = (string)(lector["Nombre"]);
                 mov.Fecha = (DateTime)(lector["Fecha"]);
                 mov.monto= (int)(lector["Monto"]);
@@ -86,6 +87,7 @@ namespace PROYECTOFINAL.Models
             while (lector.Read())
             {
                 movimientosmodel mov = new movimientosmodel();
+                mov.IdMovimientos = (int)(lector["IdMovimientos"]);
                 mov.concepto = (string)(lector["Nombre"]);
                 mov.entradaSalida = (string)(lector["SalidaEntrada"]);                
                 mov.monto = (int)(lector["Monto"]);
@@ -159,9 +161,7 @@ namespace PROYECTOFINAL.Models
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "ListarMovimentosPorDia";
-            /*cmd.Parameters.AddWithValue("dia", dia);
-            cmd.Parameters.AddWithValue("mes", mes);*/
+            cmd.CommandText = "ListarMovimentosPorDia";                      
             cmd.Parameters.AddWithValue("fech", fecha);
 
             MySqlDataReader lector = cmd.ExecuteReader();
@@ -169,6 +169,7 @@ namespace PROYECTOFINAL.Models
             while (lector.Read())
             {
                 movimientosmodel mov = new movimientosmodel();
+                mov.IdMovimientos = (int)(lector["IdMovimientos"]);
                 mov.concepto = (string)(lector["Nombre"]);
                 mov.entradaSalida = (string)(lector["SalidaEntrada"]);
                 mov.monto = (int)(lector["Monto"]);
