@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+-tipoconcepcio- phpMyAdmin SQL Dump
 -- version 4.5.2
 -- http://www.phpmyadmin.net
 --
@@ -25,142 +25,142 @@ DELIMITER $$
 -- Procedimientos
 --
 DROP PROCEDURE IF EXISTS `ActualizarArticulo`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarArticulo` (IN `Nomb` TEXT, IN `cate` INT, IN `prec` INT, IN `stkActual` INT, IN `stkMinimo` INT, IN `idArti` INT)  NO SQL
+CREATE PROCEDURE `ActualizarArticulo` (IN `Nomb` TEXT, IN `cate` INT, IN `prec` INT, IN `stkActual` INT, IN `stkMinimo` INT, IN `idArti` INT)  NO SQL
 UPDATE articulos SET Nombre= Nomb, Idcat =cate, Precio= prec, StockActual= stkActual, StockMinimo = stkMinimo 
 WHERE idArticulos = idArti$$
 
 DROP PROCEDURE IF EXISTS `ActualizarProductoDV`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarProductoDV` (IN `canti` INT, IN `subti` INT, IN `idVen` INT, IN `idArtic` INT)  NO SQL
+CREATE PROCEDURE `ActualizarProductoDV` (IN `canti` INT, IN `subti` INT, IN `idVen` INT, IN `idArtic` INT)  NO SQL
 UPDATE detalleventa SET cantidad = canti , subtotal = subti
 WHERE idVenta = idVen AND idArticulo= idArtic$$
 
 DROP PROCEDURE IF EXISTS `actualizarVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizarVenta` (IN `tot` INT, IN `idVen` INT, IN `mpago` TEXT)  NO SQL
+CREATE PROCEDURE `actualizarVenta` (IN `tot` INT, IN `idVen` INT, IN `mpago` TEXT)  NO SQL
 UPDATE ventas SET MontoTotal = tot , MedioPago = mpago
 WHERE idVentas = idVen$$
 
 DROP PROCEDURE IF EXISTS `BuscoCategoriasActivas`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscoCategoriasActivas` ()  NO SQL
+CREATE PROCEDURE `BuscoCategoriasActivas` ()  NO SQL
 SELECT * FROM categorias where eliminada= false$$
 
 DROP PROCEDURE IF EXISTS `BuscoPorductosActivos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscoPorductosActivos` ()  NO SQL
+CREATE PROCEDURE `BuscoPorductosActivos` ()  NO SQL
 SELECT * FROM articulos where eliminado=false$$
 
 DROP PROCEDURE IF EXISTS `crearArticulo`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearArticulo` (IN `Nomb` TEXT, IN `cate` TEXT, IN `prec` INT, IN `stkActual` INT, IN `stkMinimo` INT)  INSERT INTO articulos (Nombre, Idcat, Precio, StockActual, StockMinimo)  VALUES ( Nomb, cate, prec, stkActual, stkMinimo)$$
+CREATE PROCEDURE `crearArticulo` (IN `Nomb` TEXT, IN `cate` TEXT, IN `prec` INT, IN `stkActual` INT, IN `stkMinimo` INT)  INSERT INTO articulos (Nombre, Idcat, Precio, StockActual, StockMinimo)  VALUES ( Nomb, cate, prec, stkActual, stkMinimo)$$
 
 DROP PROCEDURE IF EXISTS `CrearCategoria`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearCategoria` (IN `nomb` TEXT)  NO SQL
+CREATE PROCEDURE `CrearCategoria` (IN `nomb` TEXT)  NO SQL
 INSERT INTO categorias(Nombre) VALUES(nomb)$$
 
 DROP PROCEDURE IF EXISTS `crearDetalleVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearDetalleVenta` (IN `idArti` INT, IN `prec` INT, IN `canti` INT, IN `subt` INT, IN `idVen` INT)  NO SQL
+CREATE PROCEDURE `crearDetalleVenta` (IN `idArti` INT, IN `prec` INT, IN `canti` INT, IN `subt` INT, IN `idVen` INT)  NO SQL
 INSERT INTO detalleventa (idArticulo , precio, cantidad, subtotal, idVenta) VALUES (idArti, prec, canti, subt, idVen)$$
 
 DROP PROCEDURE IF EXISTS `crearVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearVenta` (IN `fech` DATETIME, IN `montot` INT, IN `mediop` TEXT)  INSERT INTO ventas(Fecha, MontoTotal, MedioPago) VALUES (fech, montot, mediop)$$
+CREATE PROCEDURE `crearVenta` (IN `fech` DATETIME, IN `montot` INT, IN `mediop` TEXT)  INSERT INTO ventas(Fecha, MontoTotal, MedioPago) VALUES (fech, montot, mediop)$$
 
 DROP PROCEDURE IF EXISTS `EditarCategoria`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `EditarCategoria` (IN `idCate` INT, IN `Nomb` TEXT)  NO SQL
+CREATE PROCEDURE `EditarCategoria` (IN `idCate` INT, IN `Nomb` TEXT)  NO SQL
 UPDATE articulos SET Nombre= Nomb
 WHERE idCategorias = idCate$$
 
 DROP PROCEDURE IF EXISTS `EliminarArticulo`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarArticulo` (IN `idArti` INT)  NO SQL
+CREATE PROCEDURE `EliminarArticulo` (IN `idArti` INT)  NO SQL
 UPDATE articulos SET eliminado = TRUE
 WHERE IdArticulos= idArti AND StockActual=0$$
 
 DROP PROCEDURE IF EXISTS `EliminarCategoria`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarCategoria` (IN `idCateg` INT)  NO SQL
+CREATE PROCEDURE `EliminarCategoria` (IN `idCateg` INT)  NO SQL
 UPDATE categorias SET eliminada= TRUE
 WHERE idCategorias = idCateG$$
 
 DROP PROCEDURE IF EXISTS `InsertarCajaFinal`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarCajaFinal` (IN `final` INT, IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `InsertarCajaFinal` (IN `final` INT, IN `fech` DATE)  NO SQL
 UPDATE caja SET montoFinal= final
 where fecha= fech$$
 
 DROP PROCEDURE IF EXISTS `InsertarCajaInicial`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarCajaInicial` (IN `fecha` DATE, IN `montoCaja` INT)  NO SQL
+CREATE PROCEDURE `InsertarCajaInicial` (IN `fecha` DATE, IN `montoCaja` INT)  NO SQL
 INSERT INTO caja (Fecha, montoInicial) VALUES(fecha, montoCaja)$$
 
 DROP PROCEDURE IF EXISTS `InsertarMovimiento`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarMovimiento` (IN `mont` INT, IN `concepto` TEXT, IN `fech` DATETIME)  NO SQL
+CREATE PROCEDURE `InsertarMovimiento` (IN `mont` INT, IN `concepto` TEXT, IN `fech` DATETIME)  NO SQL
 INSERT INTO movimientos (Monto, Fecha, IdConcepto)VALUES(mont, fech ,concepto)$$
 
 DROP PROCEDURE IF EXISTS `listarArticulos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarArticulos` ()  SELECT * FROM articulos WHERE eliminado= false$$
+CREATE PROCEDURE `listarArticulos` ()  SELECT * FROM articulos WHERE eliminado= false$$
 
 DROP PROCEDURE IF EXISTS `listarCategorias`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCategorias` ()  select * from categorias WHERE eliminada= false$$
+CREATE PROCEDURE `listarCategorias` ()  select * from categorias WHERE eliminada= false$$
 
 DROP PROCEDURE IF EXISTS `listarDetalleVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetalleVenta` (IN `ventaa2` INT)  SELECT dv.* , a.Nombre, a.IdArticulos
+CREATE PROCEDURE `listarDetalleVenta` (IN `ventaa2` INT)  SELECT dv.* , a.Nombre, a.IdArticulos
 FROM detalleventa dv
 INNER JOIN articulos a ON dv.idArticulo = a.idArticulos
 WHERE dv.idVenta= ventaa2$$
 
 DROP PROCEDURE IF EXISTS `ListarMovimientos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarMovimientos` ()  NO SQL
+CREATE PROCEDURE `ListarMovimientos` ()  NO SQL
 SELECT m.* , c.Nombre, c.SalidaEntrada
 FROM movimientos m INNER JOIN tipoconcepcio c
 ON m.IdConcepto = c.IdConcepto$$
 
 DROP PROCEDURE IF EXISTS `listarProductosxCate`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProductosxCate` (IN `cate` INT)  SELECT * FROM articulos where IdCat = cate AND eliminado= false$$
+CREATE PROCEDURE `listarProductosxCate` (IN `cate` INT)  SELECT * FROM articulos where IdCat = cate AND eliminado= false$$
 
 DROP PROCEDURE IF EXISTS `ListarTipoConceptos`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarTipoConceptos` ()  NO SQL
+CREATE PROCEDURE `ListarTipoConceptos` ()  NO SQL
 SELECT * FROM tipoconcepcio$$
 
 DROP PROCEDURE IF EXISTS `ListarVentaActual`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarVentaActual` (IN `venti` INT)  NO SQL
+CREATE PROCEDURE `ListarVentaActual` (IN `venti` INT)  NO SQL
 SELECT * FROM ventas WHERE idVentas=venti$$
 
 DROP PROCEDURE IF EXISTS `listarVentas`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentas` ()  BEGIN
+CREATE PROCEDURE `listarVentas` ()  BEGIN
 SELECT * FROM ventas;
 END$$
 
 DROP PROCEDURE IF EXISTS `ListarVentasEfectivoXDia`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarVentasEfectivoXDia` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ListarVentasEfectivoXDia` (IN `fech` DATE)  NO SQL
 SELECT * FROM ventas WHERE MedioPago= "Efectivo" AND DAY(Fecha)= DAY(fech) AND MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech)$$
 
 DROP PROCEDURE IF EXISTS `ListarVentasMensuales`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarVentasMensuales` (IN `mes` INT, IN `año` INT)  NO SQL
+CREATE PROCEDURE `ListarVentasMensuales` (IN `mes` INT, IN `año` INT)  NO SQL
 SELECT * FROM ventas WHERE MONTH(Fecha)= mes AND YEAR(Fecha) = año$$
 
 DROP PROCEDURE IF EXISTS `ListarVentasTarjetaXDia`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarVentasTarjetaXDia` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ListarVentasTarjetaXDia` (IN `fech` DATE)  NO SQL
 SELECT * FROM ventas WHERE MedioPago= "Tarjeta" AND DAY(Fecha)= DAY(fech) AND MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech)$$
 
 DROP PROCEDURE IF EXISTS `ListarVentasxDia`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarVentasxDia` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ListarVentasxDia` (IN `fech` DATE)  NO SQL
 SELECT * FROM ventas WHERE DAY(Fecha)= DAY(fech) AND MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech)$$
 
 DROP PROCEDURE IF EXISTS `nombreProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `nombreProducto` (IN `idArti` INT(1))  NO SQL
+CREATE PROCEDURE `nombreProducto` (IN `idArti` INT(1))  NO SQL
 SELECT nombre FROM articulos WHERE idArticulos = idArti$$
 
 DROP PROCEDURE IF EXISTS `ObtenerCajaExistente`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerCajaExistente` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerCajaExistente` (IN `fech` DATE)  NO SQL
 SELECT*  from caja where fecha= fech$$
 
 DROP PROCEDURE IF EXISTS `obtenerCategoria`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `obtenerCategoria` (IN `idcategoria` INT)  SELECT Nombre FROM categorias WHERE idCategorias = idcategoria$$
+CREATE PROCEDURE `obtenerCategoria` (IN `idcategoria` INT)  SELECT Nombre FROM categorias WHERE idCategorias = idcategoria$$
 
 DROP PROCEDURE IF EXISTS `ObtenerDetalleExistente`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDetalleExistente` (IN `idDetalleV` INT, IN `idventaactual2` INT)  NO SQL
+CREATE PROCEDURE `ObtenerDetalleExistente` (IN `idDetalleV` INT, IN `idventaactual2` INT)  NO SQL
 select COUNT(*) from detalleventa WHERE idArticulo = idDetalleV
 AND idVenta = idventaactual2$$
 
 DROP PROCEDURE IF EXISTS `obtenerIdVentaActual`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `obtenerIdVentaActual` ()  NO SQL
+CREATE PROCEDURE `obtenerIdVentaActual` ()  NO SQL
 SELECT MAX(idVentas) AS id FROM ventas$$
 
 DROP PROCEDURE IF EXISTS `ObtenerMovimientosEntrada`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerMovimientosEntrada` (IN `fechaa` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerMovimientosEntrada` (IN `fechaa` DATE)  NO SQL
 SELECT M.* , c.* 
 FROM movimientos M 
 INNER JOIN tipoconcepcio C on m.IdConcepto = c.idConcepto
@@ -170,7 +170,7 @@ AND YEAR(Fecha)=YEAR(fechaa)
 AND C.SalidaEntrada= "Ingreso"$$
 
 DROP PROCEDURE IF EXISTS `ObtenerMovimientosSalida`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerMovimientosSalida` (IN `fechaaa` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerMovimientosSalida` (IN `fechaaa` DATE)  NO SQL
 SELECT M.* , c.* 
 FROM movimientos M 
 INNER JOIN tipoconcepcio C on m.IdConcepto = c.idConcepto
@@ -180,49 +180,49 @@ AND YEAR(Fecha)=YEAR(fechaaa)
 AND C.SalidaEntrada= "Salida"$$
 
 DROP PROCEDURE IF EXISTS `ObtenerProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerProducto` (IN `idArti` INT)  NO SQL
+CREATE PROCEDURE `ObtenerProducto` (IN `idArti` INT)  NO SQL
 SELECT * FROM articulos WHERE IdArticulos = idArti$$
 
 DROP PROCEDURE IF EXISTS `obtenerStockActual`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `obtenerStockActual` (IN `idArtii2` INT)  NO SQL
+CREATE PROCEDURE `obtenerStockActual` (IN `idArtii2` INT)  NO SQL
 SELECT StockActual FROM articulos WHERE IdArticulos= idArtii2$$
 
 DROP PROCEDURE IF EXISTS `obtenerSubtotal`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `obtenerSubtotal` (IN `idVen` INT)  NO SQL
+CREATE PROCEDURE `obtenerSubtotal` (IN `idVen` INT)  NO SQL
 SELECT SUM(subtotal) AS subt FROM detalleventa WHERE idVenta= idVen$$
 
 DROP PROCEDURE IF EXISTS `ObtenerVentaEfectivoMes`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerVentaEfectivoMes` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerVentaEfectivoMes` (IN `fech` DATE)  NO SQL
 SELECT SUM(MontoTotal) AS MontoTotal FROM ventas WHERE MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech) AND MedioPago= "Efectivo"$$
 
 DROP PROCEDURE IF EXISTS `ObtenerVentaEfectivoxDia`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerVentaEfectivoxDia` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerVentaEfectivoxDia` (IN `fech` DATE)  NO SQL
 SELECT SUM(MontoTotal) AS MontoTotal FROM ventas WHERE DAY(Fecha)= DAY(fech) AND MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech) AND MedioPago= "Efectivo"$$
 
 DROP PROCEDURE IF EXISTS `ObtenerVentaTarjetaXDia`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerVentaTarjetaXDia` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerVentaTarjetaXDia` (IN `fech` DATE)  NO SQL
 SELECT SUM(MontoTotal) AS MontoTotal FROM ventas WHERE DAY(Fecha)= DAY(fech) AND MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech) AND MedioPago= "Tarjeta"$$
 
 DROP PROCEDURE IF EXISTS `ObtenerVentaTarjetaxMes`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerVentaTarjetaxMes` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerVentaTarjetaxMes` (IN `fech` DATE)  NO SQL
 SELECT SUM(MontoTotal) AS MontoTotal FROM ventas WHERE MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech) AND MedioPago= "Tarjeta"$$
 
 DROP PROCEDURE IF EXISTS `ObtenerVentaTotalXDia`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerVentaTotalXDia` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ObtenerVentaTotalXDia` (IN `fech` DATE)  NO SQL
 SELECT SUM(MontoTotal) AS Total FROM ventas WHERE DAY(Fecha)= DAY(fech) AND MONTH(Fecha)=MONTH(fech) AND YEAR(Fecha)=YEAR(fech)$$
 
 DROP PROCEDURE IF EXISTS `precioProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `precioProducto` (IN `idArti` INT(2))  BEGIN
+CREATE PROCEDURE `precioProducto` (IN `idArti` INT(2))  BEGIN
 SELECT Precio FROM Articulos WHERE idArticulos = idArti;
 END$$
 
 DROP PROCEDURE IF EXISTS `RestoStockVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RestoStockVenta` (IN `stockActu` INT, IN `articId` INT)  NO SQL
+CREATE PROCEDURE `RestoStockVenta` (IN `stockActu` INT, IN `articId` INT)  NO SQL
 UPDATE articulos SET StockActual = stockActu
 WHERE IdArticulos = articId$$
 
 DROP PROCEDURE IF EXISTS `ValidarCajaFinal`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidarCajaFinal` (IN `fech` DATE)  NO SQL
+CREATE PROCEDURE `ValidarCajaFinal` (IN `fech` DATE)  NO SQL
 SELECT* FROM caja WHERE fecha= fech$$
 
 DELIMITER ;

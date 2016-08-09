@@ -152,6 +152,33 @@ namespace PROYECTOFINAL.Models
             return totalSalida; 
         }
 
+        public static List<movimientosmodel> ListarMovxDia(DateTime fecha)
+        {
+            fecha = fecha.Date;
+            List<movimientosmodel> l2 = new List<movimientosmodel>();
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ListarMovimentosPorDia";
+            /*cmd.Parameters.AddWithValue("dia", dia);
+            cmd.Parameters.AddWithValue("mes", mes);*/
+            cmd.Parameters.AddWithValue("fech", fecha);
 
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+            while (lector.Read())
+            {
+                movimientosmodel mov = new movimientosmodel();
+                mov.concepto = (string)(lector["Nombre"]);
+                mov.entradaSalida = (string)(lector["SalidaEntrada"]);
+                mov.monto = (int)(lector["Monto"]);
+                mov.Fecha = (DateTime)(lector["Fecha"]);
+
+                l2.Add(mov);
+            }
+
+            con.Close();
+            return l2;
+        }
     }
 }

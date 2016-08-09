@@ -110,16 +110,40 @@ namespace PROYECTOFINAL.Controllers
             }
             else
             {
-                List<movimientosmodel> lista  = movimientos.ListarMovxMes(Convert.ToInt16(mes), Convert.ToInt16(año));
+                List<movimientosmodel> lista = movimientos.ListarMovxMes(Convert.ToInt16(mes), Convert.ToInt16(año));
                 TempData.Keep();
                 return View(lista);
-            }            
+            }
         }
 
         public ActionResult ElegirMes()
         {
             return View();
 
+        }
+
+        public ActionResult MostrarMovDia(DateTime fecha)
+        {
+           /* var dia =(Request.Form["dia"]);
+            var mes = (Request.Form["mes"]);*/
+           
+            if (fecha== null)
+            {
+                return View("Index");
+            }
+            else
+            {
+                List<movimientosmodel> lista = movimientos.ListarMovxDia(fecha);
+                TempData.Keep();
+                return View(lista);
+            }
+            
+
+        }
+
+        public ActionResult ElegirDia()
+        {
+            return View();
         }
 
     }
