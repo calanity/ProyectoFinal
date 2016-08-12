@@ -41,7 +41,7 @@
                     var cantidad = $('#cantidad').val();
                     //pregunto si la cantidad ingresada era valida y hago el submit
                     var canti = $('#canti').val();
-                    
+                    document.getElementById('Agregar').disabled = true;
                    
                         if (cantidad > 0 && canti== "")
                         {
@@ -57,6 +57,7 @@
                         else
                         {
                             document.getElementById("canti").innerHTML = "*Debe completar la cantidad";
+                            
                             //alert('Debe completar la cantidad')
                         }
                     

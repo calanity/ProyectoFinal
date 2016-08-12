@@ -18,18 +18,18 @@
 <form action="../Productos/Agregar" method="POST">
 
     <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
-    <input type="text" name="Nombre" id="Nombre" class="Selects" />
+    <input type="text" name="Nombre" id="Nombre" class="Selects"  required/>
     <br /> <br />
 
     <label id="Precio" name="Precio" class="TextoAgregar">Precio</label>
-    <input type="number" name="precio" id="precio" class="Selects" />
+    <input type="number" name="precio" id="precio" class="Selects" required/>
 
 
     <br /> <br />
 
     <label id="categ" name="categ" class="TextoAgregar">Categoria</label>
 
-    <select id="categoria" name="categoria" class="Selects">
+    <select id="categoria" name="categoria" class="Selects" required>
 
         <option value="0"> Seleccionar</option>
 
@@ -42,11 +42,11 @@
     <br />
 
     <label id="stkActual" name="stkActual" class="TextoAgregar">Stock actual</label>
-    <input type="number" name="stockActual" id="stockActual" min="1" class="Selects" />
+    <input type="number" name="stockActual" id="stockActual" min="0" class="Selects" required />
     
     <br />
     <label id="stkmin" name="stkmin" class="TextoAgregar">Stock minimo</label>    
-    <input type="number" name="stockMinimo" id="stockMinimo" min="1" class="Selects"/>
+    <input type="number" name="stockMinimo" id="stockMinimo" min="0" class="Selects" required/>
 
     <br /><br />
 

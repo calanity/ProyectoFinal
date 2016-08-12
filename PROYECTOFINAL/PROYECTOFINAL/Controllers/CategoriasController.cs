@@ -57,7 +57,7 @@ namespace PROYECTOFINAL.Controllers
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "EditarCategoria";
-            cmd.Parameters.AddWithValue("idCategorias", id);
+            cmd.Parameters.AddWithValue("idCate", id);
             cmd.Parameters.AddWithValue("Nomb", nombre);
             
 
@@ -82,8 +82,7 @@ namespace PROYECTOFINAL.Controllers
 
             while (lector.Read())
             {
-                tiene = true;
-                con.Close();
+                tiene = true;                
             }
             if (tiene == false)
             {
@@ -93,16 +92,16 @@ namespace PROYECTOFINAL.Controllers
                 cmd1.CommandText = "EliminarCategoria";
                 cmd1.Parameters.AddWithValue("idCateg", id);
                 registros = cmd1.ExecuteNonQuery();
-                con.Close();
+                con1.Close();
                 return View("Index");
             }
             else
             {
-               
+                con.Close();
                 return View("Error");
             }            
-            
-         }
+                
+        }
 
     }
 }
