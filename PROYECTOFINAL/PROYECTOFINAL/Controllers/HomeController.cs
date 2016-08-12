@@ -212,6 +212,12 @@ namespace PROYECTOFINAL.Controllers
                 //insertar en movimientos la venta
 
                 movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha);
+
+                //si es en efectivo ingreso el movimiento en movCaja
+                if (medioP == "Efectivo")
+                {
+                    venta.InsertarMovimientoCaja();
+                }
                 return View(l2);
             }
         }

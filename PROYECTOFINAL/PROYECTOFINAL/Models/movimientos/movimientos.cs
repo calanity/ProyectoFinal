@@ -181,5 +181,34 @@ namespace PROYECTOFINAL.Models
             con.Close();
             return l2;
         }
+
+
+        public static movimientosmodel ObtenerUltimoMovimiento()
+        {
+            movimientosmodel mov = new movimientosmodel();
+
+            //obtengo el movimiento ingresado en la venta y lo cargo en cajamov
+            //pregunto por el ultimo movimiento ingresado
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ObtenerUltimoMovimiento";
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+
+            while (lector.Read())
+            {
+                if (lector.FieldCount > 0)
+                {
+                    mov.IdMovimientos = (int)lector["IdMovimientos"];
+                    mov.Fecha = (DateTime)lector["Fecha"];
+                    mov.monto = (int)lector["Monto"];
+                    mov.idConcepto = (int)lector["IdConcepto"];
+                }
+            }
+            con.Close();
+
+            return mov;
+        }
     }
 }

@@ -356,6 +356,33 @@ namespace PROYECTOFINAL.Models
             return (TotalDia);
         }
 
+
+        public static int InsertarMovimientoCaja()
+        {
+            movimientosmodel mov = new movimientosmodel();
+            mov = movimientos.ObtenerUltimoMovimiento();
+            //inserto el movimiento en los movimientos de la caja
+            MySqlConnection con1 = producto.AbrirConexion();
+            MySqlCommand cmd1 = con1.CreateCommand();
+            cmd1.CommandType = CommandType.StoredProcedure;
+            cmd1.CommandText = "InsertarMovCaja";
+            mov.Fecha = mov.Fecha.Date;
+            cmd1.Parameters.AddWithValue("idMovimiento", mov.IdMovimientos);
+            cmd1.Parameters.AddWithValue("fecha", mov.Fecha);
+            cmd1.Parameters.AddWithValue("monto", mov.monto);
+            cmd1.Parameters.AddWithValue("idConcepto", mov.idConcepto);
+
+            int registros2 = cmd1.ExecuteNonQuery();
+            con1.Close();
+
+            return registros2;
+        }
+
+
+        
+
+
+       
     }
     }
 
