@@ -156,9 +156,41 @@ namespace PROYECTOFINAL.Models
             return (stockActual);
         }
 
-        internal static object ObtenerStockActual(object prodi)
+        public static List<productomodel> ObtenerStockMinimoYActual(List<productomodel>list)
         {
-            throw new NotImplementedException();
+            int stockminimo = 0;
+            int stockactual = 0;
+            List<productomodel> listaEnviar = new List<productomodel>();
+            foreach (productomodel item in list)
+            {
+                MySqlConnection con = producto.AbrirConexion();
+                MySqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "ObtenerStockMinimoYActual";
+                cmd.Parameters.AddWithValue("idArti", item.id);
+                MySqlDataReader lector = cmd.ExecuteReader();
+
+
+
+                while (lector.Read())
+                {
+                    stockactual = Convert.ToInt16(lector["StockActual"]);
+                    stockminimo = Convert.ToInt16(lector["StockMinimo"]);
+                }
+
+                con.Close();
+
+                if (stockactual <= stockminimo)
+                {
+                    //lo agrego a la lista para el mail
+                    listaEnviar.Add(item);                   
+                }
+
+                con.Close();
+            }
+
+            return listaEnviar;
+
         }
     }
 }

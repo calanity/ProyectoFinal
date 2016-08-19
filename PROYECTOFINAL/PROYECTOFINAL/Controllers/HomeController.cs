@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using PROYECTOFINAL.Models;
 using MySql.Data.MySqlClient;
-
-
+using System.Net.Mail;
+using System.Net;
 
 namespace PROYECTOFINAL.Controllers
 {
@@ -36,6 +36,12 @@ namespace PROYECTOFINAL.Controllers
             TempData.Clear();
             return View("Index");
         }
+
+        public ActionResult Inicio()
+        {
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public ActionResult Index(FormCollection alario)
         {
@@ -218,14 +224,41 @@ namespace PROYECTOFINAL.Controllers
                 {
                     venta.InsertarMovimientoCaja();
                 }
-                return View(l2);
-            }
-        }
+                //pregunta si el stock actual es igual o menoor a la minima y mando el mail
+                List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
+                string mensaje = "";
+                foreach (productomodel item in listaEnviar)
+                {
+                    
+                }
+                if (listaEnviar.Count > 0)
+                {
+                    //mando el mail
 
-        public ActionResult Inicio()
-        {
-            return RedirectToAction("Index");
-        }
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress("calanity@gmail.com")); // reemplazar por un valor valido
+                    message.From = new MailAddress("silgralevi@hotmail.com"); // reemplazar por un valor valido
+                    message.Subject = "Consulta";
+                    message.Body = Convert.ToString(listaEnviar);
+                    message.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "calanity@gmail.com", // reemplazar por un valor valido
+                        Password = "" // reemplazar por un valor valido
+                    };
+
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.Send(message);
+                }
+            }
+            return View(l2);
+            }
+            
+        
 
         public ActionResult SelectProductos(int idCategoria)
         {

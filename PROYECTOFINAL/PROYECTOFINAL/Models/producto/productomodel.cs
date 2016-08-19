@@ -27,6 +27,7 @@ namespace PROYECTOFINAL.Models
         public int subtotal { get; set; }
         public int stockminimo { get; set; }
         public int stockactual { get; set; }
-
+        public int IdProveedor { get; set; }
+        public string Proveedor { get; set; }
     }
 }
