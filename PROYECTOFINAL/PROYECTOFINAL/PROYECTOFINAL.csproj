@@ -227,7 +227,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\cajamodel.cs" />
+    <Compile Include="Models\caja\caja.cs" />
+    <Compile Include="Models\caja\cajamodel.cs" />
     <Compile Include="Models\cantidadmodel.cs" />
     <Compile Include="Models\categoria\categoria.cs" />
     <Compile Include="Models\categoria\categoriamodel.cs" />
@@ -238,6 +239,8 @@
     <Compile Include="Models\movimientos\movimientosmodel.cs" />
     <Compile Include="Models\producto\producto.cs" />
     <Compile Include="Models\producto\productomodel.cs" />
+    <Compile Include="Models\proveedor\proveedor.cs" />
+    <Compile Include="Models\proveedor\proveedormodel.cs" />
     <Compile Include="Models\venta\venta.cs" />
     <Compile Include="Models\venta\ventamodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -335,6 +338,8 @@
     <Content Include="Views\Movimientos\MostrarMovMensuales.cshtml" />
     <Content Include="Views\Movimientos\ElegirDia.cshtml" />
     <Content Include="Views\Movimientos\MostrarMovDia.cshtml" />
+    <Content Include="Views\Caja\ListarMovimientosCaja.cshtml" />
+    <Content Include="Views\Caja\MostrarMovDia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

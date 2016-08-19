@@ -11,6 +11,8 @@ namespace PROYECTOFINAL.Models
     {
         public static int AgregarMovimiento(int monto, string motivo ,  DateTime fecha)
         {
+            int hola=-1;
+            conceptomodel conc = new conceptomodel();
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -18,13 +20,50 @@ namespace PROYECTOFINAL.Models
             cmd.Parameters.AddWithValue("mont", monto);
             cmd.Parameters.AddWithValue("concepto", motivo);            
             cmd.Parameters.AddWithValue("fech", fecha);
-
-
+            
 
             int registros2 = cmd.ExecuteNonQuery();
             con.Close();
+            List<conceptomodel> mu = movimientos.listarConceptos();
+            foreach (conceptomodel item in mu)
+            {
+                if (item.nombre == motivo)
+                {
+                    if (item.TipoConcepto == "Salida")
+                    {
+                        hola = 0;
+                        conc = item;
+
+
+                    }
+                    if (item.TipoConcepto == "Ingreso")
+                    {
+                        hola = 1;
+                        conc = item;
+
+                    }
+
+                }
+            }
+            //pregunto si el mov que se esta creando es entrada o salida y lo paso a la caja.
+
+            if (hola == 1)
+            {
+                //insertar la plata en la caja
+            }
+
+            if (hola == 0)
+            {
+                monto = monto;
+            }
+
+
             return (registros2);
+                   
+                    
         }
+
+
 
         public static List<conceptomodel> listarConceptos()
         {

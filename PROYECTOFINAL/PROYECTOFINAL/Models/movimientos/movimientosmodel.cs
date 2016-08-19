@@ -14,5 +14,6 @@ namespace PROYECTOFINAL.Models
         public int idConcepto { get; set; }
         public string entradaSalida { get; set; }
         public int IdMovimientos {get; set;}
+        public int IdMovimientoCaja { get; set; }
 }
 }

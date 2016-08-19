@@ -127,6 +127,19 @@ namespace PROYECTOFINAL.Controllers
             return View(caja);
         }
 
+        public ActionResult ListarMovimientosCaja()
+        {
+            return View();
+        }
+
+        public ActionResult MostrarMovDia(DateTime fecha)
+        {
+            //seleccionar los movimientos de la caja de un dia           
+            ViewBag.Fecha = fecha;
+            List<movimientosmodel>lmov = caja.ListarMovimientosCajaXDia(fecha);
+            
+            return View(lmov);
+        }
         
     }
 }
