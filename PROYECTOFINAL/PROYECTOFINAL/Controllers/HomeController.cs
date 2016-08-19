@@ -238,7 +238,7 @@ namespace PROYECTOFINAL.Controllers
                     var message = new MailMessage();
                     message.To.Add(new MailAddress("calanity@gmail.com")); // reemplazar por un valor valido
                     message.From = new MailAddress("silgralevi@hotmail.com"); // reemplazar por un valor valido
-                    message.Subject = "Consulta";
+                    message.Subject = "Falta de stock";
                     message.Body = Convert.ToString(listaEnviar);
                     message.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
