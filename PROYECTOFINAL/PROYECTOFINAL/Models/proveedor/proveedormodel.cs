@@ -9,7 +9,7 @@ namespace PROYECTOFINAL.Models.proveedor
     {
         public int idProveedores { get; set; }
         public string nombre { get; set; }
-        public int deuda { get; set; } 
+        public int saldo { get; set; } 
         public int telefono { get; set; }
     }
 }

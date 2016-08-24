@@ -27,7 +27,7 @@ namespace PROYECTOFINAL.Models.proveedor
                     prov.nombre = (string)lector["Nombre"];
                     prov.idProveedores = (int)lector["idProveedores"];
                     prov.telefono = (int)lector["Telefono"];
-                    prov.deuda = (int)lector["Deuda"];
+                    prov.saldo = (int)lector["Saldo"];
 
                     lProv.Add(prov);
                 }
@@ -41,5 +41,86 @@ namespace PROYECTOFINAL.Models.proveedor
             proveedormodel prov = new proveedormodel();
             return prov;
         }
+
+        public static int CrearProveedor(String Nombre, int Telefono)
+        {
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "CrearProveedor";
+            cmd.Parameters.AddWithValue("Nomb", Nombre);
+            cmd.Parameters.AddWithValue("Telef", Telefono);
+            int registros = cmd.ExecuteNonQuery();
+            con.Close();
+            return registros;
+        }
+
+        public static int EditarProveedor(int idProve, String Nombre, int Telefono)
+        {
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "EditarProveedor";
+            cmd.Parameters.AddWithValue("idProve", idProve);
+            cmd.Parameters.AddWithValue("nomb", Nombre);
+            cmd.Parameters.AddWithValue("telef", Telefono);
+            int registros = cmd.ExecuteNonQuery();
+            con.Close();
+            return registros;
+        }
+
+        public static int EliminarProveedor(int idProve)
+        {
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;      
+            cmd.CommandText = "EliminarProveedor";
+            cmd.Parameters.AddWithValue("idProve", idProve);
+            int registros = cmd.ExecuteNonQuery();
+            con.Close();
+
+            return registros;
+         }
+
+        public static proveedormodel ObtenerSaldo(int idProve)
+        {
+            
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ObtenerSaldoProveedor";
+            cmd.Parameters.AddWithValue("idProve", idProve);
+            MySqlDataReader lector = cmd.ExecuteReader();
+            proveedormodel prov = new proveedormodel();
+
+            while (lector.Read())
+            {
+                if (lector.FieldCount > 0)
+                {                    
+                    prov.nombre = (string)lector["Nombre"];
+                    prov.idProveedores = (int)lector["idProveedores"];
+                    prov.saldo = (int)lector["Saldo"];
+
+                }
+            }
+            con.Close();
+            return prov;
+        }
+
+
+        public static int Editar(int idProve, int saldo)
+        {
+
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "EditarSaldoProveedor";
+            cmd.Parameters.AddWithValue("idProve", idProve);
+            int registros = cmd.ExecuteNonQuery();
+
+            con.Close();
+            return registros;
+        }
+
     }
 }

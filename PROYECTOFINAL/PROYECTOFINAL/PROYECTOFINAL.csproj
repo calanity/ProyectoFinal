@@ -219,6 +219,7 @@
     <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -340,6 +341,10 @@
     <Content Include="Views\Movimientos\MostrarMovDia.cshtml" />
     <Content Include="Views\Caja\ListarMovimientosCaja.cshtml" />
     <Content Include="Views\Caja\MostrarMovDia.cshtml" />
+    <Content Include="Views\Proveedores\Index.cshtml" />
+    <Content Include="Views\Proveedores\Editar.cshtml" />
+    <Content Include="Views\Proveedores\Compra.cshtml" />
+    <Content Include="Views\Proveedores\Pago.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

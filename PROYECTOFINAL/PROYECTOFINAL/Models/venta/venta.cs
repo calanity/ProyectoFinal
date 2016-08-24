@@ -106,77 +106,58 @@ namespace PROYECTOFINAL.Models
 
         }
 
-        /*public static int obtenerSubtotal(int id)
-        {
-            int subtotal = 0;
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "obtenerSubtotal";
-            cmd.Parameters.AddWithValue("idVen", id);
-            MySqlDataReader lector = cmd.ExecuteReader();
+        /*
+           public static List<productomodel> ListarProductosVentaActual(int id)
+           {
+               List<productomodel> l3 = new List<productomodel>();
+
+               using (MySqlConnection con = producto.AbrirConexion())
+               {
+                   MySqlCommand cmd = con.CreateCommand();
+                   cmd.CommandType = CommandType.StoredProcedure;
+                   cmd.CommandText = "listarDetalleVenta";
+                   cmd.Parameters.AddWithValue("ventaa2", id);
+                   MySqlDataReader lector = cmd.ExecuteReader();
 
 
-            while (lector.Read())
-            {
-                subtotal =Convert.ToInt16(lector["subt"]);
-            }
-            con.Close();
-            return (subtotal);
-        }*/
+                   while (lector.Read())
+                   {
+                       productomodel oprod = new productomodel();
+                       oprod.id = (int)(lector["IdArticulos"]);
+                       oprod.nombre = (string)(lector["Nombre"]);
+                       oprod.precio = (int)(lector["precio"]);
+                       oprod.cantidad = (int)(lector["cantidad"]);
+                       oprod.subtotal = (int)(lector["subtotal"]);
 
-     
-        public static List<productomodel> ListarProductosVentaActual(int id)
-        {
-            List<productomodel> l3 = new List<productomodel>();
+                       l3.Add(oprod);
 
-            using (MySqlConnection con = producto.AbrirConexion())
-            {
-                MySqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "listarDetalleVenta";
-                cmd.Parameters.AddWithValue("ventaa2", id);
-                MySqlDataReader lector = cmd.ExecuteReader();
-                
+                   }
+                   con.Close();
+               }
 
-                while (lector.Read())
-                {
-                    productomodel oprod = new productomodel();
-                    oprod.id = (int)(lector["IdArticulos"]);
-                    oprod.nombre = (string)(lector["Nombre"]);
-                    oprod.precio = (int)(lector["precio"]);
-                    oprod.cantidad = (int)(lector["cantidad"]);
-                    oprod.subtotal = (int)(lector["subtotal"]);
+               return l3;
+           }
 
-                    l3.Add(oprod);
-
-                }
-                con.Close();
-            }
-
-            return l3;
-        }
-
-        public static int ActualizarDetalle(int subt , int canti, int prec , int idven , int idArtic)
-        {            
-                //actualizar detVenta
-                canti = canti + 1;
-                subt = (prec * canti);
-                MySqlConnection con = producto.AbrirConexion();
-                MySqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "ActualizarProductoDV";
-                cmd.Parameters.AddWithValue("canti", canti);
-                cmd.Parameters.AddWithValue("subti", subt);
-                cmd.Parameters.AddWithValue("idVen", idven);
-                cmd.Parameters.AddWithValue("idArtic", idArtic);
+           public static int ActualizarDetalle(int subt , int canti, int prec , int idven , int idArtic)
+           {            
+                   //actualizar detVenta
+                   canti = canti + 1;
+                   subt = (prec * canti);
+                   MySqlConnection con = producto.AbrirConexion();
+                   MySqlCommand cmd = con.CreateCommand();
+                   cmd.CommandType = CommandType.StoredProcedure;
+                   cmd.CommandText = "ActualizarProductoDV";
+                   cmd.Parameters.AddWithValue("canti", canti);
+                   cmd.Parameters.AddWithValue("subti", subt);
+                   cmd.Parameters.AddWithValue("idVen", idven);
+                   cmd.Parameters.AddWithValue("idArtic", idArtic);
 
 
-            int registros2 = cmd.ExecuteNonQuery();
-                con.Close();
-                return (registros2);
-        }
-
+               int registros2 = cmd.ExecuteNonQuery();
+                   con.Close();
+                   return (registros2);
+           }
+           */
         public static int CrearDetVenta(int idArti, int prec , int canti, int subt, int idVen)
         {
             MySqlConnection con = producto.AbrirConexion();
