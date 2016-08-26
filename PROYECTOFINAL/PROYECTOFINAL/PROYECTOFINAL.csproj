@@ -322,7 +322,6 @@
     <Content Include="Views\Home\FaltaStock.cshtml" />
     <Content Include="Views\Ventas\VentasMensual.cshtml" />
     <Content Include="Views\Ventas\MostrarVentasMensuales.cshtml" />
-    <Content Include="Views\Caja\Index.cshtml" />
     <Content Include="Views\Productos\Index.cshtml" />
     <Content Include="Views\Productos\Agreg.cshtml" />
     <Content Include="Views\Productos\Editar.cshtml" />
@@ -330,16 +329,13 @@
     <Content Include="Views\Categorias\Editar.cshtml" />
     <Content Include="Views\Categorias\Agreg.cshtml" />
     <Content Include="Views\Home\_selectCantidad.cshtml" />
-    <Content Include="Views\Caja\FinCaja.cshtml" />
-    <Content Include="Views\Caja\CerrarCaja.cshtml" />
-    <Content Include="Views\Caja\Inicio.cshtml" />
     <Content Include="Views\Productos\Eliminar.cshtml" />
     <Content Include="Views\Categorias\Error.cshtml" />
     <Content Include="Views\Movimientos\ElegirMes.cshtml" />
     <Content Include="Views\Movimientos\MostrarMovMensuales.cshtml" />
     <Content Include="Views\Movimientos\ElegirDia.cshtml" />
     <Content Include="Views\Movimientos\MostrarMovDia.cshtml" />
-    <Content Include="Views\Caja\ListarMovimientosCaja.cshtml" />
+    <Content Include="Views\Caja\Index.cshtml" />
     <Content Include="Views\Caja\MostrarMovDia.cshtml" />
     <Content Include="Views\Proveedores\Index.cshtml" />
     <Content Include="Views\Proveedores\Editar.cshtml" />

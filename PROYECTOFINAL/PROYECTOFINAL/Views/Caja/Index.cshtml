@@ -1,24 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ListarMovimientosCaja";
 }
 
 @using PROYECTOFINAL.Models
+@model List<movimientosmodel>
 
+<h2>Listar movimientos de la caja</h2>
 
+<form action="../Caja/MostrarMovDia" method="POST">
 
-<h2>Index</h2>
+    @Html.Label("Ingrese dia: ")
+    <input class="Selects" type="date" value="Fecha" id="fecha" name="fecha" required />
 
-<form action="../Caja/Inicio" method="POST" name="formularioCaja" id="formularioCaja">
-
-
-    @Html.Label("Ingrese la caja inicial:")
-
-    <input type="number" id="cajaInicial" name="cajaInicial" required min="1">
-
-    <input type="submit" value="Establecer caja inicial" />
-
+    <input type="submit" value="Listar" name="Listar" />
 </form>
 
-    <a href="../Caja/CerrarCaja">Cerrar caja</a>
-        

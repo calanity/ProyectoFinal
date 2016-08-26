@@ -1,6 +1,6 @@
 delimiter |
 CREATE EVENT `abrirYcerrarCaja` 
-ON SCHEDULE EVERY 1 DAY STARTS NOW()
+ON SCHEDULE EVERY 1 DAY STARTS '2016-08-26 23:00:00'
 DO BEGIN
 
 SELECT @totalCaja := montoInicial FROM caja 
@@ -24,7 +24,7 @@ SET @totalCaja = @totalCaja + @totalEntrada - @totalSalida;
 UPDATE caja set montoFinal= @totalCaja
 where Fecha= date(now());
 
-INSERT caja (Fecha,montoInicial) VALUES(date(now()), @totalCaja);
+INSERT caja (Fecha,montoInicial) VALUES(CURDATE() + INTERVAL 1 DAY, @totalCaja);
 END |
 delimiter ;
 
