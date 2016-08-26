@@ -95,7 +95,7 @@ namespace PROYECTOFINAL.Controllers
             //cargo en la tabla la salida
             DateTime fecha = DateTime.Now;
             string idConc = Request.Form["concepto"];
-            int func = movimientos.AgregarMovimiento(monto, idConc, fecha,"nada");
+            int func = movimientos.AgregarMovimiento(monto, idConc, fecha, "Movimiento");
             return View("Listado");
         }
 

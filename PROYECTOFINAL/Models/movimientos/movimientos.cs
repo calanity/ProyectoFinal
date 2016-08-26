@@ -23,34 +23,18 @@ namespace PROYECTOFINAL.Models
             cmd.Parameters.AddWithValue("fech", fecha);
 
             int registros2 = cmd.ExecuteNonQuery();
-            con.Close();
+            con.Close();      
 
-            movimientosmodel movi = movimientos.ObtenerUltimoMovimiento();
-
-            MySqlConnection con3 = producto.AbrirConexion();
-            MySqlCommand cmd3 = con3.CreateCommand();
-            cmd3.CommandType = CommandType.StoredProcedure;
-            cmd3.CommandText = "InsertarMovCaja";
-            cmd3.Parameters.AddWithValue("mont", monto);
-            cmd3.Parameters.AddWithValue("concepto", motivo);
-            cmd3.Parameters.AddWithValue("fech", fecha);
-            cmd3.Parameters.AddWithValue("idMovimiento", movi.idConcepto);
-            
-
-            int registros3 = cmd3.ExecuteNonQuery();
-            con3.Close();
-
-
-            if (mediopago== "Efectivo")
+            if (mediopago== "Efectivo" || mediopago =="Movimiento")
             { 
                 movimientosmodel movi2 = movimientos.ObtenerUltimoMovimiento();
 
                 MySqlConnection con1 = producto.AbrirConexion();
                 MySqlCommand cmd1 = con1.CreateCommand();
                 cmd1.CommandType = CommandType.StoredProcedure;
-                cmd1.CommandText = "InsertarMovimientoCaja";
-                cmd1.Parameters.AddWithValue("idMovimiento", movi.IdMovimientos);
-                cmd1.Parameters.AddWithValue("monto", movi.monto);
+                cmd1.CommandText = "InsertarMovCaja";
+                cmd1.Parameters.AddWithValue("idMovimiento", movi2.IdMovimientos);
+                cmd1.Parameters.AddWithValue("monto", movi2.monto);
                 cmd1.Parameters.AddWithValue("fecha", fecha);
                 cmd1.Parameters.AddWithValue("idConcepto", motivo);           
 
