@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Agregar categoria</h2>
+
+
+
+
+@using PROYECTOFINAL.Models;
+@model categoriamodel
+
+
+
+
+
+<form action="../Categorias/Agregar" method="POST">
+
+    @Html.Label("Nombre")
+    <input type="text" name="Nombre" id="Nombre" required/>
+    <br /> <br />
+
+    
+
+
+    <input type="submit" value="Agregar categoria" />
+
+    </form>

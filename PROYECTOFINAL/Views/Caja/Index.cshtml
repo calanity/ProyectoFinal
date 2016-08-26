@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using PROYECTOFINAL.Models
+
+
+
+<h2>Index</h2>
+
+<form action="../Caja/Inicio" method="POST" name="formularioCaja" id="formularioCaja">
+
+
+    @Html.Label("Ingrese la caja inicial:")
+
+    <input type="number" id="cajaInicial" name="cajaInicial" required min="1">
+
+    <input type="submit" value="Establecer caja inicial" />
+
+</form>
+
+    <a href="../Caja/CerrarCaja">Cerrar caja</a>
+        

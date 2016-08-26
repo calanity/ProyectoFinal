@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "FIFOS";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#cate").change(function (e) {
+            $.get("/Home/SelectProductos", { idCategoria: e.target.value }, function (response) {
+                $("#divSelectProductos").html(response);
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $("#cantidad").change(function (e) {            
+            $.get("/Home/SelectCantidad", { cantidad: e.target.value }, function (response) {
+                $("#divSelectCantidad").html(response);
+            });
+        });        
+    });
+
+
+    function CargarPrecio(id) {
+        $.get("/Home/SelectPrecio", { idProducto: id }, function (response) {
+            $("#divSelectPrecio").html(response);
+        });
+    }
+
+    function Procesar() {
+        var categoria = $('#cate').val();
+
+            if (categoria > 0)
+            {
+                document.getElementById("categ").innerHTML = "";
+                
+                var producto = $('#Producto').val();
+                if (producto > 0)
+                {
+                    document.getElementById("prodi").innerHTML = "";
+                    var cantidad = $('#cantidad').val();
+                    //pregunto si la cantidad ingresada era valida y hago el submit
+                    var canti = $('#canti').val();
+                    document.getElementById('Agregar').disabled = true;
+                   
+                        if (cantidad > 0 && canti== "")
+                        {
+                            $('#formulario').submit();
+                        }
+                    /*else
+                    {
+                        if (hola == true) {
+                            alert("Ingrese una cantidad validad del producto")
+                        }
+                    }
+                    */
+                        else
+                        {
+                            document.getElementById("canti").innerHTML = "*Debe completar la cantidad";
+                            
+                            //alert('Debe completar la cantidad')
+                        }
+                    
+                    }
+        
+                    else
+                    {
+                        document.getElementById("prodi").innerHTML = "*Debe completar el producto";
+                        //alert('Debe completar el producto');
+                    }
+            }
+            else
+            {
+                document.getElementById("categ").innerHTML = "*Debe completar la categoria";
+                //alert('Debe completar la categoria');
+            }
+    }
+    
+        
+    
+
+   
+    </script>
+
+@using PROYECTOFINAL.Models
+@model productomodel
+@{ int cat = 0;
+  
+
+}
+<div id="home">
+
+    <h2>Ventas</h2>
+
+    <form action="../Home/Index" method="POST" name="formulario" id="formulario" >
+      
+         
+        <label id="Categori" name="Categori" class="TextoInicio">Categoria</label>
+       
+        <select class="Selects" id="cate" name="cate" required  onchange="valcate">            
+        <option value="0">Seleccionar</option> 
+
+            @foreach (categoriamodel item in categoria.ListarCategorias())
+            {
+                if (cat == 0) 
+                {
+                    cat = item.id;
+                }
+
+
+                <option value="@item.id"> @item.nombre</option>
+            }
+
+            
+        </select>
+
+        <label id="categ" name="categ" class="mensaje"> </label>
+        <br/>
+        <label id="Nombr" name="Nombr" class="TextoInicio">Nombre</label>
+         
+        <div id="divSelectProductos" style="display:inline;"></div>
+        <br/>
+
+        <label id="Preci" name="Preci" class="TextoInicio">Precio</label>                  
+      
+        <div id="divSelectPrecio" style="display:inline;"></div>        
+        <br/>   
+        
+        
+        <label id="Cantida" name="Cantida" class="TextoInicio">Cantidad</label>
+        <div id="divSelectCantidad" style="display:inline;"></div>
+        
+
+        <input class="Selects" type="number" id="cantidad" name="cantidad" value="0" min="1" />
+        <label id="canti" name="canti" class="mensaje"> </label>
+        <br>
+        
+        <input  type="button" value="Agregar articulo" name="Agregar" id= "Agregar" onclick="Procesar();" />
+
+        
+    </form>       
+                    
+    <br> 
+    <a href="/Home/Cancelar">Cancelar venta</a>
+    <br> 
+    <a href="/Home/Venta">Finalizar venta</a>
+
+
+</div>
+
+<br><br><br><br>
+
+<div id="listado">
+    @if (TempData["listaActual"] != null)
+    {
+        <table class="table">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+            @foreach (productomodel item in (List<productomodel>)(TempData["listaActual"]))
+            {
+                <tr class="linea">
+                    <td width="80">@item.nombre</td>
+                    <td width="10">@item.precio</td>
+                    <td width="10">@item.cantidad</td>
+                    <td width="10">@item.subtotal</td>
+                </tr>
+            }
+
+            </table>
+    }
+               
+  </div>

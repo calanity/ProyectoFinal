@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Mostrar";
+}
+@using PROYECTOFINAL.Models
+@model List<ventamodel>
+
+
+<h4> Listado de ventas del dia elegido</h4>
+
+@if (Model.Count >0)
+{
+
+<div id="mostrar">
+    <table class="table-bordered">
+        <tr>
+            <th>Monto Total</th>
+            <th>Medio de Pago</th>
+        </tr>
+        
+        @foreach (ventamodel item in Model)
+        {
+            <tr>
+                <td>@item.MontoTotal</td>
+                <td>@item.MedioPago</td>
+            </tr>
+
+        }
+        <tfoot>
+            <tr>
+                <th>Subotal</th>
+                <td>@foreach(ventamodel item in Model)
+                {
+                    venta.ObtenerTotalVendidoXDia((DateTime)(item.Fecha));
+                }
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+    <h5>Total vendido con tarjeta:      
+        
+        @venta.ObtenerTotalTarjeta((DateTime)(TempData["fecha"]))
+ 
+     </h5>
+    <h5>Total vendido con efectivo:
+
+           @venta.ObtenerTotalEfectivo((DateTime)(TempData["fecha"]))
+ 
+    </h5>
+
+</div>
+}
+else
+{
+    <h5>No se registraron ventas del dia elegido</h5>
+}
+
+
+<a href="/Ventas/Index">Volver</a>
