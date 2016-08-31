@@ -217,7 +217,7 @@ namespace PROYECTOFINAL.Controllers
 
                 //insertar en movimientos la venta
 
-                movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha , medioP);
+                movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha , l2.MedioPago);
                               
                 //pregunta si el stock actual es igual o menoor a la minima y mando el mail
                 List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);

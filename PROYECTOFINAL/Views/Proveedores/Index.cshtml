@@ -4,4 +4,29 @@
 }
 
 
+@using PROYECTOFINAL.Models;
+@model List<proveedormodel>
 
+
+<h2>Proveedores</h2>
+
+<br><br>
+
+<a href="/Proveedoor/Agreg">Crear proveedor nuevo</a>
+
+
+<table class="table-bordered">
+    <tr>
+        <th>Nombre</th>
+
+    </tr>
+
+    @foreach (proveedormodel item in @proveedor.ListarProductos())
+    {
+        <tr>
+            <td>item.nombre</td>
+
+        </tr>
+
+    }
+</table>

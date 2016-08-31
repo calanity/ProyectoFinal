@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PROYECTOFINAL.Models;
+
 
 namespace PROYECTOFINAL.Controllers
 {
@@ -11,7 +13,7 @@ namespace PROYECTOFINAL.Controllers
         // GET: Proveedores
         public ActionResult Index()
         {
-            return View();
+           return View();
         }
 
         // GET: Proveedores/Details/5

@@ -341,10 +341,10 @@
     <Content Include="Views\Movimientos\MostrarMovDia.cshtml" />
     <Content Include="Views\Caja\ListarMovimientosCaja.cshtml" />
     <Content Include="Views\Caja\MostrarMovDia.cshtml" />
-    <Content Include="Views\Proveedores\Index.cshtml" />
     <Content Include="Views\Proveedores\Editar.cshtml" />
     <Content Include="Views\Proveedores\Compra.cshtml" />
     <Content Include="Views\Proveedores\Pago.cshtml" />
+    <Content Include="Views\Proveedores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
