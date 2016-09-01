@@ -108,7 +108,7 @@ namespace PROYECTOFINAL.Models.proveedor
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerSaldoProveedor";
-            cmd.Parameters.AddWithValue("idProve", idProve);
+            cmd.Parameters.AddWithValue("idProv", idProve);
             MySqlDataReader lector = cmd.ExecuteReader();
             proveedormodel prov = new proveedormodel();
 
@@ -126,10 +126,28 @@ namespace PROYECTOFINAL.Models.proveedor
             return prov;
         }
 
-
+        //registra el pago a un proveedor
         public static int EditarSaldo(int idProve, int saldo)
         {
+            proveedormodel saldoActual = ObtenerSaldo(idProve);
+            saldo -= saldoActual.saldo;
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "EditarSaldoProveedor";
+            cmd.Parameters.AddWithValue("idProve", idProve);
+            cmd.Parameters.AddWithValue("sald", saldo);
 
+            int registros = cmd.ExecuteNonQuery();
+
+            con.Close();
+            return registros;
+        }
+
+        public static int RegistrarCompra(int idProve, int saldo)
+        {
+            proveedormodel saldoActual = ObtenerSaldo(idProve);
+            saldo += saldoActual.saldo;
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;

@@ -5,26 +5,27 @@
 
 @using PROYECTOFINAL.Models.proveedor
 
+
 <h2>Pago</h2>
 
-<form action="../Pago" method="POST" name="formulario" id="formulario">
+<form action="../Pagar" method="POST" name="formulario" id="formulario">
 
 
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Elija el proveedor</label>
+    <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
 
     <select id="provee">
         @foreach (proveedormodel item in proveedor.ListarProveedores())
         {
-            <option value="@item.idProveedores">@item.nombre</option>
+            <option value="@item.idProveedores" >@item.nombre</option>
         }
 
     </select>
-    
+    <br>
 
     <label id="sal" name="sal" class="TextoAgregar">Monto</label>
     <input type="number" name="monto" id="monto" class="Selects" />
 
     <br> <br>
 
-    <input type="submit" value="Actualizar producto" />
+    <input type="submit" value="Cargar pago" />
 </form>

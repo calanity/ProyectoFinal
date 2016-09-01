@@ -65,12 +65,18 @@ namespace PROYECTOFINAL.Controllers
             return View();
         }
 
-        public ActionResult Pago(FormCollection form )
+        [HttpPost]
+        public ActionResult Pagar(FormCollection form)
         {
             var id = Convert.ToInt16(Request.Form["provee"]);
             var monto = Convert.ToInt16(Request.Form["monto"]);
-            int registros = proveedor.EditarSaldo(monto, id);
+            int registros = proveedor.EditarSaldo(id, monto);
             return View("Index");
+        }
+
+        public ActionResult Pago()
+        {
+            return View();
         }
     }
 }
