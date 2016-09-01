@@ -87,13 +87,7 @@ namespace PROYECTOFINAL.Controllers
         {
             //elimina el producto de la base de datos
             //pregunta si es cero, sino no lo elimina
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;      
-            cmd.CommandText = "EliminarArticulo";
-            cmd.Parameters.AddWithValue("idArti", id);
-            int registros = cmd.ExecuteNonQuery();
-            con.Close();
+            int registros = producto.EliminarProducto(id);
             if (registros > 0)
             {
                 return View("Index");

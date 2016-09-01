@@ -36,9 +36,28 @@ namespace PROYECTOFINAL.Models.proveedor
             return lProv;
         }
 
-        public static proveedormodel ObtenerProveedor()
+        public static proveedormodel ObtenerProveedor(int id)
         {
             proveedormodel prov = new proveedormodel();
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "listarProveedores";
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+
+            while (lector.Read())
+            {
+                if (lector.FieldCount > 0)
+                {
+                    prov.nombre = (string)lector["Nombre"];                   
+                    prov.telefono = (int)lector["Telefono"];
+                    prov.saldo = (int)lector["Saldo"];
+
+                  }
+            }
+            con.Close();       
+
             return prov;
         }
 
@@ -108,7 +127,7 @@ namespace PROYECTOFINAL.Models.proveedor
         }
 
 
-        public static int Editar(int idProve, int saldo)
+        public static int EditarSaldo(int idProve, int saldo)
         {
 
             MySqlConnection con = producto.AbrirConexion();
@@ -116,6 +135,8 @@ namespace PROYECTOFINAL.Models.proveedor
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "EditarSaldoProveedor";
             cmd.Parameters.AddWithValue("idProve", idProve);
+            cmd.Parameters.AddWithValue("sald", saldo);
+
             int registros = cmd.ExecuteNonQuery();
 
             con.Close();

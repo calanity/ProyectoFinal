@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PROYECTOFINAL.Models;
-
+using PROYECTOFINAL.Models.proveedor;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace PROYECTOFINAL.Controllers
 {
@@ -15,94 +17,60 @@ namespace PROYECTOFINAL.Controllers
         {
            return View();
         }
-
-        // GET: Proveedores/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Agreg()
         {
             return View();
         }
 
-        // GET: Proveedores/Create
-        public ActionResult Create()
+        public ActionResult Agregar(FormCollection form)
         {
-            return View();
+            var nombre = Request.Form["nombre"];
+            var telefono = Convert.ToInt16(Request.Form["telefono"]);
+            proveedor.CrearProveedor(nombre, telefono);
+            return View("Index");
         }
-
-        // POST: Proveedores/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: Proveedores/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Editar(int id)
         {
-            return View();
+            TempData.Add("idEditar", id);
+            proveedormodel prove = new proveedormodel();
+            prove = proveedor.ObtenerProveedor(id);
+           
+            return View(prove);
+            
         }
-
-        // POST: Proveedores/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Editar(FormCollection formulario)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var nombre = Request.Form["nombre"];
+            var telefono = Convert.ToInt16(Request.Form["telefono"]);
+            var id = (int)TempData["idEditar"];
+            proveedor.EditarProveedor(id, nombre, telefono);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            TempData.Remove("idEditar");
+
+            return View("Index");
+        }
+        public ActionResult Eliminar(int id)
+        {
+            int registros = proveedor.EliminarProveedor(id);
+                       
+                return View("Index");
+            
         }
 
-        // GET: Proveedores/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Proveedores/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-   
-
-        public ActionResult Editar()
-        {
-            return View();
-        }
 
         public ActionResult Compra()
         {
             return View();
         }
 
-        public ActionResult Pago()
+        public ActionResult Pago(FormCollection form )
         {
-            return View();
+            var id = Convert.ToInt16(Request.Form["provee"]);
+            var monto = Convert.ToInt16(Request.Form["monto"]);
+            int registros = proveedor.EditarSaldo(monto, id);
+            return View("Index");
         }
     }
 }

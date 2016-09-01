@@ -42,16 +42,28 @@
                        
                     <li class="hola"><a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"  href="/Caja/Index">Caja</a>
                         <ul class="dropdown-menu">
-                            <li><a href="/Caja/Index">Abrir/Cerrar caja</a></li>
+                            <!--<li><a href="/Caja/Index">Abrir/Cerrar caja</a></li>-->
                             <li><a href="/Caja/ListarMovimientosCaja"> Listar movimientos</a></li>
                         </ul>
                     </li>       
 
                     <li><a href="/Productos/Index">Productos</a></li>      
-                    <li><a href="/Categorias/Index">Categorias</a></li>             
+                    <li><a href="/Categorias/Index">Categorias</a></li>   
+                    
+
+                    <li class="hola">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="/Proveedores/Index">Proveedores</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Proveedores/Index">Listado</a></li>
+                            <li><a href="/Proveedores/Compra">Agregar pedido</a></li>
+                            <li><a href="/Proveedores/Pago">Agregar pago</a></li>
+
+                        </ul>
+                    </li>  
+                              
                     
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <!--Html.Partial("_LoginPartial")-->
             </div>
 
           

@@ -3,5 +3,30 @@
     ViewBag.Title = "Editar";
 }
 
+
+
+@using PROYECTOFINAL.Models.proveedor
+@model proveedormodel
+
 <h2>Editar</h2>
 
+
+<form action="../Editar" method="POST" name="formulario" id="formulario">
+
+
+    <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
+    <input type="text" name="nombre" id="nombre" class="Selects" value="@Model.nombre">
+    <br /> <br />
+
+    <label id="sal" name="sal" class="TextoAgregar">Saldo</label>
+    <input type="number" name="saldo" id="saldo" class="Selects"  disabled value="@Model.saldo" />
+      
+    
+    <br />
+    <label id="telef" name="telef" class="TextoAgregar">Telefono</label>
+    <input type="number" name="telefono" id="telefono" class="Selects" value="@Model.telefono">
+
+    <br> <br>
+
+    <input type="submit" value="Actualizar producto" />
+</form>

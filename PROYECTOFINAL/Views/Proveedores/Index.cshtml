@@ -4,7 +4,7 @@
 }
 
 
-@using PROYECTOFINAL.Models;
+@using PROYECTOFINAL.Models.proveedor
 @model List<proveedormodel>
 
 
@@ -12,19 +12,28 @@
 
 <br><br>
 
-<a href="/Proveedoor/Agreg">Crear proveedor nuevo</a>
+<a href="/Proveedores/Agreg">Crear proveedor nuevo</a>
 
 
 <table class="table-bordered">
     <tr>
         <th>Nombre</th>
+        <th>Saldo</th>
+        <th>Telefono</th>    
+        <th>Acción</th> 
 
     </tr>
 
-    @foreach (proveedormodel item in @proveedor.ListarProductos())
+    @foreach (proveedormodel item in @proveedor.ListarProveedores())
     {
         <tr>
-            <td>item.nombre</td>
+            <td>@item.nombre</td>
+            <td>@item.saldo</td>
+            <td>@item.telefono</td>
+            <td>
+                @Html.ActionLink("Editar", "editar", "proveedores", new { id = item.idProveedores }, null)
+                @Html.ActionLink("Eliminar", "eliminar", "proveedores", new { id = item.idProveedores }, null)
+            </td>
 
         </tr>
 

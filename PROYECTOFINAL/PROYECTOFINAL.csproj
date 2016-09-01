@@ -345,6 +345,7 @@
     <Content Include="Views\Proveedores\Compra.cshtml" />
     <Content Include="Views\Proveedores\Pago.cshtml" />
     <Content Include="Views\Proveedores\Index.cshtml" />
+    <Content Include="Views\Proveedores\Agreg.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

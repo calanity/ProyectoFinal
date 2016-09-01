@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Agreg";
+}
+@using PROYECTOFINAL.Models.proveedor;
+@model proveedormodel
+
+<h2>Agregar</h2>
+
+<form action="../Proveedores/Agregar    " method="POST" name="formulario" id="formulario">
+
+
+    <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
+    <input type="text" name="nombre" id="nombre" class="Selects" >
+    <br /> <br />
+
+    <br />
+    <label id="stkActual" name="stkActual" class="TextoAgregar">Stock actual</label>
+    <input type="number" name="telefono" id="telefono" class="Selects" >
+
+    <br> <br>
+
+    <input type="submit" value="Actualizar producto" />
+</form>

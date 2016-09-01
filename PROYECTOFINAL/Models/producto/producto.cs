@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-//using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Web.Mvc;
@@ -191,6 +190,19 @@ namespace PROYECTOFINAL.Models
 
             return listaEnviar;
 
+        }
+
+
+        public static int EliminarProducto(int id)
+        {
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "EliminarArticulo";
+            cmd.Parameters.AddWithValue("idArti", id);
+            int registros = cmd.ExecuteNonQuery();
+            con.Close();
+            return registros;
         }
     }
 }
