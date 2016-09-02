@@ -224,7 +224,7 @@ namespace PROYECTOFINAL.Controllers
                               
                 //pregunta si el stock actual es igual o menoor a la minima y mando el mail
                 List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
-                
+                string mensaje = "";
                
 
 
