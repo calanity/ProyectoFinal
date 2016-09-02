@@ -231,7 +231,9 @@ namespace PROYECTOFINAL.Controllers
                 // cierro el acceso al stream
 
 
-                
+                //22222
+
+
                 if (listaEnviar.Count > 0)
                 {
 
