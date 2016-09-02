@@ -87,5 +87,28 @@ namespace PROYECTOFINAL.Models
             con.Close();
             return caja;
         }
+
+        public static int ObtenerCajaFinal()
+        {
+            Int32 cajaFinal = 0;            
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ObtenerCajaFinal";           
+            MySqlDataReader lector = cmd.ExecuteReader();
+            
+            while (lector.Read())
+            {
+                if (lector.FieldCount > 0)
+                {
+                    cajaFinal = (Int32)lector["montoFinal"];
+                }
+
+               
+            }
+            con.Close();
+
+            return cajaFinal;
+        }
     }
 }
