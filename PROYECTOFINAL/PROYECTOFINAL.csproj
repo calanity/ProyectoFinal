@@ -330,9 +330,7 @@
     <Content Include="Views\Categorias\Editar.cshtml" />
     <Content Include="Views\Categorias\Agreg.cshtml" />
     <Content Include="Views\Home\_selectCantidad.cshtml" />
-    <Content Include="Views\Caja\FinCaja.cshtml" />
     <Content Include="Views\Caja\CerrarCaja.cshtml" />
-    <Content Include="Views\Caja\Inicio.cshtml" />
     <Content Include="Views\Productos\Eliminar.cshtml" />
     <Content Include="Views\Categorias\Error.cshtml" />
     <Content Include="Views\Movimientos\ElegirMes.cshtml" />

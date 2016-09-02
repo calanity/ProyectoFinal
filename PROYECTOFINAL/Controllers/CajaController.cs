@@ -58,7 +58,35 @@ namespace PROYECTOFINAL.Controllers
                
         public ActionResult CerrarCaja()
         {
-            cajamodel caja = new cajamodel();
+
+            MySqlConnection con2 = producto.AbrirConexion();
+            MySqlCommand cmd2 = con2.CreateCommand();
+            cmd2.CommandType = CommandType.StoredProcedure;
+            cmd2.CommandText = "CerrarCaja";           
+            int registros = cmd2.ExecuteNonQuery();
+            con2.Close();
+
+            return View("Index");
+        }
+
+        public ActionResult ListarMovimientosCaja()
+        {
+            return View();
+        }
+
+        public ActionResult MostrarMovDia(DateTime fecha)
+        {
+            //seleccionar los movimientos de la caja de un dia           
+            ViewBag.Fecha = fecha;
+            List<movimientosmodel>lmov = caja.ListarMovimientosCajaXDia(fecha);
+            
+            return View(lmov);
+        }
+        
+    }
+}
+
+/*  /*cajamodel caja = new cajamodel();
             //listo ventas efectivos
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
@@ -123,23 +151,4 @@ namespace PROYECTOFINAL.Controllers
             con3.Close();
             
             
-            //si tiene algo cargado en el fin, no lo puede actualizar
-            return View(caja);
-        }
-
-        public ActionResult ListarMovimientosCaja()
-        {
-            return View();
-        }
-
-        public ActionResult MostrarMovDia(DateTime fecha)
-        {
-            //seleccionar los movimientos de la caja de un dia           
-            ViewBag.Fecha = fecha;
-            List<movimientosmodel>lmov = caja.ListarMovimientosCajaXDia(fecha);
-            
-            return View(lmov);
-        }
-        
-    }
-}
+            //si tiene algo cargado en el fin, no lo puede actualizar*/
