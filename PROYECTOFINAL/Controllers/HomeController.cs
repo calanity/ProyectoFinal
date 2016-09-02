@@ -7,6 +7,7 @@ using PROYECTOFINAL.Models;
 using MySql.Data.MySqlClient;
 using System.Net.Mail;
 using System.Net;
+using System.IO;
 
 namespace PROYECTOFINAL.Controllers
 {
@@ -174,7 +175,7 @@ namespace PROYECTOFINAL.Controllers
 
         }
 
-        public ActionResult Fin(FormCollection cavenaghi)
+        public ActionResult Fin(FormCollection cavenaghi)   
         {
             //carga la venta, obtiene el id y su detalle en la base de datos y lista la venta
             string medioP;
@@ -210,7 +211,9 @@ namespace PROYECTOFINAL.Controllers
                 foreach (productomodel item in lista)
                 {
                     venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
+                    venta.ActualizarStockProducto(item.id , item.cantidad);
                 }
+                
                 //cargo el detalle venta
                 l2.ListaArticulos = lista;
                 l2.MedioPago = medioP;
@@ -222,25 +225,43 @@ namespace PROYECTOFINAL.Controllers
                 //pregunta si el stock actual es igual o menoor a la minima y mando el mail
                 List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
                 string mensaje = "";
-                foreach (productomodel item in listaEnviar)
-                {
-                    
-                }
+               
+
+
+                // cierro el acceso al stream
+
+
+                
                 if (listaEnviar.Count > 0)
                 {
+
+                   // string path = Directory.GetCurrentDirectory();
+                   string path = "E:/ProyectoFinal/archivo.txt";
+                    StreamWriter MiObjetoArchivo = new StreamWriter(path);                  
+                    //agregar nombre del proveedor
+
+                    foreach (productomodel producto in listaEnviar)
+                    {
+                        MiObjetoArchivo.WriteLine("Nombre del producto: "+producto.nombre +"," + "Stock actual"+ producto.stockactual + ",");
+                    }
+
+                    MiObjetoArchivo.Close();
+                    
+
                     //mando el mail
 
                     var message = new MailMessage();
                     message.To.Add(new MailAddress("calanity@gmail.com")); // reemplazar por un valor valido
                     message.From = new MailAddress("silgralevi@hotmail.com"); // reemplazar por un valor valido
                     message.Subject = "Falta de stock";
-                    message.Body = Convert.ToString(listaEnviar);
+                    message.Attachments.Add(new Attachment(path));
+                    message.Body = "Adjuntamos la falta de stock de un/os producto/s";
                     message.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
                     var credential = new NetworkCredential
                     {
                         UserName = "calanity@gmail.com", // reemplazar por un valor valido
-                        Password = "" // reemplazar por un valor valido
+                        Password = "fifos2014" // reemplazar por un valor valido
                     };
 
                     smtp.Credentials = credential;

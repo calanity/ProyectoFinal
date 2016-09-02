@@ -85,27 +85,7 @@ namespace PROYECTOFINAL.Models
            
             
         }
-/*
-        public static void FinVenta(int monto, string medioPago, int idVen)
-        {
-            /*int monto = barovero.MontoTotal;
-            List<productomodel> artiV = barovero.ListaArticulos;
-            string medioPago = barovero.MedioPago;
 
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "actualizarVenta";
-            cmd.Parameters.AddWithValue("tot", monto);
-            cmd.Parameters.AddWithValue("mpago", medioPago);
-            cmd.Parameters.AddWithValue("idVen", idVen);
-
-            int registros = cmd.ExecuteNonQuery();
-            con.Close();
-            return ;
-
-        }
-    */
 
      
            public static int ActualizarDetalle(int subt , int canti, int prec , int idven , int idArtic)
@@ -144,25 +124,25 @@ namespace PROYECTOFINAL.Models
             con.Close();
             return (registros2);
         }
-     
+
 
         public static void ActualizarStockProducto(int idArti, int cantidad)
-        {
-            
-            int cantidad2 = 0;
-            cantidad2 =(producto.ObtenerStockActual(idArti)) - cantidad;
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "RestoStockVenta";
-            //obtengo stock actual y mando el nuevo            
-            cmd.Parameters.AddWithValue("stockActu", cantidad2);
-            cmd.Parameters.AddWithValue("articId", idArti);
-            int registros2 = cmd.ExecuteNonQuery();
-            con.Close();
+         {
+
+             int cantidad2 = 0;
+             cantidad2 =(producto.ObtenerStockActual(idArti)) - cantidad;
+             MySqlConnection con = producto.AbrirConexion();
+             MySqlCommand cmd = con.CreateCommand();
+             cmd.CommandType = CommandType.StoredProcedure;
+             cmd.CommandText = "RestoStockVenta";
+             //obtengo stock actual y mando el nuevo            
+             cmd.Parameters.AddWithValue("stockActu", cantidad2);
+             cmd.Parameters.AddWithValue("articId", idArti);
+             int registros2 = cmd.ExecuteNonQuery();
+             con.Close();
 
 
-        }
+         }
 
         public static List<ventamodel> ListarVentasxDia(DateTime fecha)
         {

@@ -2,6 +2,30 @@
 @{
     ViewBag.Title = "Compra";
 }
+@using PROYECTOFINAL.Models.proveedor;
+@model proveedormodel
+
 
 <h2>Compra</h2>
+<form action="../Proveedores/Comprar" method="POST" name="formulario" id="formulario">
+
+
+    <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
+
+    <select id="prove" name="prove">
+        @foreach (proveedormodel item in proveedor.ListarProveedores())
+        {
+            <option id="provee" value="@item.idProveedores">@item.nombre</option>
+        }
+
+    </select>
+    <br>
+
+    <label id="sal" name="sal" class="TextoAgregar">Monto</label>
+    <input type="number" name="monto" id="monto" class="Selects" />
+
+    <br> <br>
+
+    <input type="submit" value="Cargar compra" />
+</form>
 

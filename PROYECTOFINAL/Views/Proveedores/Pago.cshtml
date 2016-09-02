@@ -8,15 +8,15 @@
 
 <h2>Pago</h2>
 
-<form action="../Pagar" method="POST" name="formulario" id="formulario">
+<form action="../Proveedores/Pagar" method="POST" name="formulario" id="formulario">
 
 
     <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
 
-    <select id="provee">
+    <select id="prove" name="prove">
         @foreach (proveedormodel item in proveedor.ListarProveedores())
         {
-            <option value="@item.idProveedores" >@item.nombre</option>
+            <option id="provee" value="@item.idProveedores" >@item.nombre</option>
         }
 
     </select>

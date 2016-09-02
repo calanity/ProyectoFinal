@@ -51,6 +51,8 @@ namespace PROYECTOFINAL.Controllers
 
             return View("Index");
         }
+
+
         public ActionResult Eliminar(int id)
         {
             int registros = proveedor.EliminarProveedor(id);
@@ -65,12 +67,13 @@ namespace PROYECTOFINAL.Controllers
             return View();
         }
 
+
         [HttpPost]
-        public ActionResult Pagar(FormCollection form)
+        public ActionResult Comprar(FormCollection form)
         {
-            var id = Convert.ToInt16(Request.Form["provee"]);
+            var id = Convert.ToInt16(Request.Form["prove"]);
             var monto = Convert.ToInt16(Request.Form["monto"]);
-            int registros = proveedor.EditarSaldo(id, monto);
+            int registros = proveedor.RegistrarCompra(id, monto);
             return View("Index");
         }
 
@@ -78,5 +81,16 @@ namespace PROYECTOFINAL.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Pagar(FormCollection form)
+        {
+            var id = Convert.ToInt16(Request.Form["prove"]);
+            var monto = Convert.ToInt16(Request.Form["monto"]);
+            int registros = proveedor.EditarSaldo(id, monto);
+            return View("Index");
+        }
+
+       
     }
 }

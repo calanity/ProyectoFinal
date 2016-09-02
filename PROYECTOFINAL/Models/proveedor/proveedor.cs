@@ -130,7 +130,7 @@ namespace PROYECTOFINAL.Models.proveedor
         public static int EditarSaldo(int idProve, int saldo)
         {
             proveedormodel saldoActual = ObtenerSaldo(idProve);
-            saldo -= saldoActual.saldo;
+            saldo = saldoActual.saldo - saldo;
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -147,7 +147,7 @@ namespace PROYECTOFINAL.Models.proveedor
         public static int RegistrarCompra(int idProve, int saldo)
         {
             proveedormodel saldoActual = ObtenerSaldo(idProve);
-            saldo += saldoActual.saldo;
+            saldo = saldoActual.saldo + saldo;
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
