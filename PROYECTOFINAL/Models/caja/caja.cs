@@ -90,7 +90,7 @@ namespace PROYECTOFINAL.Models
 
         public static int ObtenerCajaFinal()
         {
-            Int32 cajaFinal = 0;            
+            int cajaFinal = 0;            
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -101,7 +101,10 @@ namespace PROYECTOFINAL.Models
             {
                 if (lector.FieldCount > 0)
                 {
-                    cajaFinal = (Int32)lector["montoFinal"];
+                    if (lector["montoFinal"] != DBNull.Value)
+                    {
+                        cajaFinal = (int)lector["montoFinal"];
+                    }
                 }
 
                
@@ -110,5 +113,9 @@ namespace PROYECTOFINAL.Models
 
             return cajaFinal;
         }
+
+       
+
+       
     }
 }
