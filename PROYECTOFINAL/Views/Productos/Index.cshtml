@@ -17,6 +17,7 @@
         <th>Nombre</th>
         <th>Precio</th>
         <th>Categoria</th>
+        <th>Proveedor</th>
         <th>Stock actual</th>
         <th>Stock minimo</th>
         <th>Accion</th>
@@ -30,11 +31,12 @@
             <td>@item.nombre</td>
             <td>@item.precio</td>
             <td>@item.categoria</td>
+            <td>@item.IdProveedor</td>
             <td>@item.stockactual</td>
             <td>@item.stockminimo</td>
 
-           <td> @Html.ActionLink("Editar", "editar", "productos", new { id = item.IdProveedor }, null)
-            @Html.ActionLink("Eliminar", "eliminar", "productos", new { id = item.IdProveedor }, null)
+           <td> @Html.ActionLink("Editar", "editar", "productos", new { id = item.id }, null)
+            @Html.ActionLink("Eliminar", "eliminar", "productos", new { id = item.id}, null)
            </td>
 
 

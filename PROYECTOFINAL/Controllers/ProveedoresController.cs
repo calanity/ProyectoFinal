@@ -91,6 +91,17 @@ namespace PROYECTOFINAL.Controllers
             return View("Index");
         }
 
-       
+        public ActionResult ProductosXProveedor()
+        {
+            List<proveedormodel> lista = proveedor.ListarProveedores();
+            return View(lista);
+        }
+
+        public ActionResult SelectProveedor(FormCollection form)
+        {
+            int idProveedor = Convert.ToInt16(Request.Form["proveedor"]);
+            List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(idProveedor);
+            return PartialView("_selectProve" , lista);
+        }
     }
 }

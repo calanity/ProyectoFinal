@@ -1,0 +1,41 @@
+﻿
+@using PROYECTOFINAL.Models
+@model List<productomodel>
+
+<div id="SelectProveedor">
+    @if (Model.Count > 0 && Model != null)
+    {
+        <table class="table-bordered">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+                <th>Stock actual</th>
+                <th>Stock minimo</th>
+
+
+
+            </tr>
+
+            @foreach (productomodel item in Model)
+            {
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.precio</td>
+                    <td>@item.categoria</td>
+                    <td>@item.stockactual</td>
+                    <td>@item.stockminimo</td>
+
+
+                </tr>
+
+            }
+
+        </table>
+    }
+    else
+    {
+        <label>No se encontraron productos para este proveedor</label>
+    }
+
+</div>

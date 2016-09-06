@@ -161,5 +161,31 @@ namespace PROYECTOFINAL.Models.proveedor
             return registros;
         }
 
+        public static List<productomodel> ObtenerProductosPorProveedor( int idProveedor)
+        {
+            List<productomodel> lista = new List<productomodel>();
+
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ListarProductosxProveedor";
+            cmd.Parameters.AddWithValue("id", idProveedor);
+            MySqlDataReader lector = cmd.ExecuteReader();
+            
+
+            while (lector.Read())
+            {
+                productomodel oprod = new productomodel();
+                oprod.nombre = (string)lector["nombre"];
+                oprod.categoria = (int)lector["IdCat"];
+                oprod.precio = (int)lector["precio"];
+                oprod.stockactual = (int)lector["StockActual"];
+                oprod.stockminimo = (int)lector["StockMinimo"];
+                lista.Add(oprod);
+            }
+            con.Close();
+            return lista;
+        }
+
     }
 }
