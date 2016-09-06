@@ -97,9 +97,10 @@ namespace PROYECTOFINAL.Controllers
             return View(lista);
         }
 
-        public ActionResult SelectProveedor(FormCollection form)
+        public ActionResult SelectProveedor(int id)
         {
-            int idProveedor = Convert.ToInt16(Request.Form["proveedor"]);
+            int idProveedor = id; 
+            idProveedor = Convert.ToInt16(Request.Form["proveedor"]);
             List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(idProveedor);
             return PartialView("_selectProve" , lista);
         }

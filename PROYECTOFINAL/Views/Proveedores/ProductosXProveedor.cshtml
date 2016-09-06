@@ -8,8 +8,8 @@
 
 <script>
     $(document).ready(function () {
-        $("#proveedor2").change  (function (e) {
-            $.get("/Proveedores/SelectProveedor", { cantidad: e.target.value }, function (response) {
+        $("#proveedor").change  (function (e) {
+            $.get("/Proveedores/SelectProveedor", { id: e.target.value }, function (response) {
                 $("#divSelectProveedor").html(response);
             });
         });
