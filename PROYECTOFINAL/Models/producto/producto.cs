@@ -65,6 +65,7 @@ namespace PROYECTOFINAL.Models
                 prod.precio = (int)lector["precio"];
                 prod.categoria = (int)lector["idCat"];
                 prod.IdProveedor = (int)lector["IdProve"];
+                prod.Proveedor = (string)lector["Nombre"];
                 prod.stockactual= (int)lector["StockActual"];
                 prod.stockminimo= (int)lector["StockMinimo"];
 
