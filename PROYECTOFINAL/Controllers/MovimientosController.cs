@@ -27,22 +27,7 @@ namespace PROYECTOFINAL.Controllers
             return View();
         }
 
-        // POST: Movimientos/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+       
         // GET: Movimientos/Edit/5
         public ActionResult Edit(int id)
         {
@@ -86,17 +71,14 @@ namespace PROYECTOFINAL.Controllers
                 return View();
             }
         }
-        public ActionResult Listado()
-        {
-            return View("Listado");
-        }
+       
         public ActionResult mostrar(FormCollection hola, int monto)
         {
             //cargo en la tabla la salida
             DateTime fecha = DateTime.Now;
             string idConc = Request.Form["concepto"];
             int func = movimientos.AgregarMovimiento(monto, idConc, fecha, "Movimiento");
-            return View("Listado");
+            return View("Index");
         }
 
         public ActionResult MostrarMovMensuales(FormCollection formulario)

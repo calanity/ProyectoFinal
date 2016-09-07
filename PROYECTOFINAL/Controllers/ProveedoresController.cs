@@ -99,9 +99,8 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult SelectProveedor(int id)
         {
-            int idProveedor = id; 
-            idProveedor = Convert.ToInt16(Request.Form["proveedor"]);
-            List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(idProveedor);
+                    
+            List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id);
             return PartialView("_selectProve" , lista);
         }
     }

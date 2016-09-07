@@ -318,7 +318,6 @@
     <Content Include="Views\Ventas\Index.cshtml" />
     <Content Include="Views\Ventas\MostrarVentas.cshtml" />
     <Content Include="Views\Movimientos\Index.cshtml" />
-    <Content Include="Views\Movimientos\Listado.cshtml" />
     <Content Include="Views\Home\FaltaStock.cshtml" />
     <Content Include="Views\Ventas\VentasMensual.cshtml" />
     <Content Include="Views\Ventas\MostrarVentasMensuales.cshtml" />
