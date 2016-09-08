@@ -177,7 +177,7 @@ namespace PROYECTOFINAL.Models.proveedor
             {
                 productomodel oprod = new productomodel();
                 oprod.nombre = (string)lector["nombre"];
-                oprod.categoria = (int)lector["IdCat"];
+                oprod.IdCategoria = (int)lector["IdCat"];
                 oprod.precio = (int)lector["precio"];
                 oprod.stockactual = (int)lector["StockActual"];
                 oprod.stockminimo = (int)lector["StockMinimo"];

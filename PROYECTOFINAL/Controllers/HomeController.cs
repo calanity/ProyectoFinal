@@ -63,7 +63,7 @@ namespace PROYECTOFINAL.Controllers
                 opro.nombre = producto.obtenerNombre(id);
                 opro.cantidad = Convert.ToInt16(Request.Form["cantidad"]);
                 opro.precio = Convert.ToInt16(TempData["preci"]);
-                opro.categoria = (int)(TempData["catego"]);
+                opro.IdCategoria = (int)(TempData["catego"]);
                 opro.subtotal = (opro.precio * opro.cantidad);
                 opro.id = id;
                 int stock = producto.ObtenerStockActual(opro.id);

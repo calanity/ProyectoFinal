@@ -28,7 +28,7 @@
 
         @foreach (categoriamodel item in categoria.ListarCategorias())
         {
-            if (item.id == Model.categoria)
+            if (item.id == Model.IdCategoria)
             {
                 <option value="@item.id" selected> @item.nombre</option>
             }
@@ -42,6 +42,23 @@
     <br />
     <label id="stkActual" name="stkActual" class="TextoAgregar">Stock actual</label>
     <input type="number" name="StockActual" id="StockActual" class="Selects" value="@Model.stockactual" >
+    <br>
+    <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
+   
+    <select  name="proveedor" id="proveedor" class="Selects">
+        @foreach (proveedormodel item in provee.ListarCategorias())
+        {
+            if (item.id == Model.IdCategoria)
+            {
+                <option value="@item.id" selected> @item.nombre</option>
+            }
+            else
+            {
+                <option value="@item.id"> @item.nombre</option>
+            }
+        }
+    </select>
+    <br /> <br />
     
     <br />
     <label id="stkmin" name="stkmin" class="TextoAgregar">Stock minimo</label>  

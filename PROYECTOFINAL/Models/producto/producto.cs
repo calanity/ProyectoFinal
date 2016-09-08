@@ -40,7 +40,7 @@ namespace PROYECTOFINAL.Models
             while (lector.Read())
             {
                 oprod.nombre = (string)lector["nombre"];
-                oprod.categoria= (int)lector["IdCat"];
+                oprod.IdCategoria= (int)lector["IdCat"];
                 oprod.precio= (int)lector["precio"];
                 oprod.stockactual= (int)lector["StockActual"];
                 oprod.stockminimo= (int)lector["StockMinimo"];
@@ -63,11 +63,13 @@ namespace PROYECTOFINAL.Models
                 prod.nombre = (string)lector["Nombre"];
                 prod.id = (int)lector["idArticulos"];
                 prod.precio = (int)lector["precio"];
-                prod.categoria = (int)lector["idCat"];
+                prod.IdCategoria = (int)lector["idCat"];
                 prod.IdProveedor = (int)lector["IdProve"];
-                prod.Proveedor = (string)lector["Nombre"];
+                prod.Proveedor = (string)lector["Proveedor"];
                 prod.stockactual= (int)lector["StockActual"];
                 prod.stockminimo= (int)lector["StockMinimo"];
+                prod.Categoria = (string)lector["CategoriaNombre"];
+
 
 
                 lprod.Add(prod);

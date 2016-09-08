@@ -25,7 +25,7 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult Agregar(FormCollection form)
         {
             var nombre = Request.Form["nombre"];
-            var telefono = Convert.ToInt16(Request.Form["telefono"]);
+            var telefono = Convert.ToInt32(Request.Form["telefono"]);
             proveedor.CrearProveedor(nombre, telefono);
             return View("Index");
         }
@@ -43,7 +43,7 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult Editar(FormCollection formulario)
         {
             var nombre = Request.Form["nombre"];
-            var telefono = Convert.ToInt16(Request.Form["telefono"]);
+            var telefono = Convert.ToInt32(Request.Form["telefono"]);
             var id = (int)TempData["idEditar"];
             proveedor.EditarProveedor(id, nombre, telefono);
 

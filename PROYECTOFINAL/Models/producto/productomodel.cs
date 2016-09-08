@@ -21,9 +21,10 @@ namespace PROYECTOFINAL.Models
 
         [Required]
         [Display(Name = "cate")]
-        public int categoria { get; set; }
+        public int IdCategoria { get; set; }
         [Required(ErrorMessage = "Ingrese una categoria")]
-       
+        public string Categoria { get; set; }
+
         public int subtotal { get; set; }
         public int stockminimo { get; set; }
         public int stockactual { get; set; }
