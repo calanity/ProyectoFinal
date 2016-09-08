@@ -17,7 +17,7 @@ namespace PROYECTOFINAL.Models
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarCategorias";
             MySqlDataReader lector = cmd.ExecuteReader();
-
+           
 
             while (lector.Read())
             {

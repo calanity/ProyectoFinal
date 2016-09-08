@@ -132,6 +132,7 @@ namespace PROYECTOFINAL.Controllers
 
             }
         }
+
         public ActionResult FaltaStock()
         {
             var lista = (productomodel)TempData["listaActual"];
@@ -140,6 +141,7 @@ namespace PROYECTOFINAL.Controllers
             TempData.Keep();
             return View(lista);
         }
+
         public ActionResult ErrorValidacion()
         {
             var lista = (productomodel)TempData["listaActual"];
@@ -148,6 +150,7 @@ namespace PROYECTOFINAL.Controllers
             TempData.Keep();
             return View(lista);
         }
+
         public ActionResult Venta(FormCollection barovero)
         {
             int subtotal = 0;
@@ -177,6 +180,7 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult Fin(FormCollection cavenaghi)   
         {
+            
             //carga la venta, obtiene el id y su detalle en la base de datos y lista la venta
             string medioP;
             ventamodel l2 = new ventamodel();
@@ -205,26 +209,58 @@ namespace PROYECTOFINAL.Controllers
                 }
 
                 l2.MontoTotal = subtotal;
-                int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
-                int idVentaActual = venta.ObtenerIdVenta();
-                //var listaProd = (List<productomodel>)TempData["listaActual"];
-                foreach (productomodel item in lista)
+
+                //pregunto si la caja no esta cerrada, si esta cerrada, va para el dia siguiente
+
+                int cajaFinal = caja.ObtenerCajaFinal();
+                if (cajaFinal < 0)
                 {
-                    venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
-                    venta.ActualizarStockProducto(item.id , item.cantidad);
+
+                    int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
+                    int idVentaActual = venta.ObtenerIdVenta();
+
+                    //var listaProd = (List<productomodel>)TempData["listaActual"];
+                    foreach (productomodel item in lista)
+                    {
+                        venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
+                        venta.ActualizarStockProducto(item.id, item.cantidad);
+                    }
+
+                    //cargo el detalle venta
+                    l2.ListaArticulos = lista;
+                    l2.MedioPago = medioP;
+
+                    //insertar en movimientos la venta
+
+                    movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago);
+
                 }
-                
-                //cargo el detalle venta
-                l2.ListaArticulos = lista;
-                l2.MedioPago = medioP;
+                else
+                {
+                    DateTime fech = (l2.Fecha.AddDays(1));
+                    int hola = venta.CrearVenta(fech, subtotal, medioP);
+                    int idVentaActual = venta.ObtenerIdVenta();
 
-                //insertar en movimientos la venta
+                    //var listaProd = (List<productomodel>)TempData["listaActual"];
+                    foreach (productomodel item in lista)
+                    {
+                        venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
+                        venta.ActualizarStockProducto(item.id, item.cantidad);
+                    }
 
-                movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha , l2.MedioPago);
-                              
+                    //cargo el detalle venta
+                    l2.ListaArticulos = lista;
+                    l2.MedioPago = medioP;
+
+                    //insertar en movimientos la venta
+
+                    movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago);
+                }
+
                 //pregunta si el stock actual es igual o menoor a la minima y mando el mail
-                List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);               
-             
+                List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
+               
+
                 if (listaEnviar.Count > 0)
                 {
                     
