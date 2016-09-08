@@ -63,6 +63,7 @@ namespace PROYECTOFINAL.Controllers
             var nombre = Request.Form["nombre"];
             var categoria = Request.Form["categoria"];
             var precio = Request.Form["precio"];
+            var proveedor = Request.Form["proveedor"];
             var stockActual = Request.Form["stockActual"];
             var stockminimo = Request.Form["stockMinimo"];
 
@@ -77,7 +78,7 @@ namespace PROYECTOFINAL.Controllers
             cmd.Parameters.AddWithValue("prec", precio);
             cmd.Parameters.AddWithValue("stkActual", stockActual);
             cmd.Parameters.AddWithValue("stkMinimo", stockminimo);
-
+            cmd.Parameters.AddWithValue("prove", proveedor);
 
             int registros = cmd.ExecuteNonQuery();
             con.Close();

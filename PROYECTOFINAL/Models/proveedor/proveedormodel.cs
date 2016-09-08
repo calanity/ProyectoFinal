@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PROYECTOFINAL.Models.proveedor
+namespace PROYECTOFINAL.Models
 {
     public class proveedormodel
     {       

@@ -44,6 +44,7 @@ namespace PROYECTOFINAL.Models
                 oprod.precio= (int)lector["precio"];
                 oprod.stockactual= (int)lector["StockActual"];
                 oprod.stockminimo= (int)lector["StockMinimo"];
+                oprod.IdProveedor = (int)lector["IdProve"];
             }
             con.Close();
             return oprod;
