@@ -220,6 +220,7 @@
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -242,6 +243,8 @@
     <Compile Include="Models\producto\productomodel.cs" />
     <Compile Include="Models\proveedor\proveedor.cs" />
     <Compile Include="Models\proveedor\proveedormodel.cs" />
+    <Compile Include="Models\usuario\usuario.cs" />
+    <Compile Include="Models\usuario\usuariomodel.cs" />
     <Compile Include="Models\venta\venta.cs" />
     <Compile Include="Models\venta\ventamodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -345,6 +348,7 @@
     <Content Include="Views\Proveedores\Agreg.cshtml" />
     <Content Include="Views\Proveedores\ProductosXProveedor.cshtml" />
     <Content Include="Views\Proveedores\_selectProve.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

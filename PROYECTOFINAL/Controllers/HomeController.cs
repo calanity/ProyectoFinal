@@ -223,28 +223,17 @@ namespace PROYECTOFINAL.Controllers
                 movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha , l2.MedioPago);
                               
                 //pregunta si el stock actual es igual o menoor a la minima y mando el mail
-                List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
-                
-               
-
-
-                // cierro el acceso al stream
-
-
-                //22222
-
-
+                List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);               
+             
                 if (listaEnviar.Count > 0)
                 {
-
-                   // string path = Directory.GetCurrentDirectory();
+                    
                    string path = "E:/ProyectoFinal/archivo.txt";
-                    StreamWriter MiObjetoArchivo = new StreamWriter(path);                  
-                    //agregar nombre del proveedor
-
-                    foreach (productomodel producto in listaEnviar)
+                   StreamWriter MiObjetoArchivo = new StreamWriter(path);                  
+                    
+                   foreach (productomodel producto in listaEnviar)
                     {
-                        MiObjetoArchivo.WriteLine("Nombre del producto: "+producto.nombre +"," + "Stock actual"+ producto.stockactual + ",");
+                        MiObjetoArchivo.WriteLine("Nombre del producto: "+producto.nombre +"," + "Stock actual"+ producto.stockactual + "," + "Proveedor" + producto.Proveedor);
                     }
 
                     MiObjetoArchivo.Close();
