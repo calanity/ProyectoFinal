@@ -8,7 +8,12 @@
 
 
 <h2>Cerrar caja</h2>
-
-<label>La caja final del dia de la fecha: @Model</label>
-
+@if (Model >= 0)
+{
+    <label>La caja final del dia de la fecha: @Model</label>
+}
+else
+{
+    <label>La caja del dia de la fecha ya esta cerrada</label>
+}
 

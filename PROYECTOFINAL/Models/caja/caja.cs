@@ -90,7 +90,7 @@ namespace PROYECTOFINAL.Models
 
         public static int ObtenerCajaFinal()
         {
-            int cajaFinal = 0;            
+            int cajaFinal = -1;            
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;

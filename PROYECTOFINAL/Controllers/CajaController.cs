@@ -61,7 +61,7 @@ namespace PROYECTOFINAL.Controllers
             //averigua si la caja del dia de la fecha esta cerrada y sino la cierra
 
             int cajafinal = caja.ObtenerCajaFinal();
-            if (cajafinal ==0)
+            if (cajafinal ==-1)
             {
                 using (MySqlConnection con2 = producto.AbrirConexion())
                 {

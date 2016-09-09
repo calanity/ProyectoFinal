@@ -212,29 +212,28 @@ namespace PROYECTOFINAL.Controllers
 
                 //pregunto si la caja no esta cerrada, si esta cerrada, va para el dia siguiente
 
-                int cajaFinal = caja.ObtenerCajaFinal();
-                if (cajaFinal < 0)
+                /*int cajaFinal = caja.ObtenerCajaFinal();
+                if (cajaFinal < 0)                {*/
+
+                int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
+                int idVentaActual = venta.ObtenerIdVenta();
+
+                //var listaProd = (List<productomodel>)TempData["listaActual"];
+                foreach (productomodel item in lista)
                 {
-
-                    int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
-                    int idVentaActual = venta.ObtenerIdVenta();
-
-                    //var listaProd = (List<productomodel>)TempData["listaActual"];
-                    foreach (productomodel item in lista)
-                    {
-                        venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
-                        venta.ActualizarStockProducto(item.id, item.cantidad);
-                    }
-
-                    //cargo el detalle venta
-                    l2.ListaArticulos = lista;
-                    l2.MedioPago = medioP;
-
-                    //insertar en movimientos la venta
-
-                    movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago);
-
+                    venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
+                    venta.ActualizarStockProducto(item.id, item.cantidad);
                 }
+
+                //cargo el detalle venta
+                l2.ListaArticulos = lista;
+                l2.MedioPago = medioP;
+
+                //insertar en movimientos la venta
+
+                movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago);
+
+            /*}
                 else
                 {
                     DateTime fech = (l2.Fecha.AddDays(1));
@@ -255,7 +254,7 @@ namespace PROYECTOFINAL.Controllers
                     //insertar en movimientos la venta
 
                     movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago);
-                }
+                }*/
 
                 //pregunta si el stock actual es igual o menoor a la minima y mando el mail
                 List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
@@ -264,7 +263,7 @@ namespace PROYECTOFINAL.Controllers
                 if (listaEnviar.Count > 0)
                 {
                     
-                   string path = "E:/ProyectoFinal/archivo.txt";
+                   string path = "D:/ProyectoFinal/archivo.txt";
                    StreamWriter MiObjetoArchivo = new StreamWriter(path);                  
                     
                    foreach (productomodel producto in listaEnviar)

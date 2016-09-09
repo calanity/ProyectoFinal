@@ -178,6 +178,7 @@ namespace PROYECTOFINAL.Models
                 productomodel oprod = new productomodel();
                 oprod.nombre = (string)lector["nombre"];
                 oprod.IdCategoria = (int)lector["IdCat"];
+                oprod.Categoria = (string)lector["Categoria"];
                 oprod.precio = (int)lector["precio"];
                 oprod.stockactual = (int)lector["StockActual"];
                 oprod.stockminimo = (int)lector["StockMinimo"];
