@@ -31,6 +31,7 @@ namespace PROYECTOFINAL.Controllers
         // GET: Proveedores/Edit/5
         public ActionResult Editar(int id)
         {
+            TempData.Remove("idEditar");
             TempData.Add("idEditar", id);
             proveedormodel prove = new proveedormodel();
             prove = proveedor.ObtenerProveedor(id);
