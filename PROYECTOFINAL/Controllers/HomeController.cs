@@ -35,7 +35,7 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult Cancelar()
         {
             TempData.Clear();
-            return View("Index");
+            return RedirectToAction("Inicio");
         }
 
         public ActionResult Inicio()
