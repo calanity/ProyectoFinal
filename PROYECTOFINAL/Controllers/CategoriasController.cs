@@ -24,6 +24,7 @@ namespace PROYECTOFINAL.Controllers
         }
         public ActionResult Editar(int id)
         {
+            TempData.Remove("idEditar");
             TempData.Add("idEditar", id);
             categoriamodel categ = new categoriamodel();
             categ = categoria.obtenerCategoria(id);

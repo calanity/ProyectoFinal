@@ -42,7 +42,8 @@ namespace PROYECTOFINAL.Models
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "listarProveedores";
+            cmd.CommandText = "ObtenerProveedor";
+            cmd.Parameters.AddWithValue("id", id);
             MySqlDataReader lector = cmd.ExecuteReader();
 
 
