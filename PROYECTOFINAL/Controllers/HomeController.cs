@@ -212,28 +212,28 @@ namespace PROYECTOFINAL.Controllers
 
                 //pregunto si la caja no esta cerrada, si esta cerrada, va para el dia siguiente
 
-                /*int cajaFinal = caja.ObtenerCajaFinal();
-                if (cajaFinal < 0)                {*/
+                int cajaFinal = caja.ObtenerCajaFinal();
+                if (cajaFinal < 0)                {
 
-                int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
-                int idVentaActual = venta.ObtenerIdVenta();
+                    int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
+                    int idVentaActual = venta.ObtenerIdVenta();
 
-                //var listaProd = (List<productomodel>)TempData["listaActual"];
-                foreach (productomodel item in lista)
-                {
-                    venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
-                    venta.ActualizarStockProducto(item.id, item.cantidad);
-                }
+                    //var listaProd = (List<productomodel>)TempData["listaActual"];
+                    foreach (productomodel item in lista)
+                    {
+                        venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
+                        venta.ActualizarStockProducto(item.id, item.cantidad);
+                    }
 
-                //cargo el detalle venta
-                l2.ListaArticulos = lista;
+                    //cargo el detalle venta
+                    l2.ListaArticulos = lista;
                 l2.MedioPago = medioP;
 
                 //insertar en movimientos la venta
 
                 movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago);
 
-            /*}
+            }
                 else
                 {
                     DateTime fech = (l2.Fecha.AddDays(1));
@@ -254,7 +254,7 @@ namespace PROYECTOFINAL.Controllers
                     //insertar en movimientos la venta
 
                     movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago);
-                }*/
+                }
 
                 //pregunta si el stock actual es igual o menoor a la minima y mando el mail
                 List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
@@ -262,39 +262,8 @@ namespace PROYECTOFINAL.Controllers
 
                 if (listaEnviar.Count > 0)
                 {
-                    
-                   string path = "D:/ProyectoFinal/archivo.txt";
-                   StreamWriter MiObjetoArchivo = new StreamWriter(path);                  
-                    
-                   foreach (productomodel producto in listaEnviar)
-                    {
-                        MiObjetoArchivo.WriteLine("Nombre del producto: "+producto.nombre +"," + "Stock actual"+ producto.stockactual + "," + "Proveedor" + producto.Proveedor);
-                    }
 
-                    MiObjetoArchivo.Close();
-                    
-
-                    //mando el mail
-
-                    var message = new MailMessage();
-                    message.To.Add(new MailAddress("calanity@gmail.com")); // reemplazar por un valor valido
-                    message.From = new MailAddress("silgralevi@hotmail.com"); // reemplazar por un valor valido
-                    message.Subject = "Falta de stock";
-                    message.Attachments.Add(new Attachment(path));
-                    message.Body = "Adjuntamos la falta de stock de un/os producto/s";
-                    message.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "calanity@gmail.com", // reemplazar por un valor valido
-                        Password = "fifos2014" // reemplazar por un valor valido
-                    };
-
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.Send(message);
+                    producto.EnviarMailFaltaStock(listaEnviar);
                 }
             }
             return View(l2);

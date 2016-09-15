@@ -79,6 +79,7 @@ namespace PROYECTOFINAL.Models
 
             while (lector.Read())
             {
+               
                 if (lector.FieldCount > 0)
                 {
                     caja = (int)lector["montoInicial"];                    

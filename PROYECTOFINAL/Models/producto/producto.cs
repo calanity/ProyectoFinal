@@ -5,12 +5,15 @@ using System.Web;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Web.Mvc;
+using System.IO;
+using System.Net.Mail;
+using System.Net;
 
 namespace PROYECTOFINAL.Models
 {
     public class producto
     {
-        
+
         public static MySqlConnection AbrirConexion()
         {
             MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
@@ -40,10 +43,10 @@ namespace PROYECTOFINAL.Models
             while (lector.Read())
             {
                 oprod.nombre = (string)lector["nombre"];
-                oprod.IdCategoria= (int)lector["IdCat"];
-                oprod.precio= (int)lector["precio"];
-                oprod.stockactual= (int)lector["StockActual"];
-                oprod.stockminimo= (int)lector["StockMinimo"];
+                oprod.IdCategoria = (int)lector["IdCat"];
+                oprod.precio = (int)lector["precio"];
+                oprod.stockactual = (int)lector["StockActual"];
+                oprod.stockminimo = (int)lector["StockMinimo"];
                 oprod.IdProveedor = (int)lector["IdProve"];
             }
             con.Close();
@@ -67,8 +70,8 @@ namespace PROYECTOFINAL.Models
                 prod.IdCategoria = (int)lector["idCat"];
                 prod.IdProveedor = (int)lector["IdProve"];
                 prod.Proveedor = (string)lector["Proveedor"];
-                prod.stockactual= (int)lector["StockActual"];
-                prod.stockminimo= (int)lector["StockMinimo"];
+                prod.stockactual = (int)lector["StockActual"];
+                prod.stockminimo = (int)lector["StockMinimo"];
                 prod.Categoria = (string)lector["CategoriaNombre"];
 
 
@@ -115,7 +118,7 @@ namespace PROYECTOFINAL.Models
 
             while (lector.Read())
             {
-               precio= (int)lector["Precio"];
+                precio = (int)lector["Precio"];
             }
             con.Close();
             return precio;
@@ -160,7 +163,7 @@ namespace PROYECTOFINAL.Models
             return (stockActual);
         }
 
-        public static List<productomodel> ObtenerStockMinimoYActual(List<productomodel>list)
+        public static List<productomodel> ObtenerStockMinimoYActual(List<productomodel> list)
         {
             int stockminimo = 0;
             int stockactual = 0;
@@ -187,7 +190,7 @@ namespace PROYECTOFINAL.Models
                 if (stockactual <= stockminimo)
                 {
                     //lo agrego a la lista para el mail
-                    listaEnviar.Add(item);                   
+                    listaEnviar.Add(item);
                 }
 
                 con.Close();
@@ -208,6 +211,42 @@ namespace PROYECTOFINAL.Models
             int registros = cmd.ExecuteNonQuery();
             con.Close();
             return registros;
+        }
+
+        public static void EnviarMailFaltaStock(List<productomodel>listaEnviar)
+        {
+            string path = "D:/ProyectoFinal/archivo.txt";
+            StreamWriter MiObjetoArchivo = new StreamWriter(path);
+
+            foreach (productomodel producto in listaEnviar)
+            {
+                MiObjetoArchivo.WriteLine("Nombre del producto: " + producto.nombre + "," + "Stock actual" + producto.stockactual + "," + "Proveedor" + producto.Proveedor);
+            }
+
+            MiObjetoArchivo.Close();
+
+
+            //mando el mail
+
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("calanity@gmail.com")); // reemplazar por un valor valido
+            message.From = new MailAddress("silgralevi@hotmail.com"); // reemplazar por un valor valido
+            message.Subject = "Falta de stock";
+            message.Attachments.Add(new Attachment(path));
+            message.Body = "Adjuntamos la falta de stock de un/os producto/s";
+            message.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            var credential = new NetworkCredential
+            {
+                UserName = "calanity@gmail.com", // reemplazar por un valor valido
+                Password = "fifos2014" // reemplazar por un valor valido
+            };
+
+            smtp.Credentials = credential;
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+            smtp.Send(message);
         }
     }
 }

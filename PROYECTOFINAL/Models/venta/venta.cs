@@ -18,7 +18,7 @@ namespace PROYECTOFINAL.Models
                 MySqlCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "crearVenta";
-                cmd.Parameters.AddWithValue("fech", DateTime.Now);
+                cmd.Parameters.AddWithValue("fech", fecha);
                 cmd.Parameters.AddWithValue("montot", montot);
                 cmd.Parameters.AddWithValue("mediop", mediop);            
                 int registros = cmd.ExecuteNonQuery();
