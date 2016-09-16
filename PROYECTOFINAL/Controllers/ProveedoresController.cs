@@ -69,11 +69,13 @@ namespace PROYECTOFINAL.Controllers
 
 
         [HttpPost]
-        public ActionResult Comprar(FormCollection form)
+        public ActionResult Comprar(FormCollection form )
         {
             var id = Convert.ToInt16(Request.Form["prove"]);
             var monto = Convert.ToInt16(Request.Form["monto"]);
-            int registros = proveedor.RegistrarCompra(id, monto);
+            int producto = Convert.ToInt16(Request.Form["prod"]);
+            int cantidad = Convert.ToInt16(Request.Form["cantidad"]);
+            int registros = proveedor.RegistrarCompra(id, monto, producto, cantidad);
             return View("Index");
         }
 
@@ -103,5 +105,13 @@ namespace PROYECTOFINAL.Controllers
             List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id);
             return PartialView("_selectProve" , lista);
         }
+        public ActionResult SelectProducto(int id)
+        {
+
+            List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id);
+            return PartialView("_selectProducto", lista);
+        }
+
+
     }
 }

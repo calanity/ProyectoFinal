@@ -13,7 +13,7 @@ namespace PROYECTOFINAL.Controllers
 {
     public class HomeController : Controller
     {
-
+        int subtotal = 0;
 
         public ActionResult About()
         {
@@ -30,6 +30,10 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult Index()
         {
             TempData.Keep();
+            return View();
+        }
+        public ActionResult FinT()
+        {
             return View();
         }
         public ActionResult Cancelar()
@@ -157,7 +161,7 @@ namespace PROYECTOFINAL.Controllers
             if (TempData["listaActual"] != null)
             {
                 var lista = (List<productomodel>)TempData["listaActual"];
-
+                   
                 foreach (productomodel item in lista)
                 {
                     subtotal += item.subtotal;
@@ -178,6 +182,8 @@ namespace PROYECTOFINAL.Controllers
 
         }
 
+        
+
         public ActionResult Fin(FormCollection cavenaghi)   
         {
             
@@ -194,81 +200,90 @@ namespace PROYECTOFINAL.Controllers
             {
                 medioP = "Tarjeta";
             }
-
-            var lista = (List<productomodel>)TempData["listaActual"];
-            if (TempData["listaActual"] == null)
+            if (medioP == "Tarjeta")
             {
-                return View("Index");
+
+                //cargo los datos de la tarjeta que levanto del formulario
             }
             else
             {
-                int subtotal = 0;
-                foreach (productomodel item in lista)
+                var lista = (List<productomodel>)TempData["listaActual"];
+                if (TempData["listaActual"] == null)
                 {
-                    subtotal += item.subtotal;
+                    return View("Index");
                 }
-
-                l2.MontoTotal = subtotal;
-
-                //pregunto si la caja no esta cerrada, si esta cerrada, va para el dia siguiente
-
-                int cajaFinal = caja.ObtenerCajaFinal();
-                if (cajaFinal < 0)                {
-
-                    int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
-                    int idVentaActual = venta.ObtenerIdVenta();
-
-                    //var listaProd = (List<productomodel>)TempData["listaActual"];
-                    foreach (productomodel item in lista)
-                    {
-                        venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
-                        venta.ActualizarStockProducto(item.id, item.cantidad);
-                    }
-
-                    //cargo el detalle venta
-                    l2.ListaArticulos = lista;
-                l2.MedioPago = medioP;
-
-                //insertar en movimientos la venta
-
-                movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago);
-
-            }
                 else
                 {
-                    DateTime fech = (l2.Fecha.AddDays(1));
-                    int hola = venta.CrearVenta(fech, subtotal, medioP);
-                    int idVentaActual = venta.ObtenerIdVenta();
 
-                    //var listaProd = (List<productomodel>)TempData["listaActual"];
                     foreach (productomodel item in lista)
                     {
-                        venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
-                        venta.ActualizarStockProducto(item.id, item.cantidad);
+                        subtotal += item.subtotal;
                     }
 
-                    //cargo el detalle venta
-                    l2.ListaArticulos = lista;
-                    l2.MedioPago = medioP;
+                    l2.MontoTotal = subtotal;
 
-                    //insertar en movimientos la venta
+                    //pregunto si la caja no esta cerrada, si esta cerrada, va para el dia siguiente
 
-                    movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago);
-                }
+                    int cajaFinal = caja.ObtenerCajaFinal();
+                    if (cajaFinal < 0)
+                    {
 
-                //pregunta si el stock actual es igual o menoor a la minima y mando el mail
-                List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
-               
+                        int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
+                        int idVentaActual = venta.ObtenerIdVenta();
 
-                if (listaEnviar.Count > 0)
-                {
+                        //var listaProd = (List<productomodel>)TempData["listaActual"];
+                        foreach (productomodel item in lista)
+                        {
+                            venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
+                            venta.ActualizarStockProducto(item.id, item.cantidad);
+                        }
 
-                    producto.EnviarMailFaltaStock(listaEnviar);
+                        //cargo el detalle venta
+                        l2.ListaArticulos = lista;
+                        l2.MedioPago = medioP;
+
+                        //insertar en movimientos la venta
+
+                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago);
+
+                    }
+                    else
+                    {
+                        DateTime fech = (l2.Fecha.AddDays(1));
+                        int hola = venta.CrearVenta(fech, subtotal, medioP);
+                        int idVentaActual = venta.ObtenerIdVenta();
+
+                        //var listaProd = (List<productomodel>)TempData["listaActual"];
+                        foreach (productomodel item in lista)
+                        {
+                            venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
+                            venta.ActualizarStockProducto(item.id, item.cantidad);
+                        }
+
+                        //cargo el detalle venta
+                        l2.ListaArticulos = lista;
+                        l2.MedioPago = medioP;
+
+                        //insertar en movimientos la venta
+
+                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago);
+                    }
+
+                    //pregunta si el stock actual es igual o menoor a la minima y mando el mail
+                    List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
+
+
+                    if (listaEnviar.Count > 0)
+                    {
+
+                        producto.EnviarMailFaltaStock(listaEnviar);
+                    }
                 }
             }
-            return View(l2);
-            }        
-        
+                return View(l2);
+                
+        }
+
         public ActionResult SelectProductos(int idCategoria)
         {
             var productos = producto.ListarProductosXCategoria(idCategoria);
@@ -374,6 +389,24 @@ namespace PROYECTOFINAL.Controllers
             }
             TempData.Keep();
                 return PartialView("_selectCantidad", canti);
+        }
+
+        public ActionResult SelectMedioPago()
+        {
+             if (TempData["listaActual"] != null)
+            {
+                var lista = (List<productomodel>)TempData["listaActual"];
+                   
+                foreach (productomodel item in lista)
+                {
+                    subtotal += item.subtotal;
+                }
+
+                TempData.Remove("listaActual");
+                TempData.Add("listaActual", lista);
+                TempData.Keep("listaActual");
+            }
+            return PartialView("_selectMedioPago", subtotal);
         }
     }
 }

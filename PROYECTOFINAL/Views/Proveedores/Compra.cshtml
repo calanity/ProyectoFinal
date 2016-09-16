@@ -5,21 +5,36 @@
 @using PROYECTOFINAL.Models
 @model proveedormodel
 
+<script>
+    $(document).ready(function () {
+        $("#proveedor2").change  (function (e) {
+            $.get("/Proveedores/SelectProducto", { id: e.target.value }, function (response) {
+                $("#divSelectProducto").html(response);
+            });
+        });
+    });
+</script>
 
 <h2>Compra</h2>
 <form action="../Proveedores/Comprar" method="POST" name="formulario" id="formulario">
 
+    <div id="proveedor2">
+        <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
 
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
+        <select id="prove" name="prove">
+            @foreach (proveedormodel item in proveedor.ListarProveedores())
+            {
+                <option id="provee" value="@item.idProveedores">@item.nombre</option>
+            }
 
-    <select id="prove" name="prove">
-        @foreach (proveedormodel item in proveedor.ListarProveedores())
-        {
-            <option id="provee" value="@item.idProveedores">@item.nombre</option>
-        }
+        </select>
+        <br>
 
-    </select>
-    <br>
+    </div>
+
+    <div id="divSelectProducto"></div>
+
+
 
     <label id="sal" name="sal" class="TextoAgregar">Monto</label>
     <input type="number" name="monto" id="monto" class="Selects" />

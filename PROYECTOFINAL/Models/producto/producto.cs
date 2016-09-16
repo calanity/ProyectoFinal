@@ -124,6 +124,13 @@ namespace PROYECTOFINAL.Models
             return precio;
         }
 
+        public static int AltaProductos(int id, int stockActual)
+        {
+            int registros = 0;
+
+            return registros;
+        }
+
         public static string obtenerNombre(int id)
         {
             string nombre = "";

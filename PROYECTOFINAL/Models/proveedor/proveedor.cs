@@ -145,7 +145,7 @@ namespace PROYECTOFINAL.Models
             return registros;
         }
 
-        public static int RegistrarCompra(int idProve, int saldo)
+        public static int RegistrarCompra(int idProve, int saldo, int produc, int cantidad)
         {
             proveedormodel saldoActual = ObtenerSaldo(idProve);
             saldo = saldoActual.saldo + saldo;
@@ -155,11 +155,26 @@ namespace PROYECTOFINAL.Models
             cmd.CommandText = "EditarSaldoProveedor";
             cmd.Parameters.AddWithValue("idProve", idProve);
             cmd.Parameters.AddWithValue("sald", saldo);
-
             int registros = cmd.ExecuteNonQuery();
+            con.Close();
 
+            //dar de alta al stock del producto
+            int stActual = producto.ObtenerStockActual(produc);
+            stActual = stActual + cantidad;
+
+
+            MySqlConnection con2 = producto.AbrirConexion();
+            MySqlCommand cmd2 = con2.CreateCommand();
+            cmd2.CommandType = CommandType.StoredProcedure;
+            cmd2.CommandText = "AltaProductos";
+            cmd2.Parameters.AddWithValue("idProd", produc);
+            cmd2.Parameters.AddWithValue("stockAc", stActual);
+
+            int registros2 = cmd2.ExecuteNonQuery();
             con.Close();
             return registros;
+
+           
         }
 
         public static List<productomodel> ObtenerProductosPorProveedor( int idProveedor)
@@ -177,6 +192,7 @@ namespace PROYECTOFINAL.Models
             while (lector.Read())
             {
                 productomodel oprod = new productomodel();
+                oprod.id= (int)lector["IdArticulos"];
                 oprod.nombre = (string)lector["nombre"];
                 oprod.IdCategoria = (int)lector["IdCat"];
                 oprod.Categoria = (string)lector["Categoria"];

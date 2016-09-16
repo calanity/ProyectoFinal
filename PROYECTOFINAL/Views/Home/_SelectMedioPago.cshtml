@@ -1,0 +1,32 @@
+﻿
+@using PROYECTOFINAL.Models
+@model int
+
+
+<form method="post" action="../Home/Venta2">
+    <label>Tipo tarjeta</label>
+
+    <select name="tipo" id="tipo">
+        <option value="1">Debito</option>
+        <option value="2">Tarjeta</option>
+    </select>
+    <br />
+    <label>Cantidad de cuotas</label>
+    <input type="number" name="cuotas" id="cuotas" min="1" max="12"/>
+    <br />
+    <label>Tarjeta</label>
+    <select name="marca" id="marca"> 
+        <option value="1">Visa</option>
+        <option value="2">Cabal</option>
+        <option value="3">Naranja</option>
+        <option value="4">Consumax</option>
+    </select>
+    <br />
+    <label>Cupon</label>
+    <input type="number" id="cupon" name="cupon" />
+    <br />
+    
+    <label>Monto</label>
+    <input type="number" id="monto" name="monto"disabled value="@Model" />
+
+</form>

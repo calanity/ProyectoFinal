@@ -5,15 +5,25 @@
         ViewBag.Title = "Venta";
     }
 
+$(document).ready(function () {
+        $("#mediopago").change(function (e) {
+            $.get("/Home/SelectMedioPago", { cantidad: e.target.value }, function (response) {
+                $("#divSelectMedioPago").html(response);
+            });
+        });
+    });
+
         <h2>Venta</h2>
+ 
 <div id="venta">
+
     @if(Model>0)
     { 
 
     @Html.Label("Subtotal:" + Model); <br><br>
 
 
-    <form action="../Home/Fin" method="post">
+    <form action="../Home/Venta2" method="post">
         <div id="divSelecmediopago">
            @Html.Label("Medio de pago")
             <select name="mediopago" id="mediopago">
@@ -23,6 +33,8 @@
         </div>
         <br />
         <a href="/Home/Cancelar">Cancelar venta</a>
+
+        <br>
         <input type="submit" value="Finalizar venta" />
 
         </form>
