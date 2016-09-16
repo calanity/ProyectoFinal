@@ -2,13 +2,13 @@
 @using PROYECTOFINAL.Models
 @model int
 
+<div>
 
-<form method="post" action="../Home/Venta2">
     <label>Tipo tarjeta</label>
 
     <select name="tipo" id="tipo">
         <option value="1">Debito</option>
-        <option value="2">Tarjeta</option>
+        <option value="2">Credito</option>
     </select>
     <br />
     <label>Cantidad de cuotas</label>
@@ -27,6 +27,7 @@
     <br />
     
     <label>Monto</label>
-    <input type="number" id="monto" name="monto"disabled value="@Model" />
+    <input type="number" contenteditable="false" id="monto" name="monto" value="@Model" />
 
-</form>
+
+    </div>

@@ -8,6 +8,8 @@ using MySql.Data.MySqlClient;
 using System.Net.Mail;
 using System.Net;
 using System.IO;
+using PROYECTOFINAL.Models.venta;
+using System.Data;
 
 namespace PROYECTOFINAL.Controllers
 {
@@ -202,11 +204,33 @@ namespace PROYECTOFINAL.Controllers
             }
             if (medioP == "Tarjeta")
             {
-
+                
                 //cargo los datos de la tarjeta que levanto del formulario
+                int tipo = Convert.ToInt16(Request.Form["tipo"]);
+                int cuotas = Convert.ToInt16(Request.Form["cuotas"]);
+                int marca = Convert.ToInt16(Request.Form["marca"]);
+                int cupon = Convert.ToInt16(Request.Form["cupon"]);
+                int monto = Convert.ToInt16(Request.Form["monto"]);
+
+                MySqlConnection con = producto.AbrirConexion();
+                MySqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "InsertarDatosTarjetas";
+                cmd.Parameters.AddWithValue("tipot", tipo);
+                cmd.Parameters.AddWithValue("cuot", cuotas);
+                cmd.Parameters.AddWithValue("marca", marca);
+                cmd.Parameters.AddWithValue("cup", cupon);
+                cmd.Parameters.AddWithValue("mon", monto);
+
+
+                int registros2 = cmd.ExecuteNonQuery();
+                con.Close();
+
+                //int registros= tarjeta.InsertarDatosTarjeta(tipo, cuotas, marca, cupon, monto);
+
+
             }
-            else
-            {
+            
                 var lista = (List<productomodel>)TempData["listaActual"];
                 if (TempData["listaActual"] == null)
                 {
@@ -279,7 +303,7 @@ namespace PROYECTOFINAL.Controllers
                         producto.EnviarMailFaltaStock(listaEnviar);
                     }
                 }
-            }
+            
                 return View(l2);
                 
         }

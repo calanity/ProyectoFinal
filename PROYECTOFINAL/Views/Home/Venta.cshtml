@@ -4,7 +4,7 @@
     @{
         ViewBag.Title = "Venta";
     }
-
+<script>
 $(document).ready(function () {
         $("#mediopago").change(function (e) {
             $.get("/Home/SelectMedioPago", { cantidad: e.target.value }, function (response) {
@@ -13,17 +13,18 @@ $(document).ready(function () {
         });
     });
 
+</script>
         <h2>Venta</h2>
- 
+
 <div id="venta">
 
     @if(Model>0)
-    { 
+    {
 
     @Html.Label("Subtotal:" + Model); <br><br>
 
 
-    <form action="../Home/Venta2" method="post">
+    <form action="../Home/Fin" method="post">
         <div id="divSelecmediopago">
            @Html.Label("Medio de pago")
             <select name="mediopago" id="mediopago">
@@ -32,6 +33,7 @@ $(document).ready(function () {
             </select>
         </div>
         <br />
+        <div id="divSelectMedioPago"></div>
         <a href="/Home/Cancelar">Cancelar venta</a>
 
         <br>
@@ -41,9 +43,9 @@ $(document).ready(function () {
     }
 
     else
-    {   
+    {
         @Html.Label("No se ingresaron productos")
-        <br>  
+        <br>
         <a href="/Home/Index">Inicio</a>
     }
 </div>

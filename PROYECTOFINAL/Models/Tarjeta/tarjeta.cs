@@ -5,14 +5,12 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace PROYECTOFINAL.Models.Tarjeta
+namespace PROYECTOFINAL.Models
 {
     public class tarjeta
     {
-        public void ListarNombresTarjetas()
-        {
-            
-        }
+        public void ListarNombresTarjetas(){       }
+
         public int InsertarDatosTarjeta(int tipo, int cuotas, int marca, int cupon, int monto )
         {
             MySqlConnection con = producto.AbrirConexion();

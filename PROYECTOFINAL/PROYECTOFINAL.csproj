@@ -247,8 +247,8 @@
     <Compile Include="Models\usuario\usuario.cs" />
     <Compile Include="Models\usuario\usuariomodel.cs" />
     <Compile Include="Models\Tarjeta\Tarjetamodel.cs" />
+    <Compile Include="Models\venta\venta.cs" />
     <Compile Include="Models\venta\ventamodel.cs" />
-	<Compile Include="Models\venta\venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -352,7 +352,7 @@
     <Content Include="Views\Proveedores\_selectProve.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Proveedores\_selectProducto.cshtml" />
-    <Content Include="Views\Home\_SelectMedioPago.cshtml" />
+    <Content Include="Views\Home\_selectMedioPago.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

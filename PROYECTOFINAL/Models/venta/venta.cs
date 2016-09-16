@@ -1,30 +1,29 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
-using PROYECTOFINAL.Models;
-using MySql.Data.MySqlClient;
-using System.Data;
 
-namespace PROYECTOFINAL.Models
+namespace PROYECTOFINAL.Models.venta
 {
     public class venta
     {
         public static int CrearVenta(DateTime fecha, int montot, string mediop)
-        {                    
-           
-                //si el temp data o algo id es nulo entra, sino nada
-                MySqlConnection con = producto.AbrirConexion();
-                MySqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "crearVenta";
-                cmd.Parameters.AddWithValue("fech", fecha);
-                cmd.Parameters.AddWithValue("montot", montot);
-                cmd.Parameters.AddWithValue("mediop", mediop);            
-                int registros = cmd.ExecuteNonQuery();
-                con.Close();
+        {
+
+            //si el temp data o algo id es nulo entra, sino nada
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "crearVenta";
+            cmd.Parameters.AddWithValue("fech", fecha);
+            cmd.Parameters.AddWithValue("montot", montot);
+            cmd.Parameters.AddWithValue("mediop", mediop);
+            int registros = cmd.ExecuteNonQuery();
+            con.Close();
             return registros;
-          }
+        }
 
 
         public static int ObtenerIdVenta()
@@ -39,12 +38,12 @@ namespace PROYECTOFINAL.Models
             {
                 id = Convert.ToInt16(lector["id"]);
             }
-            
+
             con.Close();
-            
+
             return id;
-        }    
-               
+        }
+
         public static void CrearDetalleVenta(int idArti, int prec, int canti, int subt, int idVen)
         {
             int hola = 0;
@@ -60,7 +59,7 @@ namespace PROYECTOFINAL.Models
 
             while (lector.Read())
             {
-                if((lector["count(*)"])==null)
+                if ((lector["count(*)"]) == null)
                 {
                     registros = 0;
                 }
@@ -75,40 +74,40 @@ namespace PROYECTOFINAL.Models
             if (registros == 0)
             {
 
-                hola= venta.CrearDetVenta(idArti, prec, canti, subt, idVen);
+                hola = venta.CrearDetVenta(idArti, prec, canti, subt, idVen);
             }
             else
             {
-                hola =venta.ActualizarDetalle(subt, canti , prec, idVen, idArti);
+                hola = venta.ActualizarDetalle(subt, canti, prec, idVen, idArti);
             }
             con.Close();
-           
-            
+
+
         }
 
 
-     
-           public static int ActualizarDetalle(int subt , int canti, int prec , int idven , int idArtic)
-           {            
-                   //actualizar detVenta
-                   canti = canti + 1;
-                   subt = (prec * canti);
-                   MySqlConnection con = producto.AbrirConexion();
-                   MySqlCommand cmd = con.CreateCommand();
-                   cmd.CommandType = CommandType.StoredProcedure;
-                   cmd.CommandText = "ActualizarProductoDV";
-                   cmd.Parameters.AddWithValue("canti", canti);
-                   cmd.Parameters.AddWithValue("subti", subt);
-                   cmd.Parameters.AddWithValue("idVen", idven);
-                   cmd.Parameters.AddWithValue("idArtic", idArtic);
+
+        public static int ActualizarDetalle(int subt, int canti, int prec, int idven, int idArtic)
+        {
+            //actualizar detVenta
+            canti = canti + 1;
+            subt = (prec * canti);
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ActualizarProductoDV";
+            cmd.Parameters.AddWithValue("canti", canti);
+            cmd.Parameters.AddWithValue("subti", subt);
+            cmd.Parameters.AddWithValue("idVen", idven);
+            cmd.Parameters.AddWithValue("idArtic", idArtic);
 
 
-               int registros2 = cmd.ExecuteNonQuery();
-                   con.Close();
-                   return (registros2);
-           }
-           
-        public static int CrearDetVenta(int idArti, int prec , int canti, int subt, int idVen)
+            int registros2 = cmd.ExecuteNonQuery();
+            con.Close();
+            return (registros2);
+        }
+
+        public static int CrearDetVenta(int idArti, int prec, int canti, int subt, int idVen)
         {
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
@@ -127,22 +126,22 @@ namespace PROYECTOFINAL.Models
 
 
         public static void ActualizarStockProducto(int idArti, int cantidad)
-         {
+        {
 
-             int cantidad2 = 0;
-             cantidad2 =(producto.ObtenerStockActual(idArti)) - cantidad;
-             MySqlConnection con = producto.AbrirConexion();
-             MySqlCommand cmd = con.CreateCommand();
-             cmd.CommandType = CommandType.StoredProcedure;
-             cmd.CommandText = "RestoStockVenta";
-             //obtengo stock actual y mando el nuevo            
-             cmd.Parameters.AddWithValue("stockActu", cantidad2);
-             cmd.Parameters.AddWithValue("articId", idArti);
-             int registros2 = cmd.ExecuteNonQuery();
-             con.Close();
+            int cantidad2 = 0;
+            cantidad2 = (producto.ObtenerStockActual(idArti)) - cantidad;
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "RestoStockVenta";
+            //obtengo stock actual y mando el nuevo            
+            cmd.Parameters.AddWithValue("stockActu", cantidad2);
+            cmd.Parameters.AddWithValue("articId", idArti);
+            int registros2 = cmd.ExecuteNonQuery();
+            con.Close();
 
 
-         }
+        }
 
         public static List<ventamodel> ListarVentasxDia(DateTime fecha)
         {
@@ -167,7 +166,7 @@ namespace PROYECTOFINAL.Models
                         l3.Add(oventa);
                     }
                 }
-                       
+
 
             }
             con.Close();
@@ -249,8 +248,8 @@ namespace PROYECTOFINAL.Models
             while (lector.Read())
             {
                 if (lector.FieldCount > 0)
-                { 
-                 if (lector["MontoTotal"] != DBNull.Value)
+                {
+                    if (lector["MontoTotal"] != DBNull.Value)
                     {
                         totEfectivo = Convert.ToInt16(lector["MontoTotal"]);
                     }
@@ -275,9 +274,9 @@ namespace PROYECTOFINAL.Models
 
             while (lector.Read())
             {
-                if(lector.FieldCount>0)
-                { 
-                   if (lector["Total"] != DBNull.Value)
+                if (lector.FieldCount > 0)
+                {
+                    if (lector["Total"] != DBNull.Value)
                     {
                         TotalDia = Convert.ToInt16((lector["Total"]));
                     }
@@ -311,15 +310,9 @@ namespace PROYECTOFINAL.Models
         }
 
 
-        
 
 
-       
+
+
     }
-    }
-
-   
-
-
-
-
+}

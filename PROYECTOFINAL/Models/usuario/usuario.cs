@@ -37,8 +37,7 @@ namespace PROYECTOFINAL.Models
 
         public static int ObtenerUsuarioXNombre(string usuario, int contraseña)
         {
-            bool encontro = false;
-            List<usuariomodel> lista = ListarUsuarios();
+           List<usuariomodel> lista = ListarUsuarios();
             foreach (usuariomodel item in lista)
             {
                 if (item.Usuario == usuario && item.constraseña== contraseña)
