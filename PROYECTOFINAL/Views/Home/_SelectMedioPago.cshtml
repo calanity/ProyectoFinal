@@ -2,17 +2,27 @@
 @using PROYECTOFINAL.Models
 @model int
 
+<script>
+
+    function tarjeta(value) {
+
+        if (value == 2)
+        {
+            cuotas.disabled = false;
+        }
+    }
+</script>
 <div>
 
     <label>Tipo tarjeta</label>
 
-    <select name="tipo" id="tipo">
+    <select name="tipo" id="tipo" onchange="tarjeta(value)">
         <option value="1">Debito</option>
         <option value="2">Credito</option>
     </select>
     <br />
     <label>Cantidad de cuotas</label>
-    <input type="number" name="cuotas" id="cuotas" min="1" max="12"/>
+    <input type="number" disabled name="cuotas" id="cuotas" min="1" max="12"/>
     <br />
     <label>Tarjeta</label>
     <select name="marca" id="marca"> 
