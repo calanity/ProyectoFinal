@@ -3,20 +3,26 @@
 @model int
 
 <script>
-
-    function tarjeta(value) {
+    
+    function tarjeta(value , montoo) {
 
         if (value == 2)
         {
             cuotas.disabled = false;
+            //monto = 
+            var total= montoo + (montoo*10/100);
+            document.getElementById('monto').value= total;
+            
+            //aumentar un 10%
         }
+       
     }
 </script>
 <div>
 
     <label>Tipo tarjeta</label>
 
-    <select name="tipo" id="tipo" onchange="tarjeta(value)">
+    <select name="tipo" id="tipo" onchange="tarjeta(value , @Model)">
         <option value="1">Debito</option>
         <option value="2">Credito</option>
     </select>
@@ -33,7 +39,7 @@
     </select>
     <br />
     <label>Cupon</label>
-    <input type="number" id="cupon" name="cupon" />
+    <input type="number" id="cupon" required name="cupon" />
     <br />
     
     <label>Monto</label>
