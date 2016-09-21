@@ -264,7 +264,7 @@ namespace PROYECTOFINAL.Models
             var credential = new NetworkCredential
             {
                 UserName = "calanity@gmail.com", // reemplazar por un valor valido
-                Password = "fifos2014" // reemplazar por un valor valido
+                Password = "" // reemplazar por un valor valido
             };
 
             smtp.Credentials = credential;
