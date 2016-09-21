@@ -15,15 +15,12 @@
         <h1>Su venta ha sido registrada con exito!</h1>
 
         <h4>Monto total: @Model.MontoTotal</h4>
-        
-        if (Model.MedioPago == null)
-        {
-            <h4>null</h4>
-        }
-        else
+
+        if (Model.MedioPago != null)
         {
             <h4>Medio de pago: @Model.MedioPago</h4>
         }
+       
 
         <h4>Fecha: @Model.Fecha</h4>
 

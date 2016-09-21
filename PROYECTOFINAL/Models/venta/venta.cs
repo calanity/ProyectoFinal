@@ -5,7 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace PROYECTOFINAL.Models.venta
+
+
+    namespace PROYECTOFINAL.Models
 {
     public class venta
     {

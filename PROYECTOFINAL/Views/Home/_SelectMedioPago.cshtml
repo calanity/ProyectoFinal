@@ -6,9 +6,18 @@
 
     function tarjeta(value) {
 
+      
+        if (value == 1)
+        {
+            document.getElementById("cuotas").disabled = true;
+        }
+
         if (value == 2)
         {
-            cuotas.disabled = false;
+            document.getElementById("cuotas").disabled = false;
+            var monto = document.getElementById("monto").value;
+            monto = @Model + (monto * 10 / 100);
+            document.getElementById("monto").value=(monto);
         }
     }
 </script>
@@ -17,6 +26,7 @@
     <label>Tipo tarjeta</label>
 
     <select name="tipo" id="tipo" onchange="tarjeta(value)">
+        <option value="0">Seleccionar</option>
         <option value="1">Debito</option>
         <option value="2">Credito</option>
     </select>

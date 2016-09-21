@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PROYECTOFINAL.Models.venta
+namespace PROYECTOFINAL.Models
 {
     public class Tarjetamodel
     {
@@ -13,6 +13,7 @@ namespace PROYECTOFINAL.Models.venta
             public int monto { get; set; }
             public string tipo { get; set; }
             public string marca { get; set; }
+            public int IdVenta { get; set; }
 
     }
 }

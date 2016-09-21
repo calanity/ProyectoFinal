@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PROYECTOFINAL.Models;
-using PROYECTOFINAL.Models.venta;
+
 
 namespace PROYECTOFINAL.Controllers
 {

@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 using System.Net.Mail;
 using System.Net;
 using System.IO;
-using PROYECTOFINAL.Models.venta;
+
 using System.Data;
 
 namespace PROYECTOFINAL.Controllers
@@ -191,6 +191,11 @@ namespace PROYECTOFINAL.Controllers
             
             //carga la venta, obtiene el id y su detalle en la base de datos y lista la venta
             string medioP;
+            int idVentaActual;
+            int tipo = 0;
+            int cuotas = 0;
+            int marca = 0;
+            int cupon = 0;
             ventamodel l2 = new ventamodel();
             l2.Fecha = DateTime.Now;
             int mediopago = Convert.ToInt16(cavenaghi["mediopago"]);
@@ -202,36 +207,22 @@ namespace PROYECTOFINAL.Controllers
             {
                 medioP = "Tarjeta";
             }
+            int monto = Convert.ToInt16(Request.Form["monto"]);
+            l2.MontoTotal = monto;
+            l2.MedioPago = medioP;
+
             if (medioP == "Tarjeta")
             {
-                
+
                 //cargo los datos de la tarjeta que levanto del formulario
-                int tipo = Convert.ToInt16(Request.Form["tipo"]);
-                int cuotas = Convert.ToInt16(Request.Form["cuotas"]);
-                int marca = Convert.ToInt16(Request.Form["marca"]);
-                int cupon = Convert.ToInt16(Request.Form["cupon"]);
-                int monto = Convert.ToInt16(Request.Form["monto"]);
-
-                MySqlConnection con = producto.AbrirConexion();
-                MySqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "InsertarDatosTarjetas";
-                cmd.Parameters.AddWithValue("tipot", tipo);
-                cmd.Parameters.AddWithValue("cuot", cuotas);
-                cmd.Parameters.AddWithValue("marca", marca);
-                cmd.Parameters.AddWithValue("cup", cupon);
-                cmd.Parameters.AddWithValue("mon", monto);
-
-
-                int registros2 = cmd.ExecuteNonQuery();
-                con.Close();
-
-                //int registros= tarjeta.InsertarDatosTarjeta(tipo, cuotas, marca, cupon, monto);
-
-
+                tipo = Convert.ToInt16(Request.Form["tipo"]);
+                cuotas = Convert.ToInt16(Request.Form["cuotas"]);
+                marca = Convert.ToInt16(Request.Form["marca"]);
+                cupon = Convert.ToInt16(Request.Form["cupon"]);       
+                      
+                
             }
-            
-                var lista = (List<productomodel>)TempData["listaActual"];
+            var lista = (List<productomodel>)TempData["listaActual"];
                 if (TempData["listaActual"] == null)
                 {
                     return View("Index");
@@ -239,12 +230,7 @@ namespace PROYECTOFINAL.Controllers
                 else
                 {
 
-                    foreach (productomodel item in lista)
-                    {
-                        subtotal += item.subtotal;
-                    }
-
-                    l2.MontoTotal = subtotal;
+                    //foreach (productomodel item in lista){subtotal += item.subtotal;} l2.MontoTotal = subtotal;
 
                     //pregunto si la caja no esta cerrada, si esta cerrada, va para el dia siguiente
 
@@ -252,11 +238,12 @@ namespace PROYECTOFINAL.Controllers
                     if (cajaFinal < 0)
                     {
 
-                        int hola = venta.CrearVenta(l2.Fecha, subtotal, medioP);
-                        int idVentaActual = venta.ObtenerIdVenta();
+                        int hola = venta.CrearVenta(l2.Fecha, l2.MontoTotal, l2.MedioPago);
+                        idVentaActual = venta.ObtenerIdVenta();
+                                       
 
-                        //var listaProd = (List<productomodel>)TempData["listaActual"];
-                        foreach (productomodel item in lista)
+                    //var listaProd = (List<productomodel>)TempData["listaActual"];
+                    foreach (productomodel item in lista)
                         {
                             venta.CrearDetalleVenta(item.id, item.precio, item.cantidad, item.subtotal, idVentaActual);
                             venta.ActualizarStockProducto(item.id, item.cantidad);
@@ -264,7 +251,7 @@ namespace PROYECTOFINAL.Controllers
 
                         //cargo el detalle venta
                         l2.ListaArticulos = lista;
-                        l2.MedioPago = medioP;
+                        
 
                         //insertar en movimientos la venta
 
@@ -274,8 +261,8 @@ namespace PROYECTOFINAL.Controllers
                     else
                     {
                         DateTime fech = (l2.Fecha.AddDays(1));
-                        int hola = venta.CrearVenta(fech, subtotal, medioP);
-                        int idVentaActual = venta.ObtenerIdVenta();
+                        int hola = venta.CrearVenta(fech, l2.MontoTotal, l2.MedioPago);
+                        idVentaActual = venta.ObtenerIdVenta();
 
                         //var listaProd = (List<productomodel>)TempData["listaActual"];
                         foreach (productomodel item in lista)
@@ -286,15 +273,18 @@ namespace PROYECTOFINAL.Controllers
 
                         //cargo el detalle venta
                         l2.ListaArticulos = lista;
-                        l2.MedioPago = medioP;
-
+                       
                         //insertar en movimientos la venta
 
                         movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago);
                     }
 
-                    //pregunta si el stock actual es igual o menoor a la minima y mando el mail
-                    List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
+                if (medioP == "Tarjeta")
+                {
+                    int registros2 = tarjeta.InsertarDatosTarjeta(tipo, cuotas, marca, cupon, monto, idVentaActual);
+                }
+                //pregunta si el stock actual es igual o menoor a la minima y mando el mail
+                List<productomodel> listaEnviar = producto.ObtenerStockMinimoYActual(l2.ListaArticulos);
 
 
                     if (listaEnviar.Count > 0)

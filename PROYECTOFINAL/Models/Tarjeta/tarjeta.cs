@@ -9,9 +9,8 @@ namespace PROYECTOFINAL.Models
 {
     public class tarjeta
     {
-        public void ListarNombresTarjetas(){       }
-
-        public int InsertarDatosTarjeta(int tipo, int cuotas, int marca, int cupon, int monto )
+       
+        public static int InsertarDatosTarjeta(int tipo, int cuotas, int marca, int cupon, int monto, int IdVent)
         {
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
@@ -22,7 +21,7 @@ namespace PROYECTOFINAL.Models
             cmd.Parameters.AddWithValue("marca", marca);
             cmd.Parameters.AddWithValue("cup", cupon);
             cmd.Parameters.AddWithValue("mon", monto);
-
+            cmd.Parameters.AddWithValue("Idvent", IdVent);
 
             int registros2 = cmd.ExecuteNonQuery();
             con.Close();
