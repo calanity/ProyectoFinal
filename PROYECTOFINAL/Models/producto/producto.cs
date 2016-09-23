@@ -227,18 +227,9 @@ namespace PROYECTOFINAL.Models
         {
             string path = "D:/ProyectoFinal/archivo.pdf";
             StreamWriter MiObjetoArchivo = new StreamWriter(path);
-           /* string path2 = "D:/ProyectoFinal/";
-
-            PdfDocument document = new PdfDocument();
-            PdfPage page = document.AddPage();
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
-            gfx.DrawString("Hello, World!", font, XBrushes.Black,
-              new XRect(0, 0, page.Width, page.Height), XStringFormats.Center);
-            string filename = "archivo.pdf";
-            document.Save(filename);*/
-            //Process.Start(filename);
-                
+            // string path2 = "D:/ProyectoFinal/";
+            
+          
            
 
             foreach (productomodel producto in listaEnviar)
@@ -256,7 +247,7 @@ namespace PROYECTOFINAL.Models
             message.From = new MailAddress("silgralevi@hotmail.com"); // reemplazar por un valor valido
             message.Subject = "Falta de stock";
             message.Attachments.Add(new Attachment(path));
-            message.Attachments.Add(new Attachment("/" + filename+".pdf"));
+            //message.Attachments.Add(new Attachment("/" + filename+".pdf"));
             //message.Attachments.Add((document));
             message.Body = "Adjuntamos la falta de stock de un/os producto/s";
             message.IsBodyHtml = true;

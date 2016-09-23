@@ -177,6 +177,12 @@ using System.Web;
 
         }
 
+        public List<ventamodel> reporte()
+        {
+            var lista = new List<ventamodel>();
+            return lista;
+        }
+
         public static List<ventamodel> ListarVentasxMes(int mes, int año)
         {
             MySqlConnection con = producto.AbrirConexion();

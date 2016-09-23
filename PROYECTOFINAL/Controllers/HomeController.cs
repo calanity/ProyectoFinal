@@ -172,6 +172,9 @@ namespace PROYECTOFINAL.Controllers
                 TempData.Remove("listaActual");
                 TempData.Add("listaActual", lista);
                 TempData.Keep("listaActual");
+                TempData.Add("subtotal", subtotal);
+                TempData.Keep("subtotal");
+
             }
             else
             {
@@ -196,18 +199,21 @@ namespace PROYECTOFINAL.Controllers
             int cuotas = 0;
             int marca = 0;
             int cupon = 0;
+            int monto = 0;
             ventamodel l2 = new ventamodel();
             l2.Fecha = DateTime.Now;
             int mediopago = Convert.ToInt16(cavenaghi["mediopago"]);
             if (mediopago == 1)
             {
                 medioP = "Efectivo";
+                monto = (int)TempData["subtotal"];
             }
             else
             {
                 medioP = "Tarjeta";
+                monto = Convert.ToInt16(Request.Form["monto"]);
             }
-            int monto = Convert.ToInt16(Request.Form["monto"]);
+            
             l2.MontoTotal = monto;
             l2.MedioPago = medioP;
 
@@ -405,22 +411,30 @@ namespace PROYECTOFINAL.Controllers
                 return PartialView("_selectCantidad", canti);
         }
 
-        public ActionResult SelectMedioPago()
+        public ActionResult SelectMedioPago(int mediopago)
         {
-             if (TempData["listaActual"] != null)
+            if (mediopago == 2)
             {
-                var lista = (List<productomodel>)TempData["listaActual"];
-                   
-                foreach (productomodel item in lista)
+                if (TempData["listaActual"] != null)
                 {
-                    subtotal += item.subtotal;
-                }
+                    var lista = (List<productomodel>)TempData["listaActual"];
 
-                TempData.Remove("listaActual");
-                TempData.Add("listaActual", lista);
-                TempData.Keep("listaActual");
+                    foreach (productomodel item in lista)
+                    {
+                        subtotal += item.subtotal;
+                    }
+
+                    TempData.Remove("listaActual");
+                    TempData.Add("listaActual", lista);
+                    TempData.Keep("listaActual");
+                }
+                return PartialView("_selectMedioPago", subtotal);
             }
-            return PartialView("_selectMedioPago", subtotal);
+            else
+            {
+                return View("_selectMedioPago", -1);
+            }
+
         }
     }
 }
