@@ -9,6 +9,7 @@ namespace PROYECTOFINAL.Models
     {
         public int id { get; set; }
         public DateTime Fecha { get; set; }
+
         public List<productomodel> ListaArticulos;
         public string MedioPago { get; set; }
         public int MontoTotal { get; set; }

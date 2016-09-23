@@ -6,7 +6,8 @@ using System.Web.Mvc;
 using PROYECTOFINAL.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
-
+using Libreria;
+using Microsoft.Reporting.WebForms;
 namespace PROYECTOFINAL.Controllers
 {
     public class ProveedoresController : Controller
@@ -110,6 +111,15 @@ namespace PROYECTOFINAL.Controllers
 
             List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id);
             return PartialView("_selectProducto", lista);
+        }
+
+        public ActionResult ReporteProveedores()
+        {
+            LocalReport reporte = new LocalReport();
+            List<proveedormodel> lista = new List<proveedormodel>();
+            lista = proveedor.ListarProveedores();
+            ReportDataSource dc = new ReportDataSource("Nombre", lista);
+            reporte.DataSources.Add(dc);            
         }
 
 

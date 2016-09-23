@@ -4,8 +4,12 @@
 }
 
 
+@using Libreria
 @using PROYECTOFINAL.Models
 @model List<proveedormodel>
+    
+
+
 
 
 <h2>Proveedores</h2>
@@ -13,6 +17,9 @@
 <br><br>
 
 <a href="/Proveedores/Agreg">Crear proveedor nuevo</a>
+<br />
+
+<a href="/Proveedores/ReporteProveedores">Descargar</a>
 
 
 <table class="table-bordered">
@@ -40,4 +47,6 @@
         </tr>
 
     }
+    
 </table>
+
