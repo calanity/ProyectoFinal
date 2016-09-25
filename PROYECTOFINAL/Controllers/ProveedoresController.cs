@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using PROYECTOFINAL.Models;
-using MySql.Data.MySqlClient;
-using System.Data;
 using Libreria;
 using Microsoft.Reporting.WebForms;
 namespace PROYECTOFINAL.Controllers
@@ -115,11 +111,30 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult ReporteProveedores()
         {
+            var path = Server.MapPath(@"~/Reporte/Report1.rdlc");
             LocalReport reporte = new LocalReport();
+            reporte.ReportPath = path;
             List<proveedormodel> lista = new List<proveedormodel>();
             lista = proveedor.ListarProveedores();
             ReportDataSource dc = new ReportDataSource("Nombre", lista);
-            reporte.DataSources.Add(dc);            
+            reporte.DataSources.Add(dc);
+            string reportType = "pdf";
+            string mimetype = string.Empty;
+            string encoding=  string.Empty;
+            string FileNameExtension = string.Empty;
+            string deviceInfo =
+                "<DeviceInfo>" + "<OutputFormat>" + reportType + "<OutputFormat>"
+                + "<PageWidth> 8.5in</PageWidth>" +
+                "<PageHeight>11in</PageHeight>" +
+                "</DeviceInfo>";
+            Warning[] warnings;
+            string[] streams;
+            byte[] renderBytes;
+
+            renderBytes = reporte.Render(reportType, deviceInfo, out mimetype, out encoding,
+                out FileNameExtension, out streams, out warnings);
+            return File(renderBytes, mimetype);
+
         }
 
 
