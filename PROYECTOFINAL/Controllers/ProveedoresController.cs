@@ -131,7 +131,7 @@ namespace PROYECTOFINAL.Controllers
             string[] streams;
             byte[] renderBytes;
 
-            renderBytes = reporte.Render(reportType, deviceInfo, out mimetype, out encoding,
+            renderBytes = reporte.Render(reportType, null, out mimetype, out encoding,
                 out FileNameExtension, out streams, out warnings);
             return File(renderBytes, mimetype);
 
