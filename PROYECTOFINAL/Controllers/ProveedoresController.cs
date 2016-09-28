@@ -118,21 +118,29 @@ namespace PROYECTOFINAL.Controllers
             lista = proveedor.ListarProveedores();
             ReportDataSource dc = new ReportDataSource("Nombre", lista);
             reporte.DataSources.Add(dc);
-            string reportType = "pdf";
-            string mimetype = string.Empty;
-            string encoding=  string.Empty;
-            string FileNameExtension = string.Empty;
-            string deviceInfo =
-                "<DeviceInfo>" + "<OutputFormat>" + reportType + "<OutputFormat>"
-                + "<PageWidth> 8.5in</PageWidth>" +
-                "<PageHeight>11in</PageHeight>" +
-                "</DeviceInfo>";
+            string reportType = "PDF";
+            string mimetype;
+            string encoding;
+            string FileNameExtension;
             Warning[] warnings;
             string[] streams;
             byte[] renderBytes;
 
-            renderBytes = reporte.Render(reportType, null, out mimetype, out encoding,
+            string deviceInfo =
+                  "<DeviceInfo>" +
+                  "  <OutputFormat>EMF</OutputFormat>" +
+                  "  <PageWidth>8.5in</PageWidth>" +
+                  "  <PageHeight>11in</PageHeight>" +
+                  "  <MarginTop>0.25in</MarginTop>" +
+                  "  <MarginLeft>0.25in</MarginLeft>" +
+                  "  <MarginRight>0.25in</MarginRight>" +
+                  "  <MarginBottom>0.25in</MarginBottom>" +
+                  "</DeviceInfo>";
+
+
+            renderBytes = reporte.Render(reportType, deviceInfo, out mimetype, out encoding,
                 out FileNameExtension, out streams, out warnings);
+
             return File(renderBytes, mimetype);
 
         }
