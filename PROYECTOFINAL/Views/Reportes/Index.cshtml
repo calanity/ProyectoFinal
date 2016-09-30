@@ -2,6 +2,47 @@
 @{
     ViewBag.Title = "Index";
 }
+@using PROYECTOFINAL.Models;
+@using Libreria;
 
-<h2>Index</h2>
+<script>
+    function productosHola()
+    {
+        alert('1');
+        document.getElementById("productos").disabled = false;
+    }
+</script>
 
+
+<h2>Reportes</h2>
+<br />
+
+
+<form method="post" action="/Reportes/ReporteProductos">
+    
+    <label>Fecha 1</label>
+    <input type="date" name="fecha1" id="fecha1"/>
+
+    <label>Fecha 2</label>
+    <input type="date" name="fecha2" id="fecha2" />
+    <br />
+     <label>Filtros:</label>
+    <br />
+
+    <input type="checkbox" name="efectivo" value="efectivo"/> Efectivo<br>
+    <input type="checkbox" name="tarjeta" value="tarjeta"/> Tarjeta <br />
+    <input type="checkbox" name="produc" value="produc" onchange="console.log('hola'); productosHola()"/> Producto <br />
+    <select name="productos" id="productos" disabled >
+        <option value="0">Seleccionar</option>
+        @foreach (productomodel item in producto.ListarProductos())
+        {
+            <option value="@item.id">@item.nombre</option>
+        }
+
+    </select>
+   
+        
+
+    <input type="submit" value="Descargar"/>
+
+</form>

@@ -79,6 +79,7 @@ namespace PROYECTOFINAL.Models
 
 
 
+
                 lprod.Add(prod);
             }
             con.Close();
@@ -223,14 +224,14 @@ namespace PROYECTOFINAL.Models
             return registros;
         }
 
-        public static void EnviarMailFaltaStock(List<productomodel>listaEnviar)
+        public static void EnviarMailFaltaStock(List<productomodel> listaEnviar)
         {
             string path = "D:/ProyectoFinal/archivo.pdf";
             StreamWriter MiObjetoArchivo = new StreamWriter(path);
             // string path2 = "D:/ProyectoFinal/";
-            
-          
-           
+
+
+
 
             foreach (productomodel producto in listaEnviar)
             {
@@ -264,5 +265,69 @@ namespace PROYECTOFINAL.Models
             smtp.EnableSsl = true;
             smtp.Send(message);
         }
+
+        public static List<productomodel> ListarProductosVendidosEntreFechas(DateTime fecha1, DateTime fecha2)
+        {
+            List<productomodel> lista = new List<productomodel>();
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ProductosEntreFechas";
+            cmd.Parameters.AddWithValue("fecha1", fecha1.Date);
+            cmd.Parameters.AddWithValue("fecha2", fecha2.Date);
+
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+
+            while (lector.Read())
+            {
+                productomodel prod = new productomodel();
+                prod.id = Convert.ToInt16(lector["IdArticulos"]);
+                prod.nombre = (string)lector["Nombre"];
+                prod.Categoria = (string)lector["Categoria"];
+                prod.precio = Convert.ToInt16(lector["Precio"]);
+                prod.stockactual = Convert.ToInt16(lector["StockActual"]);
+                prod.stockminimo = Convert.ToInt16(lector["StockMinimo"]);
+                prod.Proveedor = (string)lector["Proveedor"];
+                prod.Fecha = (DateTime)lector["Fecha"];
+                lista.Add(prod);
+            }
+
+            con.Close();
+            return lista;
+        }
+    
+        public static List<productomodel> ListarProductoVendido(int produc, DateTime fecha1, DateTime fecha2)
+        {
+            List<productomodel> lista = new List<productomodel>();
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ProductoFecha";
+            cmd.Parameters.AddWithValue("producto", produc);
+           
+
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+
+            while (lector.Read())
+            {
+                productomodel prod = new productomodel();
+                prod.id = Convert.ToInt16(lector["IdArticulos"]);
+                prod.nombre = (string)lector["Nombre"];
+                prod.Categoria = (string)lector["Categoria"];
+                prod.precio = Convert.ToInt16(lector["Precio"]);
+                prod.stockactual = Convert.ToInt16(lector["StockActual"]);
+                prod.stockminimo = Convert.ToInt16(lector["StockMinimo"]);
+                prod.Proveedor = (string)lector["Proveedor"];
+                prod.Fecha = (DateTime)lector["Fecha"];
+                lista.Add(prod);
+            }
+
+            con.Close();
+            return lista;
+        }
+
+
     }
 }

@@ -30,5 +30,6 @@ namespace PROYECTOFINAL.Models
         public int stockactual { get; set; }
         public int IdProveedor { get; set; }
         public string Proveedor { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

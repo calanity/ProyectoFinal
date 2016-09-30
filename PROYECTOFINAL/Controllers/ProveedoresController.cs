@@ -116,14 +116,20 @@ namespace PROYECTOFINAL.Controllers
             reporte.ReportPath = path;
             List<proveedormodel> lista = new List<proveedormodel>();
             lista = proveedor.ListarProveedores();
-            ReportDataSource dc = new ReportDataSource("Nombre", lista);
+            ReportDataSource dc = new ReportDataSource("DataSet1", lista);
             reporte.DataSources.Add(dc);
+            ReportViewer reportV = new ReportViewer();
+            reportV.LocalReport.DataSources.Clear();
+            reportV.LocalReport.ReportPath = path;
+            reportV.LocalReport.DataSources.Add(dc);
+
             string reportType = "PDF";
-            string mimetype;
+            /*string mimetype;
             string encoding;
             string FileNameExtension;
             Warning[] warnings;
             string[] streams;
+            */
             byte[] renderBytes;
 
             string deviceInfo =
@@ -137,12 +143,8 @@ namespace PROYECTOFINAL.Controllers
                   "  <MarginBottom>0.25in</MarginBottom>" +
                   "</DeviceInfo>";
 
-
-            renderBytes = reporte.Render(reportType, deviceInfo, out mimetype, out encoding,
-                out FileNameExtension, out streams, out warnings);
-
-            return File(renderBytes, mimetype);
-
+            renderBytes = reportV.LocalReport.Render(reportType, deviceInfo);
+            return File(renderBytes, "application/pdf");
         }
 
 

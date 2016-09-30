@@ -251,7 +251,6 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\caja\caja.cs" />
-    <Compile Include="Models\caja\cajamodel.cs" />
     <Compile Include="Models\cantidadmodel.cs" />
     <Compile Include="Models\categoria\categoria.cs" />
     <Compile Include="Models\categoria\categoriamodel.cs" />
@@ -403,7 +402,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reporte\Report1.rdlc" />
+    <EmbeddedResource Include="Reporte\Report1.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporte\Report2.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
