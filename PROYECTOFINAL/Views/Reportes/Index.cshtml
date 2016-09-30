@@ -8,7 +8,6 @@
 <script>
     function productosHola()
     {
-        alert('1');
         document.getElementById("productos").disabled = false;
     }
 </script>
@@ -31,7 +30,7 @@
 
     <input type="checkbox" name="efectivo" value="efectivo"/> Efectivo<br>
     <input type="checkbox" name="tarjeta" value="tarjeta"/> Tarjeta <br />
-    <input type="checkbox" name="produc" value="produc" onchange="console.log('hola'); productosHola()"/> Producto <br />
+    <input type="checkbox" name="produc" value="produc" onchange="productosHola()"/> Producto <br />
     <select name="productos" id="productos" disabled >
         <option value="0">Seleccionar</option>
         @foreach (productomodel item in producto.ListarProductos())

@@ -33,16 +33,48 @@ namespace PROYECTOFINAL.Controllers
             DateTime fecha2 = Convert.ToDateTime(Request.Form["fecha2"]);
             var efectivo = Request.Form["efectivo"];
             var tarjeta = Request.Form["tarjeta"];
+            var produ = Request.Form["produc"];
+            var prod= Request.Form["productos"];
             int idProd = Convert.ToInt16(Request.Form["productos"]);
-            if (efectivo == "efectivo" && tarjeta == "tarjeta" && idProd==0)
+            if (efectivo == null && tarjeta== null && produ!="produc")
             {
                 lista = producto.ListarProductosVendidosEntreFechas(fecha1, fecha2);
             }
-                        
-          
-           lista = producto.ListarProductoVendido(idProd, fecha1, fecha2);
-                       //segun los parametros que entran, segun que lista obtiene           
-           
+            //ventas de producto/s
+            if (efectivo == null && tarjeta == null && produ == "produc")
+            {
+                lista = producto.ListarProductoVendido(idProd,fecha1, fecha2);
+            }
+
+            if (efectivo == "efectivo" && tarjeta == null && produ != "produc")
+            {
+                //si es efectivo de todos los productos
+                lista = producto.ProductosEfectivo(fecha1, fecha2);
+            }
+            if (efectivo == "efectivo" && tarjeta == null && produ == "produc")
+            {
+                lista = producto.ProductoEfectivo(fecha1, fecha2, idProd);
+            }
+            if(efectivo==null && tarjeta=="tarjeta" &&produ !="produc")
+            {
+                lista = producto.ProductosTarjetas(fecha1, fecha2);
+            }
+            if (efectivo == null && tarjeta == "tarjeta" && produ == "produc")
+            {
+               lista = producto.ProductoTarjeta(fecha1,fecha2, idProd);
+            }
+            if(tarjeta=="tarjeta" && efectivo=="efectivo"&& produ != "produc")
+            {
+                lista = producto.ListarProductosVendidosEntreFechas(fecha1, fecha2);
+            }
+
+            if (tarjeta == "tarjeta" && efectivo == "efectivo" && produ == "produc")
+            {
+                lista = producto.ListarProductoVendido(idProd, fecha1, fecha2);
+            }
+            //lista = producto.ListarProductoVendido(idProd, fecha1, fecha2);
+            //segun los parametros que entran, segun que lista obtiene           
+
             ReportDataSource dc = new ReportDataSource("DataSet2", lista);
             reporte.DataSources.Add(dc);
             ReportViewer reportV = new ReportViewer();
