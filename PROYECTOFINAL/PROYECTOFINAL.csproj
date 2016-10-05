@@ -262,6 +262,7 @@
     <Compile Include="Models\producto\producto.cs" />
     <Compile Include="Models\producto\productomodel.cs" />
     <Compile Include="Models\proveedor\proveedor.cs" />
+    <Compile Include="Models\Reporte.cs" />
     <Compile Include="Models\Tarjeta\tarjeta.cs" />
     <Compile Include="Models\usuario\usuario.cs" />
     <Compile Include="Models\usuario\usuariomodel.cs" />

@@ -34,63 +34,73 @@ namespace PROYECTOFINAL.Controllers
             var efectivo = Request.Form["efectivo"];
             var tarjeta = Request.Form["tarjeta"];
             var produ = Request.Form["produc"];
-            var prod= Request.Form["productos"];
             var prove = Request.Form["prove"];
-            int provedor = Convert.ToInt16(Request.Form["proveedor"]);
+            var provedor = Request.Form["proveedor"];
             int idProd = Convert.ToInt16(Request.Form["productos"]);
 
             if (efectivo == null && tarjeta== null && produ!="produc" && prove!= "prove")
             {
-                lista = producto.ListarProductosVendidosEntreFechas(fecha1, fecha2);
+             //todos los productos entre 2 fechas
+                lista = Reporte.ListarProductosVendidosEntreFechas(fecha1, fecha2);
             }
             
-            if (efectivo == null && tarjeta == null && produ == "produc")
+            if (efectivo == null && tarjeta == null && produ == "produc" && prove != "prove")
             {
-                lista = producto.ListarProductoVendido(idProd,fecha1, fecha2);
+                lista = Reporte.ListarProductoVendido(idProd,fecha1, fecha2);
+                //todas las ventas de 1 producto
+            }
+            if (efectivo == "efectivo" && tarjeta == "tarjeta"&& produ == "produc" && prove != "prove")
+            {
+                lista = Reporte.ListarProductoVendido(idProd, fecha1, fecha2);
+                //todas las ventas de 1 producto
             }
 
-            if (efectivo == "efectivo" && tarjeta == null && produ != "produc")
+            if (efectivo == "efectivo" && tarjeta == null && produ == null && provedor == null)
             {
-                //si es efectivo de todos los productos
-                lista = producto.ProductosEfectivo(fecha1, fecha2);
+                // efectivo de todos los productos
+                lista = Reporte.ProductosEfectivo(fecha1, fecha2);
             }
-            if (efectivo == "efectivo" && tarjeta == null && produ == "produc")
+           if (efectivo == "efectivo" && tarjeta == null && produ == "produc" && provedor != "prove")
             {
-                lista = producto.ProductoEfectivo(fecha1, fecha2, idProd);
+                //efectivo de 1 producto
+                lista = Reporte.ProductoEfectivo(fecha1, fecha2, idProd);
             }
-            if(efectivo==null && tarjeta=="tarjeta" &&produ !="produc")
+            if(efectivo==null && tarjeta=="tarjeta" &&produ ==null && provedor== null)
             {
-                lista = producto.ProductosTarjetas(fecha1, fecha2);
+                //tarjeta de todos los productos
+                lista = Reporte.ProductosTarjetas(fecha1, fecha2);
             }
-            if (efectivo == null && tarjeta == "tarjeta" && produ == "produc")
+            if (efectivo == null && tarjeta == "tarjeta" && produ == "produc" && provedor != "prove")
             {
-               lista = producto.ProductoTarjeta(fecha1,fecha2, idProd);
+                //tarjeta de 1 solo producto
+               lista = Reporte.ProductoTarjeta(fecha1,fecha2, idProd);
             }
-            if(tarjeta=="tarjeta" && efectivo=="efectivo"&& produ != "produc")
-            {
-                lista = producto.ListarProductosVendidosEntreFechas(fecha1, fecha2);
-            }
-
-            if (tarjeta == "tarjeta" && efectivo == "efectivo" && produ == "produc")
-            {
-                lista = producto.ListarProductoVendido(idProd, fecha1, fecha2);
-            }
+           
             if (efectivo == "efectivo" && tarjeta != "tarjeta" && produ != "produc" && prove == "prove")
             {
-                lista = producto.ProductoProvedorEfectivo(fecha1, fecha2, provedor);
+                //efectivo de 1 provedor
+                lista = Reporte.ProductoProvedorEfectivo(fecha1, fecha2, Convert.ToInt16(provedor));
             }
 
             if (efectivo != "efectivo" && tarjeta == "tarjeta" && produ != "produc" && prove == "prove")
             {
-                lista = producto.ProductoProvedorTarjeta(fecha1, fecha2, provedor);
+                //tarjeta de 1 proveedor
+                lista = Reporte.ProductoProvedorTarjeta(fecha1, fecha2, Convert.ToInt16(provedor));
             }
 
             if (efectivo == "efectivo" && tarjeta == "tarjeta" && produ != "produc" && prove == "prove")
             {
-                lista = producto.ProductosProveedor(fecha1, fecha2, provedor);
+                //todo de un proveedor
+                lista = Reporte.ProductosProveedor(fecha1, fecha2, Convert.ToInt16(provedor));
             }
 
-            //lista = producto.ListarProductoVendido(idProd, fecha1, fecha2);
+            if (efectivo == null && tarjeta == null && produ != "produc" && prove == "prove")
+            {
+                //todo de un proveedor
+                lista = Reporte.ProductosProveedor(fecha1, fecha2, Convert.ToInt16(provedor));
+            }
+
+
             //segun los parametros que entran, segun que lista obtiene           
             if (lista.Count > 0)
             {

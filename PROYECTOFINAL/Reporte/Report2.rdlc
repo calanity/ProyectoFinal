@@ -605,7 +605,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value EvaluationMode="Constant">("Total de ventas: " &amp; Sum(Fields!cantidad.Value, "DataSet2").ToString())</Value>
+                  <Value EvaluationMode="Constant">(Sum(Fields!cantidad.Value, "DataSet2").ToString())</Value>
                   <Style />
                 </TextRun>
               </TextRuns>

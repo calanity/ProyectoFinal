@@ -24,6 +24,8 @@ namespace PROYECTOFINAL.Models
         public int IdCategoria { get; set; }
         [Required(ErrorMessage = "Ingrese una categoria")]
         public string Categoria { get; set; }
+        public string MedioPago { get; set; }
+
 
         public int subtotal { get; set; }
         public int totalProductos { get; set; }
