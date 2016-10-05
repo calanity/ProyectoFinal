@@ -26,6 +26,8 @@ namespace PROYECTOFINAL.Models
         public string Categoria { get; set; }
 
         public int subtotal { get; set; }
+        public int totalProductos { get; set; }
+
         public int stockminimo { get; set; }
         public int stockactual { get; set; }
         public int IdProveedor { get; set; }

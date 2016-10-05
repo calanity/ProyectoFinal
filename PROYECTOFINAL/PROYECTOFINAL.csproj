@@ -383,6 +383,7 @@
     <Content Include="Views\Proveedores\_selectProducto.cshtml" />
     <Content Include="Views\Home\_selectMedioPago.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Views\Reportes\ReporteProductos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

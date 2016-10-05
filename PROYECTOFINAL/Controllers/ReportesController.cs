@@ -35,12 +35,15 @@ namespace PROYECTOFINAL.Controllers
             var tarjeta = Request.Form["tarjeta"];
             var produ = Request.Form["produc"];
             var prod= Request.Form["productos"];
+            var prove = Request.Form["prove"];
+            int provedor = Convert.ToInt16(Request.Form["proveedor"]);
             int idProd = Convert.ToInt16(Request.Form["productos"]);
-            if (efectivo == null && tarjeta== null && produ!="produc")
+
+            if (efectivo == null && tarjeta== null && produ!="produc" && prove!= "prove")
             {
                 lista = producto.ListarProductosVendidosEntreFechas(fecha1, fecha2);
             }
-            //ventas de producto/s
+            
             if (efectivo == null && tarjeta == null && produ == "produc")
             {
                 lista = producto.ListarProductoVendido(idProd,fecha1, fecha2);
@@ -72,38 +75,62 @@ namespace PROYECTOFINAL.Controllers
             {
                 lista = producto.ListarProductoVendido(idProd, fecha1, fecha2);
             }
+            if (efectivo == "efectivo" && tarjeta != "tarjeta" && produ != "produc" && prove == "prove")
+            {
+                lista = producto.ProductoProvedorEfectivo(fecha1, fecha2, provedor);
+            }
+
+            if (efectivo != "efectivo" && tarjeta == "tarjeta" && produ != "produc" && prove == "prove")
+            {
+                lista = producto.ProductoProvedorTarjeta(fecha1, fecha2, provedor);
+            }
+
+            if (efectivo == "efectivo" && tarjeta == "tarjeta" && produ != "produc" && prove == "prove")
+            {
+                lista = producto.ProductosProveedor(fecha1, fecha2, provedor);
+            }
+
             //lista = producto.ListarProductoVendido(idProd, fecha1, fecha2);
             //segun los parametros que entran, segun que lista obtiene           
+            if (lista.Count > 0)
+            {
+                ReportParameter hola = new ReportParameter();
+                //hola = new ReportParameter("total", Convert.ToString(lista.Count()));
+                //reporte.SetParameters(hola);
+                ReportDataSource dc = new ReportDataSource("DataSet2", lista);
+                reporte.DataSources.Add(dc);
+                ReportViewer reportV = new ReportViewer();
+                reportV.LocalReport.DataSources.Clear();
+                reportV.LocalReport.ReportPath = path;
+                reportV.LocalReport.DataSources.Add(dc);
 
-            ReportDataSource dc = new ReportDataSource("DataSet2", lista);
-            reporte.DataSources.Add(dc);
-            ReportViewer reportV = new ReportViewer();
-            reportV.LocalReport.DataSources.Clear();
-            reportV.LocalReport.ReportPath = path;
-            reportV.LocalReport.DataSources.Add(dc);
+                string reportType = "PDF";
+                /*string mimetype;
+                string encoding;
+                string FileNameExtension;
+                Warning[] warnings;
+                string[] streams;
+                */
+                byte[] renderBytes;
 
-            string reportType = "PDF";
-            /*string mimetype;
-            string encoding;
-            string FileNameExtension;
-            Warning[] warnings;
-            string[] streams;
-            */
-            byte[] renderBytes;
+                string deviceInfo =
+                      "<DeviceInfo>" +
+                      "  <OutputFormat>EMF</OutputFormat>" +
+                      "  <PageWidth>8.5in</PageWidth>" +
+                      "  <PageHeight>11in</PageHeight>" +
+                      "  <MarginTop>0.25in</MarginTop>" +
+                      "  <MarginLeft>0.25in</MarginLeft>" +
+                      "  <MarginRight>0.25in</MarginRight>" +
+                      "  <MarginBottom>0.25in</MarginBottom>" +
+                      "</DeviceInfo>";
 
-            string deviceInfo =
-                  "<DeviceInfo>" +
-                  "  <OutputFormat>EMF</OutputFormat>" +
-                  "  <PageWidth>8.5in</PageWidth>" +
-                  "  <PageHeight>11in</PageHeight>" +
-                  "  <MarginTop>0.25in</MarginTop>" +
-                  "  <MarginLeft>0.25in</MarginLeft>" +
-                  "  <MarginRight>0.25in</MarginRight>" +
-                  "  <MarginBottom>0.25in</MarginBottom>" +
-                  "</DeviceInfo>";
-
-            renderBytes = reportV.LocalReport.Render(reportType, deviceInfo);
-            return File(renderBytes, "application/pdf");
+                renderBytes = reportV.LocalReport.Render(reportType, deviceInfo);
+                return File(renderBytes, "application/pdf");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

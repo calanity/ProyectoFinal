@@ -6,9 +6,34 @@
 @using Libreria;
 
 <script>
-    function productosHola()
+    function productosHola(checkbox)
     {
-        document.getElementById("productos").disabled = false;
+        if (checkbox.checked) {
+            document.getElementById("productos").disabled = false;
+            document.getElementById("proveedor").disabled = true;
+        }
+        else
+        {
+            document.getElementById("productos").disabled = true;
+            document.getElementById("produc").prop("checked", false);
+        }
+       
+    }
+
+    function proveedorFuncion(checkbox)
+    {
+        if (checkbox.checked) {
+
+            document.getElementById("productos").disabled = true;
+            document.getElementById("proveedor").disabled = false;
+        }
+        else
+        {
+            document.getElementById("proveedor").disabled = true;
+            document.getElementById("prove").prop("checked", false);
+
+        }
+       
     }
 </script>
 
@@ -20,17 +45,17 @@
 <form method="post" action="/Reportes/ReporteProductos">
     
     <label>Fecha 1</label>
-    <input type="date" name="fecha1" id="fecha1"/>
+    <input type="date" name="fecha1" id="fecha1" required/>
 
     <label>Fecha 2</label>
-    <input type="date" name="fecha2" id="fecha2" />
+    <input type="date" name="fecha2" id="fecha2" required value="" />
     <br />
      <label>Filtros:</label>
     <br />
 
-    <input type="checkbox" name="efectivo" value="efectivo"/> Efectivo<br>
-    <input type="checkbox" name="tarjeta" value="tarjeta"/> Tarjeta <br />
-    <input type="checkbox" name="produc" value="produc" onchange="productosHola()"/> Producto <br />
+    <input type="checkbox" class=".checkbox-circle"  name="efectivo" value="efectivo"/> Efectivo<br>
+    <input type="checkbox" class=".checkbox-circle" name="tarjeta" value="tarjeta"/> Tarjeta <br />
+    <input type="checkbox" class=".checkbox-circle" name="produc" value="produc" onclick="productosHola(this)"/> Producto <br />
     <select name="productos" id="productos" disabled >
         <option value="0">Seleccionar</option>
         @foreach (productomodel item in producto.ListarProductos())
@@ -39,9 +64,19 @@
         }
 
     </select>
-   
-        
+   <br />
+    <input type="checkbox" name="prove" value="prove" onclick="proveedorFuncion(this)"/>Proveedor <br />
+    <select name="proveedor" id="proveedor" disabled >
 
+        <option value="0">Seleccionar</option>
+        @foreach (proveedormodel item in proveedor.ListarProveedores())
+        {
+            <option value="@item.idProveedores">@item.nombre</option>
+        }
+
+    </select>
+        
+    <br />
     <input type="submit" value="Descargar"/>
 
 </form>
