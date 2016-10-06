@@ -14,7 +14,6 @@ using System.Web;
         public static int CrearVenta(DateTime fecha, int montot, string mediop)
         {
 
-            //si el temp data o algo id es nulo entra, sino nada
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;

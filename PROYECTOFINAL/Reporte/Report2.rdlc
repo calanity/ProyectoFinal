@@ -605,18 +605,52 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value EvaluationMode="Constant">(Sum(Fields!cantidad.Value, "DataSet2").ToString())</Value>
-                  <Style />
+                  <Value>="Total vendido: " &amp; Sum(Fields!precio.Value, "DataSet2")</Value>
+                  <Style>
+                    <FontSize>16pt</FontSize>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
-          <Top>0.55245cm</Top>
-          <Left>5.89703cm</Left>
-          <Height>1.27317cm</Height>
-          <Width>9.85542cm</Width>
+          <Top>0.635cm</Top>
+          <Left>0.81703cm</Left>
+          <Height>0.744cm</Height>
+          <Width>6.31193cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>="Total ventas: " &amp; CountRows("DataSet2")</Value>
+                  <Style>
+                    <FontSize>16pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox2</rd:DefaultName>
+          <Top>0.635cm</Top>
+          <Left>10cm</Left>
+          <Height>0.744cm</Height>
+          <Width>6.31193cm</Width>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>

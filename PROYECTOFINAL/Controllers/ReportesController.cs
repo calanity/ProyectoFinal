@@ -104,9 +104,7 @@ namespace PROYECTOFINAL.Controllers
             //segun los parametros que entran, segun que lista obtiene           
             if (lista.Count > 0)
             {
-                ReportParameter hola = new ReportParameter();
-                //hola = new ReportParameter("total", Convert.ToString(lista.Count()));
-                //reporte.SetParameters(hola);
+                
                 ReportDataSource dc = new ReportDataSource("DataSet2", lista);
                 reporte.DataSources.Add(dc);
                 ReportViewer reportV = new ReportViewer();
