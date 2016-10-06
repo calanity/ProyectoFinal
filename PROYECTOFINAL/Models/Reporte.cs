@@ -224,7 +224,7 @@ namespace PROYECTOFINAL.Models
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "ProductosVenta";
+            cmd.CommandText = "ProductosVentaProveedor";
             cmd.Parameters.AddWithValue("fecha1", fecha1);
             cmd.Parameters.AddWithValue("fecha2", fecha2);
             cmd.Parameters.AddWithValue("prov", proveedor);
@@ -259,7 +259,7 @@ namespace PROYECTOFINAL.Models
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "ProductosVenta";
+            cmd.CommandText = "ProductosVentaProveedor";
             cmd.Parameters.AddWithValue("fecha1", fecha1);
             cmd.Parameters.AddWithValue("fecha2", fecha2);
             cmd.Parameters.AddWithValue("prov", proveedor);
