@@ -11,7 +11,6 @@
         });
     });
 
-
     $(document).ready(function () {
         $("#cantidad").change(function (e) {            
             $.get("/Home/SelectCantidad", { cantidad: e.target.value }, function (response) {
@@ -38,8 +37,7 @@
                 if (producto > 0)
                 {
                     document.getElementById("prodi").innerHTML = "";
-                    var cantidad = $('#cantidad').val();
-                    //pregunto si la cantidad ingresada era valida y hago el submit
+                    var cantidad = $('#cantidad').val();                   
                     var canti = $('#canti').val();
                     document.getElementById('Agregar').disabled = true;
                    
@@ -47,18 +45,10 @@
                         {
                             $('#formulario').submit();
                         }
-                    /*else
-                    {
-                        if (hola == true) {
-                            alert("Ingrese una cantidad validad del producto")
-                        }
-                    }
-                    */
+                    
                         else
                         {
                             document.getElementById("canti").innerHTML = "*Debe completar la cantidad";
-                            
-                            //alert('Debe completar la cantidad')
                         }
                     
                     }
@@ -66,13 +56,13 @@
                     else
                     {
                         document.getElementById("prodi").innerHTML = "*Debe completar el producto";
-                        //alert('Debe completar el producto');
+                    
                     }
             }
             else
             {
                 document.getElementById("categ").innerHTML = "*Debe completar la categoria";
-                //alert('Debe completar la categoria');
+             
             }
     }
     
@@ -167,6 +157,7 @@
                     <td width="10">@item.precio</td>
                     <td width="10">@item.cantidad</td>
                     <td width="10">@item.subtotal</td>
+                    
                 </tr>
             }
 

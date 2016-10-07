@@ -56,13 +56,7 @@ namespace PROYECTOFINAL.Controllers
             List<productomodel> actual = new List<productomodel>();
             //carga los articulos en el temp data, si es != null lo baja, lo vacia y lo vuelve a cargar
             var lala = (int)Convert.ToInt16(Request.Form["cantidad"]);
-            if ((TempData["catego"]) == null || TempData["producto"] == null || (TempData["preci"] == null) || lala <= 0)
-            {
-                TempData.Keep();
-                return View("ErrorValidacion");
-            }
-            else
-            {
+           
 
                 productomodel opro = new productomodel();
                 int id = Convert.ToInt16(TempData["producto"]);
@@ -71,8 +65,11 @@ namespace PROYECTOFINAL.Controllers
                 opro.precio = Convert.ToInt16(TempData["preci"]);
                 opro.IdCategoria = (int)(TempData["catego"]);
                 opro.subtotal = (opro.precio * opro.cantidad);
-                opro.id = id;
+                opro.Proveedor = producto.ObtenerNombreProveedor(id);
                 int stock = producto.ObtenerStockActual(opro.id);
+                              
+                opro.id = id;
+                
 
                 //preguntar si ya se resto el stock del producto que lo reste del obtenido
 
@@ -88,8 +85,8 @@ namespace PROYECTOFINAL.Controllers
                         }
                     }
                 }
-                if ((stock - (opro.cantidad)) >= 0)
-                {
+                //if ((stock - (opro.cantidad)) >= 0{
+                    opro.stockactual = stock;
                     actual.Add(opro);
 
                     if (TempData["listaActual"] == null)
@@ -126,18 +123,13 @@ namespace PROYECTOFINAL.Controllers
                     TempData.Keep();
                     return View("Index");
 
-                }
-                else
-                {
-                    TempData.Keep();
-                    return View("FaltaStock");
-                }
+//                }   else   { TempData.Keep();  return View("FaltaStock");          }
 
 
 
 
             }
-        }
+     
 
         public ActionResult FaltaStock()
         {
@@ -331,8 +323,7 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult SelectPrecio(int idProducto)
         {
             var prec = 0;
-            // if (idProducto > 0)            {
-
+          
             prec = producto.ObtenerPrecio(idProducto);
             var validador = TempData["preci"];
 
@@ -432,7 +423,7 @@ namespace PROYECTOFINAL.Controllers
             }
             else
             {
-                return View("_selectMedioPago", -1);
+                return PartialView("_selectMedioPago", -1);
             }
 
         }

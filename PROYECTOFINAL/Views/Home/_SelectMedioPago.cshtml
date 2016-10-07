@@ -3,7 +3,8 @@
 @model int
 
 <script>
-        
+
+    
     function tarjeta(value) {
       
         if (value == 1)
@@ -49,9 +50,10 @@
         <br />
 
         <label>Monto</label>
-        <input type="number" contenteditable="false" id="monto" name="monto" value="@Model" />
+        <input type="number" step="any"  contenteditable="false" id="monto" name="monto" value="@Model" />
 
 
     </div>
 
    }
+   

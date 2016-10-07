@@ -5,6 +5,9 @@
         ViewBag.Title = "Venta";
     }
 <script>
+
+  
+
     $(document).ready(function () 
     {
         $("#mediopago").change(function (e) 
@@ -16,9 +19,9 @@
         });
 
         });
-    
+   
 
-</script>
+</script>   
         <h2>Venta</h2>
 
 
@@ -26,11 +29,12 @@
       {
         <div id="venta">
 
-            @Html.Label("Subtotal:" + Model); <br><br>
+            @Html.Label("Subtotal: " + Model) <br><br>
 
             <form action="../Home/Fin" method="post">
                 <div id="divSelecmediopago">
                     @Html.Label("Medio de pago")
+
                     <select name="mediopago" id="mediopago" >
 
                         <option value="1">Efectivo</option>
@@ -47,12 +51,7 @@
             </form>
         </div>
       }
-      else
-      {
-         @Html.Label("No se ingresaron productos")
-         <br>
-         <a href="/Home/Index">Inicio</a>
-       }
+      
 
 
 

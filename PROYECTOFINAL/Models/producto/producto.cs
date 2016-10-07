@@ -24,7 +24,12 @@ namespace PROYECTOFINAL.Models
             builder.UserID = "bcaf7709a9bf09";
             builder.Password = "1d3406fc";
             builder.Database = "acsm_49aeb6a572de874";
-            MySqlConnection conn = new MySqlConnection(builder.ToString());
+            /*builder.Server= "localhost";
+            builder.UserID = "root";
+            builder.Password = "";
+            builder.Database = "acsm_49aeb6a572de874";*/
+
+             MySqlConnection conn = new MySqlConnection(builder.ToString());
             MySqlCommand cmd = conn.CreateCommand();
             conn.Open();
             return conn;
@@ -211,6 +216,27 @@ namespace PROYECTOFINAL.Models
 
         }
 
+        public static string ObtenerNombreProveedor(int pro)
+        {
+            string nombre = "";
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ObtenerNombreProveedor";
+            cmd.Parameters.AddWithValue("prove",pro);
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+
+
+            while (lector.Read())
+            {
+                nombre = (lector["Nombre"]).ToString();
+               
+            }
+
+            con.Close();
+            return nombre;
+        }
 
         public static int EliminarProducto(int id)
         {
@@ -226,16 +252,17 @@ namespace PROYECTOFINAL.Models
 
         public static void EnviarMailFaltaStock(List<productomodel> listaEnviar)
         {
-            string path = "D:/ProyectoFinal/archivo.pdf";
-                StreamWriter MiObjetoArchivo = new StreamWriter(path);
-            // string path2 = "D:/ProyectoFinal/";
+            //string path = "D:/ProyectoFinal/archivo.pdf";
+            string path = "D:/ProyectoFinal/archivo.txt";
+            StreamWriter MiObjetoArchivo = new StreamWriter(path);
+             
 
 
 
 
-            foreach (productomodel producto in listaEnviar)
+            foreach (productomodel item in listaEnviar)
             {
-                MiObjetoArchivo.WriteLine("Nombre del producto: " + producto.nombre + "," + "Stock actual" + producto.stockactual + "," + "Proveedor" + producto.Proveedor);
+                MiObjetoArchivo.WriteLine("Nombre del producto: " + item.nombre + ", " + "Stock actual" + item.stockactual + ", " + "Proveedor" +  producto.ObtenerNombreProveedor(item.id));
             }
 
             MiObjetoArchivo.Close();
@@ -256,7 +283,7 @@ namespace PROYECTOFINAL.Models
             var credential = new NetworkCredential
             {
                 UserName = "calanity@gmail.com", // reemplazar por un valor valido
-                Password = "fifos2014" // reemplazar por un valor valido
+                Password = "fifos2014"//reemplazar por un valor valido
             };
 
             smtp.Credentials = credential;
