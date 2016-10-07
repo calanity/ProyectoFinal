@@ -58,6 +58,19 @@
 
                      </select>
                      <br />
+                     <label id="categ" name="categ" class="TextoAgregar">Proveedor</label>
+
+                     <select id="proveedor" name="proveedor" class="Selects" required>
+
+                         <option value="0"> Seleccionar</option>
+
+                         @foreach (proveedormodel item in proveedor.ListarProveedores())
+                         {
+                             <option value="@item.idProveedores"> @item.nombre</option>
+                         }
+
+                     </select>
+                     <br />
 
                      <label id="stkActual" name="stkActual" class="TextoAgregar">Stock actual</label>
                      <input type="number" name="stockActual" id="stockActual" min="0" class="Selects" required />
