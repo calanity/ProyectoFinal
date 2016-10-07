@@ -38,6 +38,8 @@ namespace PROYECTOFINAL.Controllers
             var precio = Request.Form["precio"];
             var stockActual = Request.Form["stockActual"];
             var stockminimo = Request.Form["stockMinimo"];
+            
+
 
             //agrega los productos a la base de datos y despues los lista y retorna a index
             MySqlConnection con = producto.AbrirConexion();

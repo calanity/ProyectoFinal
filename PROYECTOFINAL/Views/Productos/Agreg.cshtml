@@ -9,6 +9,7 @@
 
 
 @using PROYECTOFINAL.Models;
+@using Libreria;
 @model productomodel
 
 
@@ -36,6 +37,20 @@
         @foreach (categoriamodel item in categoria.ListarCategorias())
         {
             <option value="@item.id"> @item.nombre</option>
+        }
+
+    </select>
+    <br />
+
+    <label id="categ" name="categ" class="TextoAgregar">Proveedor</label>
+
+    <select id="proveedor" name="proveedor" class="Selects" required>
+
+        <option value="0"> Seleccionar</option>
+
+        @foreach (proveedormodel item in proveedor.ListarProveedores())
+        {
+            <option value="@item.idProveedores"> @item.nombre</option>
         }
 
     </select>

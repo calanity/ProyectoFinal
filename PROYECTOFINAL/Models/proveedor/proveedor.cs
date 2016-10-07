@@ -147,16 +147,16 @@ namespace PROYECTOFINAL.Models
             return registros;
         }
 
-        public static int RegistrarCompra(int idProve, int saldo, int produc, int cantidad)
+        public static int RegistrarCompra(int idProve, int total, int produc, int cantidad, int unitario)
         {
             proveedormodel saldoActual = ObtenerSaldo(idProve);
-            saldo = saldoActual.saldo + saldo;
+            int total2 = saldoActual.saldo + total;
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "EditarSaldoProveedor";
             cmd.Parameters.AddWithValue("idProve", idProve);
-            cmd.Parameters.AddWithValue("sald", saldo);
+            cmd.Parameters.AddWithValue("sald", total2);
             int registros = cmd.ExecuteNonQuery();
             con.Close();
 
@@ -174,11 +174,28 @@ namespace PROYECTOFINAL.Models
 
             int registros2 = cmd2.ExecuteNonQuery();
             con.Close();
+            InsertarCompraProveedor(idProve, produc, unitario, total);
             return registros;
 
            
         }
 
+        public static void InsertarCompraProveedor(int prove, int prod, int costo, int tot)
+        {
+            MySqlConnection con3 = producto.AbrirConexion();
+            MySqlCommand cmd3 = con3.CreateCommand();
+            cmd3.CommandType = CommandType.StoredProcedure;
+            cmd3.CommandText = "InsertarCompraProveedor";
+            cmd3.Parameters.AddWithValue("prov", prove);
+            cmd3.Parameters.AddWithValue("prod", prod);
+            cmd3.Parameters.AddWithValue("costo", costo);
+            cmd3.Parameters.AddWithValue("tot", tot);
+
+
+            int registros2 = cmd3.ExecuteNonQuery();
+            con3.Close();
+
+        }
         public static List<productomodel> ObtenerProductosPorProveedor( int idProveedor)
         {
             List<productomodel> lista = new List<productomodel>();

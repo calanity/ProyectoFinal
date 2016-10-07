@@ -72,7 +72,9 @@ namespace PROYECTOFINAL.Controllers
             var monto = Convert.ToInt16(Request.Form["monto"]);
             int producto = Convert.ToInt16(Request.Form["prod"]);
             int cantidad = Convert.ToInt16(Request.Form["cantidad"]);
-            int registros = proveedor.RegistrarCompra(id, monto, producto, cantidad);
+            int unitario = Convert.ToInt16(Request.Form["unitario"]);
+
+            int registros = proveedor.RegistrarCompra(id, monto, producto, cantidad, unitario);
             return View("Index");
         }
 
