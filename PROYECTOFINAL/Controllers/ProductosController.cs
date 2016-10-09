@@ -36,9 +36,8 @@ namespace PROYECTOFINAL.Controllers
             var categoria = Request.Form["categoria"];
             var proveedor = Request.Form["proveedor"];
             var precio = Request.Form["precio"];
-            var stockActual = Request.Form["stockActual"];
             var stockminimo = Request.Form["stockMinimo"];
-            
+            var accion = Request.Form["accion"];
 
 
             //agrega los productos a la base de datos y despues los lista y retorna a index
@@ -50,13 +49,16 @@ namespace PROYECTOFINAL.Controllers
             cmd.Parameters.AddWithValue("cate", categoria);
             cmd.Parameters.AddWithValue("prec", precio);
             cmd.Parameters.AddWithValue("prove", proveedor);
-            cmd.Parameters.AddWithValue("stkActual", stockActual);
             cmd.Parameters.AddWithValue("stkMinimo", stockminimo);
             
 
             int registros = cmd.ExecuteNonQuery();
             con.Close();
-            return View("Index");
+            if (accion == null)
+            { return View("Index"); }
+            else
+            { return View("Proveedores/Compra"); }
+            
         }
         [HttpPost]
         public ActionResult Editar(FormCollection formulario)
