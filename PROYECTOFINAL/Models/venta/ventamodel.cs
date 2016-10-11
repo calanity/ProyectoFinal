@@ -12,7 +12,7 @@ namespace PROYECTOFINAL.Models
 
         public List<productomodel> ListaArticulos;
         public string MedioPago { get; set; }
-        public int MontoTotal { get; set; }
+        public double MontoTotal { get; set; }
 
     }
 }

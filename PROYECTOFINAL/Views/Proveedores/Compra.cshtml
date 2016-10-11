@@ -28,16 +28,16 @@
              <div class="modal-header">
 
                  <button data-dissmiss="modal" class="close">X</button>
-                 <div class="modal-title">Hola</div> 
+                 <div class="modal-title">Agregar producto</div> 
                                  
              </div>
 
              <div class="modal-body">
                  <form action="../Productos/Agregar" method="POST">
                     <input type="hidden" name="accion" id="accion" value="popUp">
-                     <label id="categ" name="categ" class="TextoAgregar">Proveedor</label>
+                     <label id="categ" name="categ" class="TextoAgregar col-lg-1" >Proveedor</label>
 
-                     <select id="proveedor" name="proveedor" class="Selects" required>
+                     <select id="proveedor" name="proveedor" class="form-control" required>
 
                          <option value="0"> Seleccionar</option>
 
@@ -49,9 +49,9 @@
                      </select>
                      <br />
 
-                     <label id="categ" name="categ" class="TextoAgregar">Categoria</label>
+                     <label id="categ" name="categ" class="TextoAgregar col-lg-1">Categoria</label>
 
-                     <select id="categoria" name="categoria" class="Selects" required>
+                     <select id="categoria" name="categoria" class="form-control" required>
 
                          <option value="0"> Seleccionar</option>
 
@@ -63,28 +63,27 @@
                      </select>
                      <br />
 
-                     <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
-                     <input type="text" name="Nombre" id="Nombre" class="Selects" required />
+                     <label id="Nombre" name="Nombre" class="TextoAgregar col-lg-1">Nombre</label>
+                     <input type="text" name="Nombre" id="Nombre" class="form-control" required />
                      <br /> <br />
 
-                     <label id="Precio" name="Precio" class="TextoAgregar">Precio</label>
-                     <input type="number" name="precio" id="precio" class="Selects" required />
+                     <label id="Precio" name="Precio" class="TextoAgregar col-lg-1">Precio</label>
+                     <input type="number" name="precio" id="precio" class="form-control" required />
 
 
-                     <br /> <br />
+                     <br /> 
 
-                    
-                     
-                     <label id="stkActual" name="stkActual" class="TextoAgregar">Stock actual</label>
-                     <input type="number" name="stockActual" id="stockActual" disabled value="0" class="Selects" required />
+                                        
+                     <label id="stkActual" name="stkActual" class="TextoAgregar col-lg-1">Stock actual</label>
+                     <input type="number" name="stockActual" id="stockActual" disabled value="0" class="form-control" required />
 
                      <br />
-                     <label id="stkmin" name="stkmin" class="TextoAgregar">Stock minimo</label>
-                     <input type="number" name="stockMinimo" id="stockMinimo" min="0" class="Selects" required />
+                     <label id="stkmin" name="stkmin" class="TextoAgregar col-lg-1">Stock minimo</label>
+                     <input type="number" name="stockMinimo" id="stockMinimo" min="0" class="form-control" required />
 
-                     <br /><br />
+                     <br />
 
-                     <input type="submit" value="Agregar producto" />
+                     <input type="submit" class="btn btn-default" value="Agregar producto" />
 
                  </form>
 

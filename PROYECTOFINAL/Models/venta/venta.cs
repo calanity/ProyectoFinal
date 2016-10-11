@@ -11,7 +11,7 @@ using System.Web;
 {
     public class venta
     {
-        public static int CrearVenta(DateTime fecha, int montot, string mediop)
+        public static int CrearVenta(DateTime fecha, double montot, string mediop)
         {
 
             MySqlConnection con = producto.AbrirConexion();

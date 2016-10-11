@@ -9,7 +9,7 @@ namespace PROYECTOFINAL.Models
 {
     public class movimientos
     {
-        public static int AgregarMovimiento(int monto, string motivo, DateTime fecha, string mediopago)
+        public static int AgregarMovimiento(double monto, string motivo, DateTime fecha, string mediopago)
         {
             int hola = -1;
             conceptomodel conc = new conceptomodel();

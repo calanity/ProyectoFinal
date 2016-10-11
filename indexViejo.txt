@@ -1,23 +1,8 @@
-﻿@{
+@{
     ViewBag.Title = "FIFOS";
 }
 
 <script>
-
-    function valcate(value)
-    {
-        if (value > 0)
-        {
-            document.getElementById("categ").innerHTML = "";
-        }
-    }
-
-    function valprod(value) {
-        if (value > 0) {
-            document.getElementById("prodi").innerHTML = "";
-        }
-    }
-
     $(document).ready(function () {
         $("#cate").change(function (e) {
             $.get("/Home/SelectProductos", { idCategoria: e.target.value }, function (response) {
@@ -97,49 +82,53 @@
 
     <h2>Ventas</h2>
 
-    <form action="../Home/Index" method="POST" name="formulario" id="formulario">
-
-        <div class="divGeneral">
-
-            <div class="form-group">
-
-                <label for="categori">Categoria</label>
-
-                
-                    <select class="form-control" name="cate" id="cate" required onchange="valcate(value);">
-                        <option value="0">Seleccionar</option>
-
-                        @foreach (categoriamodel item in categoria.ListarCategorias())
-                        {
-                            if (cat == 0)
-                            {
-                                cat = item.id;
-                            }
-                            <option value="@item.id"> @item.nombre</option>
-                        }
-
-                    </select>
-                    <label class="help-inline" id="categ"></label>
-                </div>
-            
-
-
-            <div id="divSelectProductos" style="display:inline;"></div>
-            
-
-            <div id="divSelectPrecio" style="display:inline;"></div>
-            <br />
-
-            <div id="divSelectCantidad" style="display:inline;"></div>
-
-            <br />
-
-            <button type="button" id="Agregar" name="Agregar" class="btn btn-default" onclick="Procesar();">Agregar articulo</button>
-        </div>
-    </form>
-         </div>
-       
+    <form action="../Home/Index" method="POST" name="formulario" id="formulario" >
+      
          
+        <label id="Categori" name="Categori" class="TextoInicio">Categoria</label>
+       
+        <select class="Selects" id="cate" name="cate" required  onchange="valcate">            
+        <option value="0">Seleccionar</option> 
+
+            @foreach (categoriamodel item in categoria.ListarCategorias())
+            {
+                if (cat == 0) 
+                {
+                    cat = item.id;
+                }
+
+
+                <option value="@item.id"> @item.nombre</option>
+            }
+
+            
+        </select>
+
+        <label id="categ" name="categ" class="mensaje"> </label>
+        <br/>
+        <label id="Nombr" name="Nombr" class="TextoInicio">Nombre</label>
+         
+        <div id="divSelectProductos" style="display:inline;"></div>
+        <br/>
+
+        <label id="Preci" name="Preci" class="TextoInicio">Precio</label>                  
+      
+        <div id="divSelectPrecio" style="display:inline;"></div>        
+        <br/>   
+        
+        
+        <label id="Cantida" name="Cantida" class="TextoInicio">Cantidad</label>
+        <div id="divSelectCantidad" style="display:inline;"></div>
+        
+
+        <input class="Selects" type="number" id="cantidad" name="cantidad" value="0" min="1" />
+        <label id="canti" name="canti" class="mensaje"> </label>
+        <br>
+        
+        <input  type="button" value="Agregar articulo" name="Agregar" id= "Agregar" onclick="Procesar();" />
+
+        
+    </form>       
                     
     <br> 
     <a href="/Home/Cancelar">Cancelar venta</a>

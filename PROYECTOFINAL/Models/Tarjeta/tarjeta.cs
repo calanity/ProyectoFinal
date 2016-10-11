@@ -10,7 +10,7 @@ namespace PROYECTOFINAL.Models
     public class tarjeta
     {
        
-        public static int InsertarDatosTarjeta(int tipo, int cuotas, int marca, int cupon, int monto, int IdVent)
+        public static int InsertarDatosTarjeta(int tipo, int cuotas, int marca, int cupon, double monto, int IdVent)
         {
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();

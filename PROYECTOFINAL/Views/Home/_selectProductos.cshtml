@@ -1,15 +1,19 @@
 ﻿@using PROYECTOFINAL.Models
 @model List<productomodel>
 
-<select class="Selects" id="Producto" name="Producto" required onchange="CargarPrecio(this.value)"; >
-
-    <option value="0">Seleccionar</option>
+<div class="form-group">
+    <label for="Nombr">Nombre</label>
     
-    @foreach (productomodel item in Model)
-    {        
-        <option name="prod" value="@item.id"> @item.nombre</option>
-    }
-    
-</select>
-<label id="prodi" name="prodi" class="mensaje"> </label>
+        <select class="form-control" id="Producto" name="Producto" required onchange="CargarPrecio(this.value); valprod(value);">
 
+            <option value="0">Seleccionar</option>
+
+            @foreach (productomodel item in Model)
+            {
+                <option name="prod" value="@item.id"> @item.nombre</option>
+            }
+
+        </select>
+        <label id="prodi" name="prodi" class="help-inline"> </label>
+
+    </div>

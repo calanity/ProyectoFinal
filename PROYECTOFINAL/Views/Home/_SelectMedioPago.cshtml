@@ -26,31 +26,38 @@
    @if (Model > 0)
    {
     <div>
-        <label>Tipo tarjeta</label>
+        <label for="mep">Medio de pago</label>
 
-        <select name="tipo" id="tipo" onchange="tarjeta(value)">
+
+        <select class="form-control" name="tipo" id="tipo" onchange="tarjeta(value)">
             <option value="0">Seleccionar</option>
             <option value="1">Debito</option>
             <option value="2">Credito</option>
         </select>
+
+       
         <br />
-        <label>Cantidad de cuotas</label>
-        <input type="number" disabled name="cuotas" id="cuotas" min="1" max="12" />
+        <label for="me1">Cantidad de cuotas</label>
+
+
+        <input class="form-control" type="number" disabled name="cuotas" id="cuotas" min="1" max="12" />
         <br />
         <label>Tarjeta</label>
-        <select name="marca" id="marca">
+        <select  class="form-control" name="marca" id="marca">
             <option value="1">Visa</option>
             <option value="2">Cabal</option>
             <option value="3">Naranja</option>
             <option value="4">Consumax</option>
         </select>
         <br />
-        <label>Cupon</label>
-        <input type="number" id="cupon" name="cupon" max="32767"/>
+        <label for="cu">Cupon</label>
+
+        <input class="form-control" type="number" id="cupon" name="cupon" max="32767"/>
         <br />
 
-        <label>Monto</label>
-        <input type="number" step="any"  contenteditable="false" id="monto" name="monto" value="@Model" />
+        <label for="mep">Monto</label>
+
+        <input type="number" step="any" class="form-control" contenteditable="false" id="monto" name="monto" value="@Model" />
 
 
     </div>

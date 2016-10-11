@@ -191,7 +191,7 @@ namespace PROYECTOFINAL.Controllers
             int cuotas = 0;
             int marca = 0;
             int cupon = 0;
-            int monto = 0;
+            double monto = 0;
             ventamodel l2 = new ventamodel();
             l2.Fecha = DateTime.Now;
             int mediopago = Convert.ToInt16(cavenaghi["mediopago"]);
@@ -203,7 +203,7 @@ namespace PROYECTOFINAL.Controllers
             else
             {
                 medioP = "Tarjeta";
-                monto = Convert.ToInt16(Request.Form["monto"]);
+                monto = Convert.ToDouble(Request.Form["monto"]);
             }
             
             l2.MontoTotal = monto;

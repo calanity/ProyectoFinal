@@ -1,5 +1,27 @@
 ﻿@using PROYECTOFINAL.Models
 @model int
+ 
+<script>
+    $(document).ready(function () {
+        $("#cantidad").change(function (e) {
+            $.get("/Home/SelectCantidad", { cantidad: e.target.value }, function (response) {
+                $("#divSelectCantidad").html(response);
+            });
+        });
+    });
 
-    <input type="text" class="Selects"  id="precio"  name="precio" disabled value="@Model " required/>
-<label id="prec" name="prec"> </label>
+</script>
+<label for="Preci">Precio</label>
+
+<input type="number" class="form-control" id="precio" name="precio" disabled value="@Model" required>
+
+<label class="help-inline" id="prec" name="prec"></label>
+    <!--<input type="text" class="Selects"  id="precio"  name="precio" disabled value="@Model " required/>
+        <label id="prec" name="prec"> </label>
+    -->
+<br/>
+<label for="Cantida">Cantidad</label>
+
+<input type="number" class="form-control" id="cantidad" name="cantidad" value="0" min="1" required>
+
+<label class="help-inline" name="canti" id="canti"></label>

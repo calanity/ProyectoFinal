@@ -6,22 +6,27 @@
 
 <h2>Ingresos y salidas</h2>
 
-<form action="../Movimientos/mostrar" method="POST">
-   
+<div>
+    <form action="../Movimientos/mostrar" method="POST">
 
-    @Html.Label("Concepto:")
-    <select name="concepto" id="concepto" required>
-        @foreach (conceptomodel item in movimientos.listarConceptos())
-        {
-           <option value="@item.idConceptos"> @item.nombre </option>
-        }
-    </select>
-    
-    @Html.Label("Monto:")
-    <input type="number" id="monto" name="monto" required>
 
-    <input type="submit" id="Aceptar" name="Aceptar" value="Aceptar">
+        <label for="Nombr">Concepto</label>
+        <select class="form-control" name="concepto" id="concepto" required>
+            @foreach (conceptomodel item in movimientos.listarConceptos())
+            {
+                <option value="@item.idConceptos"> @item.nombre </option>
+            }
+        </select>
 
-</form>
-<a href="/Movimientos/ElegirMes">Movimientos mensuales</a>
+        <label for="Nombr">Monto</label>
 
+        <input class="form-control" type="number" id="monto" name="monto" required>
+        <br />
+
+        <input class="form-control" type="submit" id="Aceptar" name="Aceptar" value="Aceptar">
+
+    </form>
+    <a href="/Movimientos/ElegirDia">Movimientos diarios</a>
+    <br />
+    <a href="/Movimientos/ElegirMes">Movimientos mensuales</a>
+</div>

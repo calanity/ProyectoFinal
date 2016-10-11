@@ -12,61 +12,84 @@
 <h2>Editar</h2>
 
 
-<form action="../Editar" method="POST" name="formulario" id="formulario">
+<form action="../Editar" method="POST" name="formulario" class="form-horizontal" id="formulario">
 
-    
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
-    <input type="text" name="nombre" id="nombre" class="Selects" value="@Model.nombre">
-    <br /> <br />
+   <div class="form-group">
+        <label for="Nombr" class="col-sm-1 control-label TextoAgregar">Proveedor</label>
+        <div class="col-sm-10">
+            <select id="proveedor" name="proveedor" class="form-control" required>
 
-    <label id="Precio" name="Precio" class="TextoAgregar">Precio</label>
-    <input type="number" name="precio" id="precio" class="Selects" value="@Model.precio" />
+                <option value="0"> Seleccionar</option>
 
-    <br /> <br />
-    <label id="categ" name="categ" class="TextoAgregar">Categoria</label>
-
-    <select id="categoria" name="categoria" class="Selects">
-
-        @foreach (categoriamodel item in categoria.ListarCategorias())
-        {
-            if (item.id == Model.IdCategoria)
+                @foreach (proveedormodel item in proveedor.ListarProveedores())
             {
-                <option value="@item.id" selected> @item.nombre</option>
-            }
-            else
+                    <option value="@item.idProveedores"> @item.nombre</option>
+                }
+
+            </select>
+        </div>
+            <br />
+    </div>
+
+    <div class="form-group">
+
+        <label for="Nombr" class="col-sm-1 control-label TextoAgregar">Categoria</label>
+
+        <div class="col-sm-10">
+            <select id="categoria" name="categoria" class="form-control" required>
+
+                <option value="0"> Seleccionar</option>
+
+                @foreach (categoriamodel item in categoria.ListarCategorias())
             {
-                <option value="@item.id"> @item.nombre</option>
-            }
-        }
+                    <option value="@item.id"> @item.nombre</option>
+                }
 
-    </select>
-    <br />
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
+            </select>
+            <br />
+            </div>
 
-    <select name="proveedor" id="proveedor" class="Selects">
+        </div>
 
-        @foreach (proveedormodel item in proveedor.ListarProveedores())
-        {
-            if (item.idProveedores == Model.IdProveedor)
-            {
-                <option value="@item.idProveedores" selected> @item.nombre</option>
-            }
-            else
-            {
-                <option value="@item.idProveedores"> @item.nombre</option>
-            }
-        }
-    </select>
+    <div class="form-group">
 
-    <br />
-    <label id="stkActual" name="stkActual" class="TextoAgregar">Stock actual</label>
-    <input type="number" name="StockActual" id="StockActual" class="Selects" disabled value="@Model.stockactual" >
-    <br>
+        <label for="Nombr"  class="col-sm-1 control-label TextoAgregar">Nombre</label>
+
+        <div class="col-sm-10">
+
+            <input type="text" name="Nombre" id="Nombre" class="form-control" required />
+            <br /> 
+
+       </div>
+    </div>
+
+    <div class="form-group">
+
+        <label for="Nombr" class="col-sm-1 control-label TextoAgregar">Precio</label>
+
+        <div class="col-sm-10">
+            <input type="number" name="precio" id="precio" class="form-control" required />
+        </div>
+    </div>
    
-    <label id="stkmin" name="stkmin" class="TextoAgregar">Stock minimo</label>  
-    <input type="number" name="StockMinimo" id="StockMinimo" class="Selects" value="@Model.stockminimo">
+    <div class="form-group">
+
+            <label for="Nombr" class="col-sm-2 control-label TextoAgregar">Stock actual</label>
+
+        <div class="col-sm-10">
+            <input type="number" name="stockActual" id="stockActual" value="0" class="form-control" disabled required />
+        </div>
+    </div>
+            <br /   >
+    <div class="form-group">
+        <label for="Nombr" class="col-sm-2 control-label TextoAgregar">Stock minimo</label>
+        <div class="col-sm-10">
+            <input type="number" name="stockMinimo" id="stockMinimo" min="0" class="form-control" required />
+        </div>
+    </div>
+            <br /><br />
 
     <br> <br>
         
-    <input type="submit" value="Actualizar producto" />
+    <input type="submit" class="btn btn-default" value="Actualizar producto" />
     </form>

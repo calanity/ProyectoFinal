@@ -57,7 +57,7 @@ namespace PROYECTOFINAL.Controllers
             if (accion == null)
             { return View("Index"); }
             else
-            { return View("Proveedores/Compra"); }
+           { return View("../Proveedores/Compra"); }
             
         }
         [HttpPost]
