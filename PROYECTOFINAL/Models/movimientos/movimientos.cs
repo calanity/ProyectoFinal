@@ -9,7 +9,7 @@ namespace PROYECTOFINAL.Models
 {
     public class movimientos
     {
-        public static int AgregarMovimiento(double monto, string motivo, DateTime fecha, string mediopago)
+        public static int AgregarMovimiento(double monto, string motivo, DateTime fecha, string mediopago, int venta=0)
         {
             int hola = -1;
             conceptomodel conc = new conceptomodel();
@@ -21,6 +21,8 @@ namespace PROYECTOFINAL.Models
             cmd.Parameters.AddWithValue("mont", monto);
             cmd.Parameters.AddWithValue("concepto", motivo);
             cmd.Parameters.AddWithValue("fech", fecha);
+            cmd.Parameters.AddWithValue("vent", venta);
+
 
             int registros2 = cmd.ExecuteNonQuery();
             con.Close();      
@@ -36,7 +38,8 @@ namespace PROYECTOFINAL.Models
                 cmd1.Parameters.AddWithValue("idMovimiento", movi2.IdMovimientos);
                 cmd1.Parameters.AddWithValue("monto", movi2.monto);
                 cmd1.Parameters.AddWithValue("fecha", fecha);
-                cmd1.Parameters.AddWithValue("idConcepto", motivo);           
+                cmd1.Parameters.AddWithValue("idConcepto", motivo);
+                cmd1.Parameters.AddWithValue("venta", venta);
 
 
                 int registros4 = cmd1.ExecuteNonQuery();

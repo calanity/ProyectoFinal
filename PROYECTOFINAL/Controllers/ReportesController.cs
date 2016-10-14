@@ -24,7 +24,7 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult ReporteProductos(FormCollection form)
         {
-            
+
             List<productomodel> lista = new List<productomodel>();
             var path = Server.MapPath(@"~/Reporte/Report2.rdlc");
             LocalReport reporte = new LocalReport();
@@ -35,12 +35,34 @@ namespace PROYECTOFINAL.Controllers
             var tarjeta = Request.Form["tarjeta"];
             var produ = Request.Form["produc"];
             var prove = Request.Form["prove"];
-            var provedor = Request.Form["proveedor"];
+            int provedor = Convert.ToInt16(Request.Form["proveedor"]);
             int idProd = Convert.ToInt16(Request.Form["productos"]);
-            var categoria = Request.Form["categoria"];
-            int cate = Convert.ToInt16(Request.Form["cate"]);
+            int categoria =Convert.ToInt16(Request.Form["categoria"]);
+            var cate = (Request.Form["cate"]);
+            var MedioP = 0;
+            if (tarjeta == null && efectivo == null)
+            { MedioP = 1; }
+            else
+            if (tarjeta != null && efectivo == null)
+            { MedioP = 3; }
+            else
+            if (tarjeta == null && efectivo != null)
+            { MedioP = 2; }
 
-            if (efectivo == null && tarjeta== null && produ!="produc" && prove!= "prove")
+            if (produ == "produc")
+            {
+                lista = Reporte.GenerarReporte(fecha1, fecha2, MedioP, 0, 0, idProd);
+            }
+            else if (cate == "cate")
+            {
+                lista = Reporte.GenerarReporte(fecha1, fecha2, MedioP, 0, categoria, 0);
+            }
+            else if (prove == "prove")
+            {
+                lista = Reporte.GenerarReporte(fecha1, fecha2, MedioP, provedor, 0, 0);
+            }
+            else { lista = Reporte.GenerarReporte(fecha1, fecha2, 1, 0, 0, 0); }
+            /*if (efectivo == null && tarjeta== null && produ!="produc" && prove!= "prove")
             {
              //todos los productos entre 2 fechas
                 lista = Reporte.ListarProductosVendidosEntreFechas(fecha1, fecha2);
@@ -100,7 +122,7 @@ namespace PROYECTOFINAL.Controllers
             {
                 //todo de un proveedor
                 lista = Reporte.ProductosProveedor(fecha1, fecha2, Convert.ToInt16(provedor));
-            }
+            }*/
 
 
             //segun los parametros que entran, segun que lista obtiene           

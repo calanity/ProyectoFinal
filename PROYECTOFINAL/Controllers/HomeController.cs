@@ -253,7 +253,7 @@ namespace PROYECTOFINAL.Controllers
 
                         //insertar en movimientos la venta
 
-                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago);
+                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago,idVentaActual);
 
                     }
                     else
@@ -274,7 +274,7 @@ namespace PROYECTOFINAL.Controllers
                        
                         //insertar en movimientos la venta
 
-                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago);
+                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago, idVentaActual);
                     }
 
                 if (medioP == "Tarjeta")

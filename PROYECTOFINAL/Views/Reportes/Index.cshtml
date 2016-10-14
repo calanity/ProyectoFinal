@@ -16,9 +16,8 @@
         }
         else
         {
-            document.getElementById("productos").disabled = tru e;
-            $("produc").attr("disabled", true);
-
+            document.getElementById("productos").disabled = true;
+            document.getElementById("produc").prop("checked", false);
         }
        
     }
@@ -26,14 +25,13 @@
     function categoriaFuncion(checkbox)
     {
         if (checkbox.checked) {
-            document.getElementById("productos").disabled = true;            
-            document.getElementById("proveedor").disabled = true;            
+            document.getElementById("productos").disabled = true;
+            document.getElementById("proveedor").disabled = true;
             document.getElementById("categoria").disabled = false;
         }
-        else
-        {
+        else {
             document.getElementById("categoria").disabled = true;
-            document.getElementById("cate").attributes("checked", false);
+            document.getElementById("cate").prop("checked", false);
         }
     }
 
@@ -41,16 +39,15 @@
     {
         if (checkbox.checked) {
 
-            document.getElementById("productos").disabled = true;           
+            document.getElementById("productos").disabled = true;
             document.getElementById("proveedor").disabled = false;
             document.getElementById("categoria").disabled = true;
-          
-
         }
         else
         {
             document.getElementById("proveedor").disabled = true;
-          
+            document.getElementById("prove").prop("checked", false);
+
         }
        
     }
@@ -62,20 +59,22 @@
 
 
 <form method="post" action="/Reportes/ReporteProductos">
-    
+   
     <label>Fecha 1</label>
     <input type="date" name="fecha1" id="fecha1" required/>
 
     <label>Fecha 2</label>
-    <input type="date" name="fecha2" id="fecha2" required value="" />
-    <br />
+    <input type="date" name="fecha2"  id="fecha2" required value="" />
+   
+        <br /><br />
      <label>Filtros:</label>
     <br />
 
     <input type="checkbox" class=".checkbox-circle"  name="efectivo" value="efectivo"/> Efectivo<br>
     <input type="checkbox" class=".checkbox-circle" name="tarjeta" value="tarjeta"/> Tarjeta <br />
+    <br/>
     <input type="checkbox" class=".checkbox-circle" name="produc" value="produc" onclick="productosHola(this)"/> Producto <br />
-    <select name="productos" id="productos" disabled >
+    <select name="productos" class="form-control" id="productos" disabled >
         <option value="0">Seleccionar</option>
         @foreach (productomodel item in producto.ListarProductos())
         {
@@ -84,8 +83,8 @@
 
     </select>
    <br />
-    <input type="checkbox" name="prove" value="prove" onclick="proveedorFuncion(this)"/>Proveedor <br />
-    <select name="proveedor" id="proveedor" disabled >
+    <input type="checkbox" name="prove"  class=".checkbox-circle" value="prove" onclick="proveedorFuncion(this)"/>Proveedor <br />
+    <select name="proveedor" id="proveedor" class="form-control" disabled >
 
         <option value="0">Seleccionar</option>
         @foreach (proveedormodel item in proveedor.ListarProveedores())
@@ -98,7 +97,7 @@
     <br />
     <input type="checkbox" class=".checkbox-circle" name="cate" onclick="categoriaFuncion(this);
     " value="cate" /> Categoria <br />
-    <select name="categoria" id="categoria" disabled >
+    <select name="categoria" class="form-control" id="categoria" disabled >
 
         <option value="0">Seleccionar</option>
         @foreach (categoriamodel item in categoria.ListarCategorias())
@@ -110,6 +109,6 @@
 
     <br />
     <br />
-    <input type="submit" value="Descargar"/>
+    <input type="submit" class="btn btn-default"  value="Descargar"/>
 
 </form>

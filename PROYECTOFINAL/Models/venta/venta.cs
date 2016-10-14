@@ -175,12 +175,7 @@ using System.Web;
 
 
         }
-
-        public List<ventamodel> reporte()
-        {
-            var lista = new List<ventamodel>();
-            return lista;
-        }
+               
 
         public static List<ventamodel> ListarVentasxMes(int mes, int año)
         {
@@ -317,7 +312,62 @@ using System.Web;
         }
 
 
+        public static void EliminarVenta(int id)
+        {
+            /*pregunto si es efectivo o tarjeta
+            sumo el stock de los productos
+            saco el movimiento, resto la plata de la venta          
+             */
 
+            //obtengo la venta
+            ventamodel venta = new ventamodel();
+            venta = ObtenerDetalleVenta(id);
+            //obtengo el stock actual de los productos y le sumo los de la compra
+
+            //recorro la lista de los productos de la venta y en cada uno obtenfo el stock actual
+            //y le sumo la cantidad de la venta
+            foreach (productomodel item in venta.ListaArticulos)
+            {
+                
+                int stockActual = producto.ObtenerStockActual(item.id);
+                stockActual += item.cantidad;
+                producto.AltaProductos(item.id, stockActual);
+            }
+            if (venta.MedioPago == "Efectivo")
+            {
+                //si es efectivo: saco el movimiento de la caja, saco la plata de la caja
+            }
+            else
+            {
+
+               // si es tarjeta: saco la informacion de la tarjeta
+            }
+            
+        }
+        public static ventamodel ObtenerDetalleVenta(int id)
+        {
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ObtenerDetalleVenta";
+            cmd.Parameters.AddWithValue("id", id);
+            MySqlDataReader lector = cmd.ExecuteReader();
+            ventamodel vent = new ventamodel();
+
+
+            while (lector.Read())
+            {
+                if (lector.FieldCount > 0)
+                {
+                   
+                    vent.id = Convert.ToInt16(lector[""]);
+
+                }
+            }
+            con.Close();
+            return vent;
+
+        }
 
 
 

@@ -1,0 +1,189 @@
+if prove!= 0 and medioP= 1 then
+	select a.* , v.*, p.Nombre as Proveedor, c.Nombre as Categoria 
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	and a.IdProve= prove
+	order by V.Fecha;
+
+
+if prove !=0 and medioP= 2 then
+	select a.* , v.*, p.Nombre as Proveedor, c.Nombre as Categoria 
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	AND v.MedioPago="Efectivo"
+	and a.IdProve= prove
+	order by V.Fecha;
+
+if prove !=0 and medioP= 3 then
+	select a.* , v.*, p.Nombre as Proveedor, c.Nombre as Categoria 
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	AND v.MedioPago="Tarjeta"
+	and a.IdProve= prove
+	order by V.Fecha;
+
+if produ!= 0 and medioP=1 then
+	select a.* , v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	and a.IdArticulos= produ
+	order by V.Fecha;
+
+if produ!=0 and medioP=2 then
+	select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	and a.IdArticulos= produ
+	and v.MedioPago="Efectivo"
+	order by V.Fecha;
+
+if produ!=0 and medioP=3 then
+	select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	and a.IdArticulos= produ
+	and v.MedioPago="Tarjeta"
+	order by V.Fecha;
+
+if cate!=0 and medioP=1 then
+select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	and a.IdCat= cate	
+	order by V.Fecha;
+
+if cate!=0 and medioP=2 then
+select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	and a.IdCat= cate	
+	and v.MedioPago="Efectivo"
+	order by V.Fecha;
+
+if cate!=0 and medioP=3 then
+select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	and a.IdCat= cate	
+	and v.MedioPago="Efectivo"
+	order by V.Fecha;
+
+if produ=0 and cate=0 and prove=0 and medioP=1 then 
+select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2
+	order by V.Fecha;
+
+
+
+if produ=0 and cate=0 and prove=0 and medioP=2 then 
+select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2	
+	and v.MedioPago="Efectivo"
+	order by V.Fecha;
+
+if produ=0 and cate=0 and prove=0 and medioP=3 then 
+select a.* ,v.*, p.Nombre as Proveedor, c.Nombre as Categoria
+	from articulos a
+	inner join detalleventa dv
+	on a.IdArticulos = dv.idArticulo
+	inner join ventas v
+	on v.idVentas= dv.idVenta
+	inner join proveedores p 
+	on a.IdProve= p.idProveedores
+	inner join categorias c
+	on a.IdCat= idCategorias
+	WHERE v.Fecha BETWEEN fecha1 and fecha2	
+	and v.MedioPago="Efectivo"
+	order by V.Fecha;
+
+

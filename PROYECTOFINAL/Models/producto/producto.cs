@@ -135,9 +135,17 @@ namespace PROYECTOFINAL.Models
 
         public static int AltaProductos(int id, int stockActual)
         {
-            int registros = 0;
-
-            return registros;
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "AltaProductos";
+            cmd.Parameters.AddWithValue("idProd", id);
+            cmd.Parameters.AddWithValue("stockAc", stockActual);
+            
+            int registros2 = cmd.ExecuteNonQuery();
+            con.Close();
+            return (registros2);
+           
         }
 
         public static string obtenerNombre(int id)
