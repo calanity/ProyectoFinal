@@ -11,15 +11,15 @@
 <form action="../Proveedores/Agregar" method="POST" name="formulario" id="formulario">
 
 
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
-    <input type="text" name="nombre" id="nombre" class="Selects" >
-    <br /> <br />
+    <label for="prov" class="control-label TextoAgregar">Proveedor</label>
+    <input type="text" name="nombre" id="nombre" class="form-control" >
+    <br /> 
 
-    <br />
-    <label id="stkActual" name="stkActual" class="TextoAgregar">Telefono</label>
-    <input type="number" name="telefono" id="telefono" class="Selects" >
+    
+    <label for="stkActual" name="stkActual" class="control-label TextoAgregar">Telefono</label>
+    <input type="number" name="telefono" id="telefono" class="form-control" >
 
     <br> <br>
 
-    <input type="submit" value="Agregar proveedor" />
+    <input type="submit" class="btn btn-default" value="Agregar proveedor" />
 </form>

@@ -15,19 +15,19 @@
 <form action="../Editar" method="POST" name="formulario" id="formulario">
 
 
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
-    <input type="text" name="nombre" id="nombre" class="Selects" value="@Model.nombre">
-    <br /> <br />
+    <label for="prov" class="control-label TextoAgregar">Proveedor</label>
+    <input type="text" name="nombre" id="nombre" class="form-control" value="@Model.nombre">
+    <br />
 
-    <label id="sal" name="sal" class="TextoAgregar">Saldo</label>
-    <input type="number" name="saldo" id="saldo" class="Selects"  disabled value="@Model.saldo" />
+    <label for="prov" class="control-label TextoAgregar">Saldo</label>
+    <input type="number" name="saldo" id="saldo" class="form-control"  disabled value="@Model.saldo" />
       
     
     <br />
-    <label id="telef" name="telef" class="TextoAgregar">Telefono</label>
-    <input type="number" name="telefono" id="telefono" class="Selects" value="@Model.telefono">
+    <label for="prov" class="control-label TextoAgregar">Telefono</label>
+    <input type="number" name="telefono" id="telefono" class="form-control" value="@Model.telefono">
 
     <br> <br>
 
-    <input type="submit" value="Actualizar proveedor" />
+    <input type="submit" class="btn btn-default" value="Actualizar proveedor" />
 </form>

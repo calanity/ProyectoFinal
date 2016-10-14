@@ -12,9 +12,10 @@
 <form action="../Proveedores/Pagar" method="POST" name="formulario" id="formulario">
 
 
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
 
-    <select id="prove" name="prove">
+    <label for="prov" class="control-label">Proveedor</label>
+
+    <select id="prove" class="form-control" name="prove">
         @foreach (proveedormodel item in proveedor.ListarProveedores())
         {
             <option id="provee" value="@item.idProveedores" >@item.nombre</option>
@@ -23,10 +24,11 @@
     </select>
     <br>
 
-    <label id="sal" name="sal" class="TextoAgregar">Monto</label>
-    <input type="number" name="monto" id="monto" class="Selects" />
+
+    <label for="prov" class="control-label">Monto</label>
+    <input type="number" name="monto" id="monto" class="form-control" />
 
     <br> <br>
 
-    <input type="submit" value="Cargar pago" />
+    <input type="submit" class="btn btn-default" value="Cargar pago" />
 </form>

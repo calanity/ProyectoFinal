@@ -1,4 +1,4 @@
-﻿
+﻿    
 @{
     ViewBag.Title = "Compra";
 }
@@ -20,6 +20,7 @@
 <h2>Compra</h2>
 
 <a class="" data-toggle="modal" data-target=".bootstrapmodal"> Agregar </a>
+
 <div class="modal fade bootstrapmodal">
      <div class="modal-dialog">
 
@@ -27,7 +28,8 @@
 
              <div class="modal-header">
 
-                 <button data-dissmiss="modal" class="close">X</button>
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
                  <div class="modal-title">Agregar producto</div> 
                                  
              </div>
@@ -35,21 +37,22 @@
              <div class="modal-body">
                  <form action="../Productos/Agregar" method="POST">
                     <input type="hidden" name="accion" id="accion" value="popUp">
-                     <label id="categ" name="categ" class="TextoAgregar col-lg-1" >Proveedor</label>
-
+                     <label id="categ" name="categ" class="TextoAgregar" >Proveedor</label>
+                     
                      <select id="proveedor" name="proveedor" class="form-control" required>
 
-                         <option value="0"> Seleccionar</option>
+                             <option value="0"> Seleccionar</option>
 
-                         @foreach (proveedormodel item in proveedor.ListarProveedores())
-                         {
-                             <option value="@item.idProveedores"> @item.nombre</option>
-                         }
+                             @foreach (proveedormodel item in proveedor.ListarProveedores())
+                             {
+                                 <option value="@item.idProveedores"> @item.nombre</option>
+                             }
 
-                     </select>
+                         </select>
+                    
                      <br />
 
-                     <label id="categ" name="categ" class="TextoAgregar col-lg-1">Categoria</label>
+                     <label id="categ" name="categ" class="TextoAgregar">Categoria</label>
 
                      <select id="categoria" name="categoria" class="form-control" required>
 
@@ -63,22 +66,22 @@
                      </select>
                      <br />
 
-                     <label id="Nombre" name="Nombre" class="TextoAgregar col-lg-1">Nombre</label>
+                     <label id="Nombre" name="Nombre" class="TextoAgregar">Nombre</label>
                      <input type="text" name="Nombre" id="Nombre" class="form-control" required />
-                     <br /> <br />
+                     <br />
 
-                     <label id="Precio" name="Precio" class="TextoAgregar col-lg-1">Precio</label>
+                     <label id="Precio" name="Precio" class="TextoAgregar">Precio</label>
                      <input type="number" name="precio" id="precio" class="form-control" required />
 
 
                      <br /> 
 
                                         
-                     <label id="stkActual" name="stkActual" class="TextoAgregar col-lg-1">Stock actual</label>
+                     <label id="stkActual" name="stkActual" class="TextoAgregar">Stock actual</label>
                      <input type="number" name="stockActual" id="stockActual" disabled value="0" class="form-control" required />
 
                      <br />
-                     <label id="stkmin" name="stkmin" class="TextoAgregar col-lg-1">Stock minimo</label>
+                     <label id="stkmin" name="stkmin" class="TextoAgregar">Stock minimo</label>
                      <input type="number" name="stockMinimo" id="stockMinimo" min="0" class="form-control" required />
 
                      <br />
@@ -98,9 +101,9 @@
 
 
     <div id="proveedor2">
-        <label id="Nombre" name="Nombre" class="TextoAgregar">Proveedor</label>
+        <label for="prov" class="control-label">Proveedor</label>
 
-        <select id="prove" name="prove">
+        <select id="prove" class="form-control" name="prove">
             @foreach (proveedormodel item in proveedor.ListarProveedores())
             {
                 <option id="provee" value="@item.idProveedores">@item.nombre</option>
@@ -115,6 +118,6 @@
 
 
     
-    <input type="submit" value="Cargar compra" />
+    <input type="submit" class="btn btn-default" value="Cargar compra" />
 </form>
 

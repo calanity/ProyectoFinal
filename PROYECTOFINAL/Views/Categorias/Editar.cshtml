@@ -14,8 +14,8 @@
 <form action="../Editar" method="POST" name="formulario" id="formulario">
 
 
-    @Html.Label("Nombre")
-    <input type="text" name="nombre" id="nombre" value="@Model.nombre">
+    <label for="Nombr" class="col-sm-1 control-label TextoAgregar">Nombre</label>
+    <input type="text" name="nombre" class="form-control" id="nombre" value="@Model.nombre">
     <br /> <br />
     <h6 hidden name="nombre" id="nombre" value="@Model.id"></h6>
     <input type="submit" value="Actualizar categoria" />

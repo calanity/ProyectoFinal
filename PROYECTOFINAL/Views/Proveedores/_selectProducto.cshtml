@@ -3,30 +3,30 @@
 
 <div id="SelectProducto">
 
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Producto</label>
+    <label for="prov" class="control-label">Producto</label>
 
-    <select name="prod" id="prod">
+    <select name="prod" class="form-control" id="prod">
 
-    <option value="0">Seleccionar</option>
+        <option value="0">Seleccionar</option>
 
-    @foreach (productomodel item in Model)
-    {
-        <option value="@item.id"> @item.nombre</option>
-    }
+        @foreach (productomodel item in Model)
+        {
+            <option value="@item.id"> @item.nombre</option>
+        }
 
     </select>
     <br />
 
-    <label id="Nombre" name="Nombre" class="TextoAgregar">Cantidad</label>
-    <input type="number" id="cantidad" name="cantidad"  required min="1"/>
+    <label for="prov" class="control-label">Cantidad</label>
+    <input type="number" class="form-control" id="cantidad" name="cantidad"  required min="1"/>
     <br>
 
-    <label id="sal" name="sal" class="TextoAgregar">Costo unitario</label>
-    <input type="number" name="unitario" id="unitario" class="Selects" />
+    <label for="prov" class="control-label">Costo unitario</label>
+    <input type="number"  name="unitario" id="unitario" class="form-control" />
     <br>
 
-    <label id="sal" name="sal" class="TextoAgregar">Monto</label>
-    <input type="number" name="monto" id="monto" class="Selects" />
+    <label for="prov" class="control-label">Monto</label>
+    <input type="number" name="monto" id="monto" class="form-control" />
 
     <br> <br>
 </div>

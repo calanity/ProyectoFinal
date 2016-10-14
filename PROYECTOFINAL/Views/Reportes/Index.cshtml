@@ -11,27 +11,46 @@
         if (checkbox.checked) {
             document.getElementById("productos").disabled = false;
             document.getElementById("proveedor").disabled = true;
+            document.getElementById("categoria").disabled = true;
+
         }
         else
         {
-            document.getElementById("productos").disabled = true;
-            document.getElementById("produc").prop("checked", false);
+            document.getElementById("productos").disabled = tru e;
+            $("produc").attr("disabled", true);
+
         }
        
+    }
+
+    function categoriaFuncion(checkbox)
+    {
+        if (checkbox.checked) {
+            document.getElementById("productos").disabled = true;            
+            document.getElementById("proveedor").disabled = true;            
+            document.getElementById("categoria").disabled = false;
+        }
+        else
+        {
+            document.getElementById("categoria").disabled = true;
+            document.getElementById("cate").attributes("checked", false);
+        }
     }
 
     function proveedorFuncion(checkbox)
     {
         if (checkbox.checked) {
 
-            document.getElementById("productos").disabled = true;
+            document.getElementById("productos").disabled = true;           
             document.getElementById("proveedor").disabled = false;
+            document.getElementById("categoria").disabled = true;
+          
+
         }
         else
         {
             document.getElementById("proveedor").disabled = true;
-            document.getElementById("prove").prop("checked", false);
-
+          
         }
        
     }
@@ -75,7 +94,21 @@
         }
 
     </select>
-        
+    
+    <br />
+    <input type="checkbox" class=".checkbox-circle" name="cate" onclick="categoriaFuncion(this);
+    " value="cate" /> Categoria <br />
+    <select name="categoria" id="categoria" disabled >
+
+        <option value="0">Seleccionar</option>
+        @foreach (categoriamodel item in categoria.ListarCategorias())
+        {
+            <option value="@item.id">@item.nombre</option>
+        }
+
+    </select>
+
+    <br />
     <br />
     <input type="submit" value="Descargar"/>
 

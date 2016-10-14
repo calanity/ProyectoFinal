@@ -37,6 +37,8 @@ namespace PROYECTOFINAL.Controllers
             var prove = Request.Form["prove"];
             var provedor = Request.Form["proveedor"];
             int idProd = Convert.ToInt16(Request.Form["productos"]);
+            var categoria = Request.Form["categoria"];
+            int cate = Convert.ToInt16(Request.Form["cate"]);
 
             if (efectivo == null && tarjeta== null && produ!="produc" && prove!= "prove")
             {
