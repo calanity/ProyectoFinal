@@ -71,8 +71,9 @@ namespace PROYECTOFINAL.Controllers
         }
         public ActionResult Eliminar(int id)
         {
-            //eliminar la compra de la base de datos, devuelvo el stock, elimino el movimiento(caja/tarj/mov)resto plata caja/venta
-
+            /*eliminar la compra de la base de datos, devuelvo el stock, 
+             * elimino el movimiento(caja/tarj/mov)resto plata caja/venta*/
+            int ret = venta.EliminarVenta(id);
             return View();
         }
         

@@ -15,6 +15,7 @@
             <th>Monto Total</th>
             <th>Medio de Pago</th>
             <th>Fecha</th>
+            <th>Accion</th>
         </tr>
 
         @foreach (ventamodel item in Model)
@@ -23,6 +24,7 @@
                 <td>@item.MontoTotal</td>
                 <td>@item.MedioPago</td>
                 <td>@item.Fecha</td>
+                <td>@Html.ActionLink("Eliminar", "eliminar", "ventas", new { id = item.id }, null)</td>
             </tr>
 
         }

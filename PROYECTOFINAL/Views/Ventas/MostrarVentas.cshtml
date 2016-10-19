@@ -16,6 +16,7 @@
         <tr>
             <th>Monto Total</th>
             <th>Medio de Pago</th>
+            <th>id</th>
             <th>Accion</th>
         </tr>
         
@@ -24,6 +25,7 @@
             <tr>
                 <td>@item.MontoTotal</td>
                 <td>@item.MedioPago</td>
+                <td>@item.id</td>
                 <td>@Html.ActionLink("Eliminar", "eliminar", "ventas", new { id = item.id }, null)</td>
             </tr>
 

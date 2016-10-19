@@ -162,6 +162,7 @@ using System.Web;
 
                     if (lector["MedioPago"] != null && lector["MontoTotal"] != null)
                     {
+                        oventa.id = Convert.ToInt16(lector["idventas"]);
                         oventa.MedioPago = (string)(lector["MedioPago"]);
                         oventa.MontoTotal = (int)(lector["MontoTotal"]);
                         l3.Add(oventa);
@@ -196,6 +197,7 @@ using System.Web;
 
                     if (lector["MedioPago"] != null && lector["MontoTotal"] != null)
                     {
+                        oventa.id = Convert.ToInt16(lector["idventas"]);
                         oventa.MedioPago = (string)(lector["MedioPago"]);
                         oventa.MontoTotal = (int)(lector["MontoTotal"]);
                         oventa.Fecha = (DateTime)(lector["Fecha"]);
@@ -312,7 +314,7 @@ using System.Web;
         }
 
 
-        public static void EliminarVenta(int id)
+        public static int EliminarVenta(int id)
         {
             /*pregunto si es efectivo o tarjeta
             sumo el stock de los productos
@@ -322,6 +324,8 @@ using System.Web;
             //obtengo la venta
             ventamodel venta = new ventamodel();
             venta = ObtenerDetalleVenta(id);
+
+            //eliminar detalle venta
             //obtengo el stock actual de los productos y le sumo los de la compra
 
             //recorro la lista de los productos de la venta y en cada uno obtenfo el stock actual
@@ -333,17 +337,23 @@ using System.Web;
                 stockActual += item.cantidad;
                 producto.AltaProductos(item.id, stockActual);
             }
+            int mediopag;
             if (venta.MedioPago == "Efectivo")
-            {
-                //si es efectivo: saco el movimiento de la caja, saco la plata de la caja
-            }
-            else
-            {
+            { mediopag = 1; }
+            else { mediopag = 2; }
+            MySqlConnection con1 = producto.AbrirConexion();
+            MySqlCommand cmd1 = con1.CreateCommand();
+            cmd1.CommandType = CommandType.StoredProcedure;
+            cmd1.CommandText = "EliminarVenta";            
+            cmd1.Parameters.AddWithValue("idDetalle",id);
+            cmd1.Parameters.AddWithValue("medioPago", mediopag);
 
-               // si es tarjeta: saco la informacion de la tarjeta
-            }
-            
+
+            int registros2 = cmd1.ExecuteNonQuery();
+            con1.Close();
+            return 1;
         }
+
         public static ventamodel ObtenerDetalleVenta(int id)
         {
             MySqlConnection con = producto.AbrirConexion();
@@ -353,17 +363,28 @@ using System.Web;
             cmd.Parameters.AddWithValue("id", id);
             MySqlDataReader lector = cmd.ExecuteReader();
             ventamodel vent = new ventamodel();
-
+            List<productomodel> lista = new List<productomodel>();
 
             while (lector.Read())
             {
                 if (lector.FieldCount > 0)
                 {
-                   
-                    vent.id = Convert.ToInt16(lector[""]);
+                    vent.id = Convert.ToInt16(lector["idventas"]);
+                    vent.Fecha = Convert.ToDateTime(lector["Fecha"]);
+                    vent.MontoTotal = Convert.ToInt16(lector["MontoTotal"]);
+                    vent.MedioPago = Convert.ToString(lector["MedioPago"]);
+                    vent.IdMovimientos = Convert.ToInt16(lector["IdMovimientos"]);
+                    vent.IdConcepto= Convert.ToInt16(lector["IdConcepto"]);
+                    productomodel prod = new productomodel();
+                    prod.id= Convert.ToInt16(lector["idArticulo"]);
+                    prod.precio= Convert.ToInt16(lector["precio"]);
+                    prod.cantidad= Convert.ToInt16(lector["cantidad"]);
+                    prod.subtotal= Convert.ToInt16(lector["subtotal"]);
+                    lista.Add(prod);
 
                 }
             }
+            vent.ListaArticulos = lista;
             con.Close();
             return vent;
 
