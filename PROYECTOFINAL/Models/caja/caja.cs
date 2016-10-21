@@ -89,13 +89,14 @@ namespace PROYECTOFINAL.Models
             return caja;
         }
 
-        public static int ObtenerCajaFinal()
+        public static int ObtenerCajaFinal(int idLocal)
         {
             int cajaFinal = -1;            
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "ObtenerCajaFinal";           
+            cmd.CommandText = "ObtenerCajaFinal";
+            cmd.Parameters.AddWithValue("loc", idLocal);   
             MySqlDataReader lector = cmd.ExecuteReader();
             
             while (lector.Read())

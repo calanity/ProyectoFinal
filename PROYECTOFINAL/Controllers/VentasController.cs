@@ -52,6 +52,7 @@ namespace PROYECTOFINAL.Controllers
         }
         public ActionResult MostrarVentasMensuales(FormCollection formulario)
         {
+           
             var mes = (Request.Form["mes"]);
             var año = (Request.Form["año"]);
             if(mes==null&&año==null)
@@ -73,9 +74,10 @@ namespace PROYECTOFINAL.Controllers
         {
             /*eliminar la compra de la base de datos, devuelvo el stock, 
              * elimino el movimiento(caja/tarj/mov)resto plata caja/venta*/
-            int ret = venta.EliminarVenta(id);
-            return View();
+                int ret = venta.EliminarVenta(id);
+                return View("Index");
+            
+
         }
-        
     }
 }

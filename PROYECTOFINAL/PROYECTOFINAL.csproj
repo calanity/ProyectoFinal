@@ -254,6 +254,7 @@
     <Compile Include="Models\cantidadmodel.cs" />
     <Compile Include="Models\categoria\categoria.cs" />
     <Compile Include="Models\categoria\categoriamodel.cs" />
+    <Compile Include="Models\compramodel.cs" />
     <Compile Include="Models\movimientos\conceptomodel.cs" />
     <Compile Include="Models\movimientos\movimientos.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -385,6 +386,8 @@
     <Content Include="Views\Home\_selectMedioPago.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
     <Content Include="Views\Reportes\ReporteProductos.cshtml" />
+    <Content Include="Views\Reportes\ReporteProve.cshtml" />
+    <Content Include="Views\Reportes\ReporteProveedores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -408,6 +411,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporte\Report2.rdlc" />
+    <EmbeddedResource Include="Reporte\Report3.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

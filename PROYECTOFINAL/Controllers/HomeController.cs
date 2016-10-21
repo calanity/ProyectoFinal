@@ -48,10 +48,15 @@ namespace PROYECTOFINAL.Controllers
         {
             return RedirectToAction("Index");
         }
+       
 
         [HttpPost]
         public ActionResult Index(FormCollection alario)
         {
+            
+            var idLocal = Session["idLocal"];
+            
+                        
             bool distinto = true;
             List<productomodel> actual = new List<productomodel>();
             //carga los articulos en el temp data, si es != null lo baja, lo vacia y lo vuelve a cargar
@@ -123,7 +128,6 @@ namespace PROYECTOFINAL.Controllers
                     TempData.Keep();
                     return View("Index");
 
-//                }   else   { TempData.Keep();  return View("FaltaStock");          }
 
 
 
@@ -186,6 +190,7 @@ namespace PROYECTOFINAL.Controllers
             
             //carga la venta, obtiene el id y su detalle en la base de datos y lista la venta
             string medioP;
+            int idLocal = Convert.ToInt16(Session["idLocal"]);
             int idVentaActual;
             int tipo = 0;
             int cuotas = 0;
@@ -232,7 +237,7 @@ namespace PROYECTOFINAL.Controllers
 
                     //pregunto si la caja no esta cerrada, si esta cerrada, va para el dia siguiente
 
-                    int cajaFinal = caja.ObtenerCajaFinal();
+                    int cajaFinal = caja.ObtenerCajaFinal(idLocal);
                     if (cajaFinal < 0)
                     {
 
@@ -298,8 +303,8 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult SelectProductos(int idCategoria)
         {
-            var productos = producto.ListarProductosXCategoria(idCategoria);
-            //TempData.Remove("");
+            int idLocal = Convert.ToInt16(Session["idLocal"]);
+            var productos = producto.ListarProductosXCategoria(idCategoria, idLocal);            
             var validador = TempData["catego"];
             if (validador == null)
             {

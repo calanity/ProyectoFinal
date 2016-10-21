@@ -26,7 +26,7 @@ namespace PROYECTOFINAL.Models
         public string Categoria { get; set; }
         public string MedioPago { get; set; }
 
-
+        public int idLocal { get; set; }
         public int subtotal { get; set; }
         public int totalProductos { get; set; }
 

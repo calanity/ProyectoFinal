@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ReporteProve";
+}
+@using PROYECTOFINAL.Models;
+@using Libreria;
+
+<h2>Reporte compras a proveedores</h2>
+<form method="post" action="/Reportes/ReporteProveedores">
+    <br>
+    <label>Fecha 1</label>
+    <input type="date"  class="form-control" name="fecha1" id="fecha1" required />
+
+    <label>Fecha 2</label>
+    <input type="date" class="form-control" name="fecha2" id="fecha2" required value="" />
+
+    <br /><br />
+    <label>Elija proveedor a listar</label>
+    <select name="proveedor" id="proveedor" class="form-control" >
+
+        <option value="0">Todos</option>
+        @foreach (proveedormodel item in proveedor.ListarProveedores())
+        {
+            <option value="@item.idProveedores">@item.nombre</option>
+        }
+
+    </select>
+    <br>
+    <input type="submit" class="btn btn-default" value="Descargar" />
+
+</form>

@@ -24,11 +24,7 @@ namespace PROYECTOFINAL.Models
             builder.UserID = "bcaf7709a9bf09";
             builder.Password = "1d3406fc";
             builder.Database = "acsm_49aeb6a572de874";
-            /*builder.Server= "localhost";
-            builder.UserID = "root";
-            builder.Password = "";
-            builder.Database = "acsm_49aeb6a572de874";*/
-
+           
              MySqlConnection conn = new MySqlConnection(builder.ToString());
             MySqlCommand cmd = conn.CreateCommand();
             conn.Open();
@@ -60,13 +56,15 @@ namespace PROYECTOFINAL.Models
             con.Close();
             return oprod;
         }
-        public static List<productomodel> ListarProductos()
+        public static List<productomodel> ListarProductos(int local)
         {
+            
             List<productomodel> lprod = new List<productomodel>();
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarArticulos";
+            cmd.Parameters.AddWithValue("loc", local);
             MySqlDataReader lector = cmd.ExecuteReader();
 
             while (lector.Read())
@@ -92,7 +90,7 @@ namespace PROYECTOFINAL.Models
             return lprod;
 
         }
-        public static List<productomodel> ListarProductosXCategoria(int cate)
+        public static List<productomodel> ListarProductosXCategoria(int cate, int loc)
         {
             List<productomodel> lProd = new List<productomodel>();
             MySqlConnection con = producto.AbrirConexion();
@@ -100,6 +98,7 @@ namespace PROYECTOFINAL.Models
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarProductosxCate";
             cmd.Parameters.AddWithValue("cate", cate);
+            cmd.Parameters.AddWithValue("loc", loc);
             MySqlDataReader lector = cmd.ExecuteReader();
 
 
@@ -189,8 +188,7 @@ namespace PROYECTOFINAL.Models
 
         public static List<productomodel> ObtenerStockMinimoYActual(List<productomodel> list)
         {
-            int stockminimo = 0;
-            int stockactual = 0;
+            productomodel prod = new productomodel();
             List<productomodel> listaEnviar = new List<productomodel>();
             foreach (productomodel item in list)
             {
@@ -205,13 +203,18 @@ namespace PROYECTOFINAL.Models
 
                 while (lector.Read())
                 {
-                    stockactual = Convert.ToInt16(lector["StockActual"]);
-                    stockminimo = Convert.ToInt16(lector["StockMinimo"]);
+                    prod.id = Convert.ToInt16(lector["IdArticulos"]);
+                    prod.nombre = lector["Nombre"].ToString();
+                    prod.IdCategoria = Convert.ToInt16(lector["IdCat"]);
+                    prod.precio = Convert.ToInt16(lector["Precio"]);
+                    prod.stockactual = Convert.ToInt16(lector["StockActual"]);
+                    prod.stockminimo = Convert.ToInt16(lector["StockMinimo"]);
+
                 }
 
                 con.Close();
 
-                if (stockactual <= stockminimo)
+                if (prod.stockactual <= prod.stockminimo)
                 {
                     //lo agrego a la lista para el mail
                     listaEnviar.Add(item);
@@ -270,6 +273,8 @@ namespace PROYECTOFINAL.Models
 
             foreach (productomodel item in listaEnviar)
             {
+                productomodel prod = new productomodel();
+               // prod = producto.obtenerNombre();
                 MiObjetoArchivo.WriteLine("Nombre del producto: " + item.nombre + ", " + "Stock actual" + item.stockactual + ", " + "Proveedor" +  producto.ObtenerNombreProveedor(item.id));
             }
 

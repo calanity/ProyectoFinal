@@ -11,5 +11,6 @@ namespace ClassLibrary1
             public int CajaFinal { get; set; }
             public int CajaInicio { get; set; }
             public DateTime Fecha { get; set; }
+        public int idLocal { get; set; }
      }
 }

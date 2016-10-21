@@ -17,6 +17,6 @@ namespace PROYECTOFINAL.Models
         public List<productomodel> ListaArticulos;
         public string MedioPago { get; set; }
         public double MontoTotal { get; set; }
-
+        public int idLocal { get; set; }
     }
 }

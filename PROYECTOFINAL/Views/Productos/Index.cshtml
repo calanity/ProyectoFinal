@@ -25,7 +25,7 @@
 
     </tr>
 
-    @foreach (productomodel item in @producto.ListarProductos())
+    @foreach (productomodel item in @producto.ListarProductos(Convert.ToInt16(Session["idLocal"])))
     {
         <tr>
             <td>@item.nombre</td>

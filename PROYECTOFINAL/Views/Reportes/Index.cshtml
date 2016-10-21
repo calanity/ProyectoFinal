@@ -76,7 +76,7 @@
     <input type="checkbox" class=".checkbox-circle" name="produc" value="produc" onclick="productosHola(this)"/> Producto <br />
     <select name="productos" class="form-control" id="productos" disabled >
         <option value="0">Seleccionar</option>
-        @foreach (productomodel item in producto.ListarProductos())
+        @foreach (productomodel item in producto.ListarProductos(Convert.ToInt16(Session["idLocal"])))
         {
             <option value="@item.id">@item.nombre</option>
         }

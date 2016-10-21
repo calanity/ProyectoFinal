@@ -60,8 +60,8 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult CerrarCaja()
         {
             //averigua si la caja del dia de la fecha esta cerrada y sino la cierra
-
-            int cajafinal = caja.ObtenerCajaFinal();
+            int idLocal = Convert.ToInt16(Session["idLocal"]);
+            int cajafinal = caja.ObtenerCajaFinal(idLocal);
             if (cajafinal ==-1)
             {
                 using (MySqlConnection con2 = producto.AbrirConexion())
@@ -73,7 +73,7 @@ namespace PROYECTOFINAL.Controllers
                     int registros = cmd2.ExecuteNonQuery();
                     con2.Close();
                 }
-                cajafinal = caja.ObtenerCajaFinal();
+                cajafinal = caja.ObtenerCajaFinal(idLocal);
             }
             
             return View(cajafinal);

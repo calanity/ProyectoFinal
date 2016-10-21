@@ -14,7 +14,8 @@ namespace PROYECTOFINAL.Controllers
         // GET: Productos
         public ActionResult Index()
         {
-            var lista = producto.ListarProductos();
+            int idLocal =Convert.ToInt16(Session["idLocal"]);
+            var lista = producto.ListarProductos(idLocal);
             return View(lista);
         }
         
