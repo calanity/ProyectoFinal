@@ -30,7 +30,9 @@ namespace PROYECTOFINAL.Controllers
         {
 
             List<productomodel> lista = new List<productomodel>();
-            var path = Server.MapPath(@"~/Reporte/Report2.rdlc");
+            //var path = Server.MapPath(@"~/Reporte/Report2.rdlc");
+            var path = Server.MapPath("Report2.rdlc");
+
             LocalReport reporte = new LocalReport();
             reporte.ReportPath = path;
             DateTime fecha1 = Convert.ToDateTime(Request.Form["fecha1"]);
