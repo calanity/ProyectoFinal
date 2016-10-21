@@ -113,7 +113,9 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult ReporteProveedores()
         {
-            var path = Server.MapPath(@"~/Reporte/Report1.rdlc");
+            //var path = Server.MapPath(@"~/Reporte/Report1.rdlc");
+            var path = Server.MapPath("Report1.rdlc");
+
             LocalReport reporte = new LocalReport();
             reporte.ReportPath = path;
             List<proveedormodel> lista = new List<proveedormodel>();
