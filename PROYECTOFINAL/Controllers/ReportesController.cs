@@ -3,6 +3,7 @@ using Microsoft.Reporting.WebForms;
 using PROYECTOFINAL.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,7 +32,6 @@ namespace PROYECTOFINAL.Controllers
 
             List<productomodel> lista = new List<productomodel>();
             var path = Server.MapPath(@"~/Reporte/Report2.rdlc");
-           
 
             LocalReport reporte = new LocalReport();
             reporte.ReportPath = path;
