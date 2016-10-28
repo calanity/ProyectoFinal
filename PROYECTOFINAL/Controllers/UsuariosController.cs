@@ -14,10 +14,15 @@ namespace PROYECTOFINAL.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            return View();
+            if (Session == null)
+            {
+                Session.Clear();
+            }
+            return View(0);
         }
         public ActionResult Ingresar(FormCollection form)
         {
+            
             var idLocal = Convert.ToInt16(Request.Form["nombre"]);
             var contraseña = Request.Form["contraseña"];
             usuariomodel us = new usuariomodel();
@@ -51,9 +56,7 @@ namespace PROYECTOFINAL.Controllers
             {
                 return View("../Usuarios/Index",1);
             }
-            /*var password = Session["contraseña"].ToString();
-            var nom = Session["nombre"].ToString();
-            var loc = Session["idLocal"];*/
+          
             
             return View("../Home/Index");
         }

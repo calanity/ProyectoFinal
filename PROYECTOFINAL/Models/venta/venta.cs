@@ -11,7 +11,7 @@ using System.Web;
 {
     public class venta
     {
-        public static int CrearVenta(DateTime fecha, double montot, string mediop)
+        public static int CrearVenta(DateTime fecha, double montot, string mediop, int idlocal)
         {
 
             MySqlConnection con = producto.AbrirConexion();
@@ -21,6 +21,7 @@ using System.Web;
             cmd.Parameters.AddWithValue("fech", fecha);
             cmd.Parameters.AddWithValue("montot", montot);
             cmd.Parameters.AddWithValue("mediop", mediop);
+            cmd.Parameters.AddWithValue("idLocal", idlocal);
             int registros = cmd.ExecuteNonQuery();
             con.Close();
             return registros;
@@ -144,13 +145,14 @@ using System.Web;
 
         }
 
-        public static List<ventamodel> ListarVentasxDia(DateTime fecha)
+        public static List<ventamodel> ListarVentasxDia(DateTime fecha, int idLocal)
         {
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ListarVentasxDia";
             cmd.Parameters.AddWithValue("fech", fecha);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
             MySqlDataReader lector = cmd.ExecuteReader();
             List<ventamodel> l3 = new List<ventamodel>();
 
@@ -162,10 +164,13 @@ using System.Web;
 
                     if (lector["MedioPago"] != null && lector["MontoTotal"] != null)
                     {
-                        oventa.id = Convert.ToInt16(lector["idventas"]);
-                        oventa.MedioPago = (string)(lector["MedioPago"]);
-                        oventa.MontoTotal = (int)(lector["MontoTotal"]);
-                        l3.Add(oventa);
+                        if (Convert.ToInt16(lector["idLocal"]) == idLocal)
+                        {
+                            oventa.id = Convert.ToInt16(lector["idventas"]);
+                            oventa.MedioPago = (string)(lector["MedioPago"]);
+                            oventa.MontoTotal = (int)(lector["MontoTotal"]);
+                            l3.Add(oventa);
+                        }
                     }
                 }
 
@@ -178,7 +183,7 @@ using System.Web;
         }
                
 
-        public static List<ventamodel> ListarVentasxMes(int mes, int año)
+        public static List<ventamodel> ListarVentasxMes(int mes, int año, int idLocal)
         {
             MySqlConnection con = producto.AbrirConexion();
             MySqlCommand cmd = con.CreateCommand();
@@ -186,6 +191,8 @@ using System.Web;
             cmd.CommandText = "ListarVentasMensuales";
             cmd.Parameters.AddWithValue("mes", mes);
             cmd.Parameters.AddWithValue("año", año);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
+
             MySqlDataReader lector = cmd.ExecuteReader();
             List<ventamodel> l3 = new List<ventamodel>();
 
@@ -197,11 +204,14 @@ using System.Web;
 
                     if (lector["MedioPago"] != null && lector["MontoTotal"] != null)
                     {
-                        oventa.id = Convert.ToInt16(lector["idventas"]);
-                        oventa.MedioPago = (string)(lector["MedioPago"]);
-                        oventa.MontoTotal = (int)(lector["MontoTotal"]);
-                        oventa.Fecha = (DateTime)(lector["Fecha"]);
-                        l3.Add(oventa);
+                        if(Convert.ToInt16(lector["idLocal"]) ==idLocal)
+                        { 
+                            oventa.id = Convert.ToInt16(lector["idventas"]);
+                            oventa.MedioPago = (string)(lector["MedioPago"]);
+                            oventa.MontoTotal = (int)(lector["MontoTotal"]);
+                            oventa.Fecha = (DateTime)(lector["Fecha"]);
+                            l3.Add(oventa);
+                        }
                     }
                 }
 
@@ -212,7 +222,7 @@ using System.Web;
 
         }
 
-        public static int ObtenerTotalTarjeta(DateTime fecha)
+        public static int ObtenerTotalTarjeta(DateTime fecha, int idLocal)
         {
             //obtiene de la base de datos el total vendido con tarjeta
             MySqlConnection con = producto.AbrirConexion();
@@ -220,6 +230,8 @@ using System.Web;
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerVentaTarjetaXDia";
             cmd.Parameters.AddWithValue("fech", fecha);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
+
             MySqlDataReader lector = cmd.ExecuteReader();
 
             int totTarjeta = 0;
@@ -237,7 +249,7 @@ using System.Web;
             con.Close();
             return (totTarjeta);
         }
-        public static int ObtenerTotalEfectivo(DateTime fecha)
+        public static int ObtenerTotalEfectivo(DateTime fecha, int idLocal)
         {
             //obtiene de la cbase de datos el total vendido con efectivo
             MySqlConnection con = producto.AbrirConexion();
@@ -245,6 +257,8 @@ using System.Web;
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerVentaEfectivoxDia";
             cmd.Parameters.AddWithValue("fech", fecha);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
+
             MySqlDataReader lector = cmd.ExecuteReader();
 
             int totEfectivo = 0;
@@ -264,7 +278,7 @@ using System.Web;
             return (totEfectivo);
         }
 
-        public static int ObtenerTotalVendidoXDia(DateTime fecha)
+        public static int ObtenerTotalVendidoXDia(DateTime fecha, int idLocal)
         {
             //obtienen el total vendido en un dia
             MySqlConnection con = producto.AbrirConexion();
@@ -272,6 +286,8 @@ using System.Web;
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerVentaTotalXDia";
             cmd.Parameters.AddWithValue("fech", fecha);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
+
             MySqlDataReader lector = cmd.ExecuteReader();
 
             int TotalDia = 0;

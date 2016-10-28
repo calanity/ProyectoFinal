@@ -18,54 +18,75 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult MostrarVentas(DateTime? fecha= null)
         {
-            List<ventamodel> lista = new List<ventamodel>();
-            //obtener fecha y ejecutar la consulta
-            if (fecha== null)
+            var idLocal = Session["idlocal"];
+            if (idLocal == null)
             {
-                return View("Index");
+
+                return RedirectToAction("Index", "Usuarios");
+
             }
             else
             {
-                DateTime fecha2 = Convert.ToDateTime(fecha);
 
-                //pregunta si el dia tienen ventas y despues las lista
-                var resul = venta.ObtenerTotalVendidoXDia(fecha2);
-                if(resul>0)
-                { 
-                    lista = venta.ListarVentasxDia(fecha2);
-                }
-
-                if (TempData["fecha"] == null)
+                List<ventamodel> lista = new List<ventamodel>();
+                //obtener fecha y ejecutar la consulta
+                if (fecha == null)
                 {
-                    TempData.Add("fecha", fecha);
-                }
+                    return View("Index");
+                }                   
+                                   
                 else
                 {
-                    TempData["fecha"] = fecha;
+                    DateTime fecha2 = Convert.ToDateTime(fecha);
+                    //pregunta si el dia tienen ventas y despues las lista
+                    var resul = venta.ObtenerTotalVendidoXDia(fecha2, Convert.ToInt16(idLocal));
+                    if (resul > 0)
+                    {
+                        lista = venta.ListarVentasxDia(fecha2, Convert.ToInt16(idLocal));
+                    }
+
+                    if (TempData["fecha"] == null)
+                    {
+                        TempData.Add("fecha", fecha);
+                    }
+                    else
+                    {
+                        TempData["fecha"] = fecha;
+                    }
+                    TempData.Keep();
+                    return View(lista);
                 }
-                TempData.Keep();
-                return View(lista);
-            }
-            
+             }
         }
+
+        
         public ActionResult VentasMensual()
         {
             return View();
         }
         public ActionResult MostrarVentasMensuales(FormCollection formulario)
         {
-           
-            var mes = (Request.Form["mes"]);
-            var año = (Request.Form["año"]);
-            if(mes==null&&año==null)
+
+            if (Session["idLocal"]== null)
             {
-                return View("Index");
+                return RedirectToAction("Index", "Usuarios");
             }
+
             else
-            { 
-            List<ventamodel> lista = venta.ListarVentasxMes(Convert.ToInt16(mes), Convert.ToInt16(año));
-                TempData.Keep();
-                return View(lista);
+            {
+
+                var mes = (Request.Form["mes"]);
+                var año = (Request.Form["año"]);
+                if (mes == null && año == null)
+                {
+                    return View("Index");
+                }
+                else
+                {
+                    List<ventamodel> lista = venta.ListarVentasxMes(Convert.ToInt16(mes), Convert.ToInt16(año), Convert.ToInt16(Session["idLocal"]));
+                    TempData.Keep();
+                    return View(lista);
+                }
             }
         }
         public ActionResult IngresosYSalidas()
@@ -75,7 +96,7 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult Eliminar(int id=0)
         {
                 int ret = venta.EliminarVenta(id);
-                return View("Index");
+                return RedirectToAction("Index");
             
 
         }

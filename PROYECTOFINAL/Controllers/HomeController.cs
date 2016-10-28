@@ -31,8 +31,15 @@ namespace PROYECTOFINAL.Controllers
         }
         public ActionResult Index()
         {
-            TempData.Keep();
-            return View();
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            { 
+                TempData.Keep();
+                return View();
+            }
         }
         public ActionResult FinT()
         {
@@ -135,7 +142,7 @@ namespace PROYECTOFINAL.Controllers
             }
      
 
-        public ActionResult FaltaStock()
+        /*public ActionResult FaltaStock()
         {
             var lista = (productomodel)TempData["listaActual"];
             TempData.Remove("listaActual");
@@ -143,7 +150,7 @@ namespace PROYECTOFINAL.Controllers
             TempData.Keep();
             return View(lista);
         }
-
+        
         public ActionResult ErrorValidacion()
         {
             var lista = (productomodel)TempData["listaActual"];
@@ -151,7 +158,7 @@ namespace PROYECTOFINAL.Controllers
             TempData.Add("listaActual", lista);
             TempData.Keep();
             return View(lista);
-        }
+        }*/
 
         public ActionResult Venta(FormCollection barovero)
         {
@@ -241,7 +248,7 @@ namespace PROYECTOFINAL.Controllers
                     if (cajaFinal < 0)
                     {
 
-                        int hola = venta.CrearVenta(l2.Fecha, l2.MontoTotal, l2.MedioPago);
+                        int hola = venta.CrearVenta(l2.Fecha, l2.MontoTotal, l2.MedioPago, idLocal);
                         idVentaActual = venta.ObtenerIdVenta();
                                        
 
@@ -258,13 +265,13 @@ namespace PROYECTOFINAL.Controllers
 
                         //insertar en movimientos la venta
 
-                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago,idVentaActual);
+                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", l2.Fecha, l2.MedioPago,idVentaActual, idLocal);
 
                     }
                     else
                     {
                         DateTime fech = (l2.Fecha.AddDays(1));
-                        int hola = venta.CrearVenta(fech, l2.MontoTotal, l2.MedioPago);
+                        int hola = venta.CrearVenta(fech, l2.MontoTotal, l2.MedioPago,idLocal);
                         idVentaActual = venta.ObtenerIdVenta();
 
                         //var listaProd = (List<productomodel>)TempData["listaActual"];
@@ -279,7 +286,7 @@ namespace PROYECTOFINAL.Controllers
                        
                         //insertar en movimientos la venta
 
-                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago, idVentaActual);
+                        movimientos.AgregarMovimiento(l2.MontoTotal, "7", fech, l2.MedioPago, idVentaActual,idLocal);
                     }
 
                 if (medioP == "Tarjeta")

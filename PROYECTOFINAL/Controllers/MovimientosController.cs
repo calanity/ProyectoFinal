@@ -74,10 +74,12 @@ namespace PROYECTOFINAL.Controllers
        
         public ActionResult mostrar(FormCollection hola, int monto)
         {
+            var idLocal = Session["idLocal"];
+
             //cargo en la tabla la salida
             DateTime fecha = DateTime.Now;
             string idConc = Request.Form["concepto"];
-            int func = movimientos.AgregarMovimiento(monto, idConc, fecha, "Movimiento");
+            int func = movimientos.AgregarMovimiento(monto, idConc, fecha, "Movimiento",Convert.ToInt16(idLocal));
             return View("Index");
         }
 

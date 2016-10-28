@@ -35,7 +35,7 @@
                 <th>Subotal</th>
                 <td>@foreach(ventamodel item in Model)
                 {
-                    venta.ObtenerTotalVendidoXDia((DateTime)(item.Fecha));
+                    venta.ObtenerTotalVendidoXDia((DateTime)(item.Fecha), Convert.ToInt16(Session["idLocal"]));
                 }
                 </td>
             </tr>
@@ -44,12 +44,12 @@
     </table>
     <h5>Total vendido con tarjeta:      
         
-        @venta.ObtenerTotalTarjeta((DateTime)(TempData["fecha"]))
+        @venta.ObtenerTotalTarjeta((DateTime)(TempData["fecha"]), Convert.ToInt16(Session["idLocal"]))
  
      </h5>
     <h5>Total vendido con efectivo:
 
-           @venta.ObtenerTotalEfectivo((DateTime)(TempData["fecha"]))
+           @venta.ObtenerTotalEfectivo((DateTime)(TempData["fecha"]), Convert.ToInt16(Session["idLocal"]))
  
     </h5>
 
