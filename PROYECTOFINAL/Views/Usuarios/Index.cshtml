@@ -2,10 +2,13 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@model int
 <h2>Registración</h2>
 
-
+@if(Model==1)
+{ 
+    <h3>Error en la registracion</h3>
+}
 
 <a class="" data-toggle="modal" data-target=".bootstrapmodal"> Ingresar </a>
 

@@ -27,7 +27,7 @@ namespace PROYECTOFINAL.Models
                     usuariomodel usuario = new usuariomodel();
                     usuario.IdUsuario = (int)lector["IdUsuario"];
                     usuario.Usuario = (string)lector["Nombre"];
-                    usuario.constraseña = (int)lector["Contraseña"];
+                    usuario.constraseña = (string)lector["Contraseña"];
                     lista.Add(usuario);
                 }
             }
@@ -35,19 +35,6 @@ namespace PROYECTOFINAL.Models
             return (lista);
         }
 
-        public static int ObtenerUsuarioXNombre(string usuario, int contraseña)
-        {
-           List<usuariomodel> lista = ListarUsuarios();
-            foreach (usuariomodel item in lista)
-            {
-                if (item.Usuario == usuario && item.constraseña== contraseña)
-                {
-                    return 0;
-                }
-                
-                
-            } 
-            return 1;
-        }
+       
     }
 }

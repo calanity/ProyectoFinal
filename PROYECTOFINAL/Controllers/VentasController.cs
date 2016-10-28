@@ -16,7 +16,7 @@ namespace PROYECTOFINAL.Controllers
             return View();
         }
 
-        public ActionResult MostrarVentas(DateTime fecha)
+        public ActionResult MostrarVentas(DateTime? fecha= null)
         {
             List<ventamodel> lista = new List<ventamodel>();
             //obtener fecha y ejecutar la consulta
@@ -26,11 +26,13 @@ namespace PROYECTOFINAL.Controllers
             }
             else
             {
+                DateTime fecha2 = Convert.ToDateTime(fecha);
+
                 //pregunta si el dia tienen ventas y despues las lista
-                var resul = venta.ObtenerTotalVendidoXDia(fecha);
+                var resul = venta.ObtenerTotalVendidoXDia(fecha2);
                 if(resul>0)
                 { 
-                    lista = venta.ListarVentasxDia(fecha);
+                    lista = venta.ListarVentasxDia(fecha2);
                 }
 
                 if (TempData["fecha"] == null)
@@ -70,10 +72,8 @@ namespace PROYECTOFINAL.Controllers
         {
             return View();
         }
-        public ActionResult Eliminar(int id)
+        public ActionResult Eliminar(int id=0)
         {
-            /*eliminar la compra de la base de datos, devuelvo el stock, 
-             * elimino el movimiento(caja/tarj/mov)resto plata caja/venta*/
                 int ret = venta.EliminarVenta(id);
                 return View("Index");
             

@@ -9,6 +9,6 @@ namespace PROYECTOFINAL.Models
     {
         public int IdUsuario { get; set; }
         public string Usuario { get; set; }
-        public int constraseña { get; set; }
+        public string constraseña { get; set; }
     }
 }

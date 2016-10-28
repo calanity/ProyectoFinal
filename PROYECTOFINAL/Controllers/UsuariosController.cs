@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using PROYECTOFINAL.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,19 +20,41 @@ namespace PROYECTOFINAL.Controllers
         {
             var idLocal = Convert.ToInt16(Request.Form["nombre"]);
             var contraseña = Request.Form["contraseña"];
-            Session["idLocal"] = idLocal;
-            if (idLocal == 1)
+            usuariomodel us = new usuariomodel();
+
+            MySqlConnection con = producto.AbrirConexion();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "ObtenerUsuario";
+            cmd.Parameters.AddWithValue("id", idLocal);
+            MySqlDataReader lector = cmd.ExecuteReader();
+
+
+            while (lector.Read())
             {
-                Session["nombre"] = "Concepcion";
+                if (lector.FieldCount > 0)
+                {
+                    us.IdUsuario = Convert.ToInt16(lector["IdUsuario"]);
+                    us.Usuario = (string)lector["Nombre"];
+                    us.constraseña = (string)lector["Contraseña"];
+                }
+            }
+            con.Close();
+
+            if (us != null &&us.constraseña==contraseña)
+            {
+                Session["idLocal"] = idLocal;
+                Session["nombre"] = us.Usuario;
+                Session["contraseña"] = contraseña;
             }
             else
             {
-                Session["nombre"] = "Gualeguaychu";
+                return View("../Usuarios/Index",1);
             }
-            Session["contraseña"] = contraseña;
-            var password = Session["contraseña"].ToString();
+            /*var password = Session["contraseña"].ToString();
             var nom = Session["nombre"].ToString();
-            var loc = Session["idLocal"];
+            var loc = Session["idLocal"];*/
+            
             return View("../Home/Index");
         }
     }
