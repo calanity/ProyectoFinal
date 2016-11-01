@@ -42,8 +42,8 @@ namespace PROYECTOFINAL.Controllers
 
 
             //agrega los productos a la base de datos y despues los lista y retorna a index
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
+                MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "crearArticulo";
             cmd.Parameters.AddWithValue("Nomb", nombre);
@@ -55,6 +55,7 @@ namespace PROYECTOFINAL.Controllers
 
             int registros = cmd.ExecuteNonQuery();
             con.Close();
+            }
             if (accion == null)
             { return View("Index"); }
             else
@@ -72,8 +73,7 @@ namespace PROYECTOFINAL.Controllers
             var stockActual = Request.Form["stockActual"];
             var stockminimo = Request.Form["stockMinimo"];
 
-            
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;            
             cmd.CommandText = "ActualizarArticulo";
@@ -87,6 +87,7 @@ namespace PROYECTOFINAL.Controllers
 
             int registros = cmd.ExecuteNonQuery();
             con.Close();
+            }
             TempData.Remove("idEditar");
             return View("Index");
         }

@@ -27,7 +27,7 @@ namespace PROYECTOFINAL.Controllers
             var contraseña = Request.Form["contraseña"];
             usuariomodel us = new usuariomodel();
 
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerUsuario";
@@ -45,6 +45,7 @@ namespace PROYECTOFINAL.Controllers
                 }
             }
             con.Close();
+            }
 
             if (us != null &&us.constraseña==contraseña)
             {

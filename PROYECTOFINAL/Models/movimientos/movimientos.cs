@@ -14,7 +14,7 @@ namespace PROYECTOFINAL.Models
             int hola = -1;
             conceptomodel conc = new conceptomodel();
 
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "InsertarMovimiento";
@@ -26,14 +26,14 @@ namespace PROYECTOFINAL.Models
 
 
             int registros2 = cmd.ExecuteNonQuery();
-            con.Close();      
-
+            con.Close();
+            }
             if (mediopago== "Efectivo" || mediopago =="Movimiento")
             { 
                 movimientosmodel movi2 = movimientos.ObtenerUltimoMovimiento();
 
-                MySqlConnection con1 = producto.AbrirConexion();
-                MySqlCommand cmd1 = con1.CreateCommand();
+                using (MySqlConnection con1 = producto.AbrirConexion()) { 
+                    MySqlCommand cmd1 = con1.CreateCommand();
                 cmd1.CommandType = CommandType.StoredProcedure;
                 cmd1.CommandText = "InsertarMovCaja";
                 cmd1.Parameters.AddWithValue("idMovimiento", movi2.IdMovimientos);
@@ -45,7 +45,7 @@ namespace PROYECTOFINAL.Models
 
                 int registros4 = cmd1.ExecuteNonQuery();
                 con1.Close();
-
+                }
             }
             
             //pregunto si el mov que se esta creando es entrada o salida y lo paso a la caja.
@@ -60,7 +60,7 @@ namespace PROYECTOFINAL.Models
         public static List<conceptomodel> listarConceptos()
         {
             List<conceptomodel> l2 = new List<conceptomodel>();
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ListarTipoConceptos";
@@ -76,14 +76,16 @@ namespace PROYECTOFINAL.Models
             }
 
             con.Close();
+            }
             return l2;
         }
           
         public static List<movimientosmodel>ListarMovimientos()
         {
             List<movimientosmodel> l2 = new List<movimientosmodel>();
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
+            using (MySqlConnection con = producto.AbrirConexion())
+            { 
+                MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ListarMovimientos";
             MySqlDataReader lector = cmd.ExecuteReader();
@@ -100,14 +102,16 @@ namespace PROYECTOFINAL.Models
             }
 
             con.Close();
+            }
             return l2;
 
         }
         public static List<movimientosmodel> ListarMovxMes(int mes, int año)
         {
             List<movimientosmodel> l2 = new List<movimientosmodel>();
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
+            using (MySqlConnection con = producto.AbrirConexion())
+            { 
+                MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ListarMovimentosPorMes";
             cmd.Parameters.AddWithValue("mes", mes);
@@ -128,6 +132,7 @@ namespace PROYECTOFINAL.Models
             }
 
             con.Close();
+            }
             return l2;
         }
 
@@ -136,7 +141,7 @@ namespace PROYECTOFINAL.Models
            int totalEntrada = 0;
 
 
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "TotalEntradasPorMes";
@@ -155,7 +160,7 @@ namespace PROYECTOFINAL.Models
             }
 
             con.Close();
-
+            }
             return totalEntrada;
         }
         public static int TotalSalidasPorMes(DateTime fecha)

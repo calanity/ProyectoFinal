@@ -12,7 +12,8 @@ namespace PROYECTOFINAL.Models
         public static List<categoriamodel> ListarCategorias()
         {
             List<categoriamodel> lCat = new List<categoriamodel>();
-            MySqlConnection con = producto.AbrirConexion();
+
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarCategorias";
@@ -30,13 +31,14 @@ namespace PROYECTOFINAL.Models
                 }
             }
             con.Close();
+            }
             return lCat;
         }
         public static categoriamodel obtenerCategoria(int id)
         {
             categoriamodel categ = new categoriamodel();
 
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "obtenerCategoria";
@@ -52,6 +54,7 @@ namespace PROYECTOFINAL.Models
                 }
             }
             con.Close();
+            }
             return (categ);
         }
     }

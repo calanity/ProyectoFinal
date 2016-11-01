@@ -13,9 +13,9 @@ namespace PROYECTOFINAL.Models
         {
 
             List<movimientosmodel> lmov = new List<movimientosmodel>();
-            fecha = fecha.Date;            
-            
-            MySqlConnection con = producto.AbrirConexion();
+            fecha = fecha.Date;
+
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarMovimientosCajaxDia";
@@ -39,6 +39,7 @@ namespace PROYECTOFINAL.Models
                 }
             }
             con.Close();
+            }
             return lmov;
         }
 
@@ -69,8 +70,8 @@ namespace PROYECTOFINAL.Models
         public static int ObtenerCajaInicial(DateTime fecha)
         {
             int caja = 0;
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
+                MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerCajaInicial";
             cmd.Parameters.AddWithValue("Fecha", fecha);
@@ -86,13 +87,14 @@ namespace PROYECTOFINAL.Models
                 }
             }
             con.Close();
+            }
             return caja;
         }
 
         public static int ObtenerCajaFinal(int idLocal)
         {
-            int cajaFinal = -1;            
-            MySqlConnection con = producto.AbrirConexion();
+            int cajaFinal = -1;
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerCajaFinal";
@@ -112,7 +114,7 @@ namespace PROYECTOFINAL.Models
                
             }
             con.Close();
-
+            }
             return cajaFinal;
         }
 

@@ -22,34 +22,41 @@ namespace PROYECTOFINAL.Controllers
         {
             bool existe= false;            
             int registros = -1;
+            var idLocal = Session["idLocal"];
             int cajaI =Convert.ToInt16(Request.Form["cajaInicial"]);
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "ObtenerCajaExistente";
-            cmd.Parameters.AddWithValue("fech", DateTime.Today);
-            MySqlDataReader lector = cmd.ExecuteReader();
-
-                       
-
-            while (lector.Read())
+            using (MySqlConnection con = producto.AbrirConexion())
             {
-                existe = true;               
+                MySqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "ObtenerCajaExistente";
+                cmd.Parameters.AddWithValue("fech", DateTime.Today);
+                cmd.Parameters.AddWithValue("idLocal", Convert.ToInt16(idLocal));
+                MySqlDataReader lector = cmd.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    existe = true;
+
+                }
+                con.Close();
 
             }
-            con.Close();
 
-            if(existe == false)
+
+
+            if (existe == false)
             {
-                MySqlConnection con2 = producto.AbrirConexion();
+                using (MySqlConnection con2 = producto.AbrirConexion())
+                { 
                 MySqlCommand cmd2 = con2.CreateCommand();
                 cmd2.CommandType = CommandType.StoredProcedure;
                 cmd2.CommandText = "InsertarCajaInicial";
                 cmd2.Parameters.AddWithValue("fecha", DateTime.Today);
                 cmd2.Parameters.AddWithValue("montoCaja", cajaI);
+                cmd2.Parameters.AddWithValue("idLocal",idLocal);    
                 registros = cmd2.ExecuteNonQuery();
-                con.Close();
-               
+                con2.Close();
+                }
             }
 
 
@@ -70,6 +77,7 @@ namespace PROYECTOFINAL.Controllers
                     MySqlCommand cmd2 = con2.CreateCommand();
                     cmd2.CommandType = CommandType.StoredProcedure;
                     cmd2.CommandText = "CerrarCaja";
+                    cmd2.Parameters.AddWithValue("idLocal", idLocal);
                     int registros = cmd2.ExecuteNonQuery();
                     con2.Close();
                 }
