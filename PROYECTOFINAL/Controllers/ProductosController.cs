@@ -39,6 +39,8 @@ namespace PROYECTOFINAL.Controllers
             var precio = Request.Form["precio"];
             var stockminimo = Request.Form["stockMinimo"];
             var accion = Request.Form["accion"];
+            int idLocal = Convert.ToInt16(Session["idLocal"]);
+
 
 
             //agrega los productos a la base de datos y despues los lista y retorna a index
@@ -51,9 +53,10 @@ namespace PROYECTOFINAL.Controllers
             cmd.Parameters.AddWithValue("prec", precio);
             cmd.Parameters.AddWithValue("prove", proveedor);
             cmd.Parameters.AddWithValue("stkMinimo", stockminimo);
-            
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
 
-            int registros = cmd.ExecuteNonQuery();
+
+                int registros = cmd.ExecuteNonQuery();
             con.Close();
             }
             if (accion == null)

@@ -26,7 +26,7 @@
 
     </tr>
 
-    @foreach (categoriamodel item in @categoria.ListarCategorias())
+    @foreach (categoriamodel item in @categoria.ListarCategorias(Convert.ToInt16(Session["idLocal"])))
     {
         <tr>
             <td>@item.nombre</td>           

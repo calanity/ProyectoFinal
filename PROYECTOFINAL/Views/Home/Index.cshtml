@@ -109,7 +109,7 @@
                     <select class="form-control" name="cate" id="cate" required onchange="valcate(value);">
                         <option value="0">Seleccionar</option>
 
-                        @foreach (categoriamodel item in categoria.ListarCategorias())
+                        @foreach (categoriamodel item in categoria.ListarCategorias(Convert.ToInt16(Session["idLocal"])))
                         {
                             if (cat == 0)
                             {

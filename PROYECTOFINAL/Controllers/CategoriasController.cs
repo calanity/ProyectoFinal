@@ -34,36 +34,41 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult Agregar(FormCollection formulario)
         {
-            var nombre = Request.Form["nombre"];           
+            var nombre = Request.Form["nombre"];
+            int idLocal = Convert.ToInt16(Session["idLocal"]);
 
             //agrega los productos a la base de datos y despues los lista y retorna a index
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "crearCategoria";
-            cmd.Parameters.AddWithValue("Nomb", nombre);       
+            cmd.Parameters.AddWithValue("Nomb", nombre);
+            cmd.Parameters.AddWithValue("idLocal",idLocal);    
 
             int registros = cmd.ExecuteNonQuery();
             con.Close();
+            }
             return View("Index");
         }
         [HttpPost]
         public ActionResult Editar(FormCollection formulario)
         {
             var id = TempData["idEditar"];
-            var nombre = Request.Form["nombre"];            
+            var nombre = Request.Form["nombre"];
 
 
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "EditarCategoria";
-            cmd.Parameters.AddWithValue("idCate", id);
-            cmd.Parameters.AddWithValue("Nomb", nombre);
-            
+            using (MySqlConnection con = producto.AbrirConexion())
+            {
+                MySqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "EditarCategoria";
+                cmd.Parameters.AddWithValue("idCate", id);
+                cmd.Parameters.AddWithValue("Nomb", nombre);
 
-            int registros = cmd.ExecuteNonQuery();
-            con.Close();
+
+                int registros = cmd.ExecuteNonQuery();
+                con.Close();
+            }
             TempData.Remove("idEditar");
             return View("Index");
         }
@@ -72,13 +77,18 @@ namespace PROYECTOFINAL.Controllers
         {
             //obtener articulos por categoria si es 0 ejecuto 
             int registros = -1;
-            bool tiene = false;  
-            MySqlConnection con = producto.AbrirConexion();
+            bool tiene = false;
+            int idLocal = Convert.ToInt16(Session["idLocal"]);
+          using(MySqlConnection con = producto.AbrirConexion()){ 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarProductosxCate";
             cmd.Parameters.AddWithValue("cate", id);
-            MySqlDataReader lector = cmd.ExecuteReader();
+                cmd.Parameters.AddWithValue("loc", idLocal);
+
+
+
+                MySqlDataReader lector = cmd.ExecuteReader();
 
 
             while (lector.Read())
@@ -87,21 +97,23 @@ namespace PROYECTOFINAL.Controllers
             }
             if (tiene == false)
             {
-                MySqlConnection con1 = producto.AbrirConexion();
-                MySqlCommand cmd1 = con1.CreateCommand();
+                    using (MySqlConnection con1 = producto.AbrirConexion()) { 
+                        MySqlCommand cmd1 = con1.CreateCommand();
                 cmd1.CommandType = CommandType.StoredProcedure;
                 cmd1.CommandText = "EliminarCategoria";
                 cmd1.Parameters.AddWithValue("idCateg", id);
                 registros = cmd1.ExecuteNonQuery();
                 con1.Close();
-                return View("Index");
+                    }
+                    return View("Index");
             }
             else
             {
                 con.Close();
                 return View("Error");
-            }            
-                
+            }
+
+            }
         }
 
     }

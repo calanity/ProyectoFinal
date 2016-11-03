@@ -9,20 +9,22 @@ namespace PROYECTOFINAL.Models
 {
     public class categoria
     {
-        public static List<categoriamodel> ListarCategorias()
+        public static List<categoriamodel> ListarCategorias(int idLocal)
         {
+            
             List<categoriamodel> lCat = new List<categoriamodel>();
 
             using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarCategorias";
+            cmd.Parameters.AddWithValue("idLocal",idLocal);
             MySqlDataReader lector = cmd.ExecuteReader();
            
 
             while (lector.Read())
             {
-                if(lector.FieldCount>0)
+                if(lector.FieldCount>0 && Convert.ToInt16(lector["IdLocal"])==idLocal)
                 { 
                 categoriamodel cat = new categoriamodel();
                 cat.nombre = (string)lector["Nombre"];
