@@ -303,7 +303,7 @@ namespace PROYECTOFINAL.Controllers
                         producto.EnviarMailFaltaStock(listaEnviar);
                     }
                 }
-            
+            l2.id = idVentaActual;
                 return View(l2);
                 
         }

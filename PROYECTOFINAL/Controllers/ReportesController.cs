@@ -162,5 +162,54 @@ namespace PROYECTOFINAL.Controllers
 
 
         }
+
+        public ActionResult detalleVenta(int id)
+        {
+            List<ventamodel> lista = new List<ventamodel>();
+            
+            lista = Reporte.DetalleVenta(id);
+            var path = Server.MapPath(@"~/Reporte/Report4.rdlc");
+            LocalReport reporte = new LocalReport();
+            reporte.ReportPath = path;
+
+            if (lista.Count > 0)
+            {
+
+                ReportDataSource dc = new ReportDataSource("DataSet4", lista);
+                reporte.DataSources.Add(dc);
+                ReportViewer reportV = new ReportViewer();
+                reportV.LocalReport.DataSources.Clear();
+                reportV.LocalReport.ReportPath = path;
+                reportV.LocalReport.DataSources.Add(dc);
+
+                string reportType = "PDF";
+                /*string mimetype;
+                string encoding;
+                string FileNameExtension;
+                Warning[] warnings;
+                string[] streams;
+                */
+                byte[] renderBytes;
+
+                string deviceInfo =
+                      "<DeviceInfo>" +
+                      "  <OutputFormat>EMF</OutputFormat>" +
+                      "  <PageWidth>8.5in</PageWidth>" +
+                      "  <PageHeight>11in</PageHeight>" +
+                      "  <MarginTop>0.25in</MarginTop>" +
+                      "  <MarginLeft>0.25in</MarginLeft>" +
+                      "  <MarginRight>0.25in</MarginRight>" +
+                      "  <MarginBottom>0.25in</MarginBottom>" +
+                      "</DeviceInfo>";
+
+                renderBytes = reportV.LocalReport.Render(reportType, deviceInfo);
+                return File(renderBytes, "application/pdf");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
     }
 }
