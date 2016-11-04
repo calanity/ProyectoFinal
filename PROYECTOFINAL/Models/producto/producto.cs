@@ -24,12 +24,13 @@ namespace PROYECTOFINAL.Models
             builder.UserID = "bcaf7709a9bf09";
             builder.Password = "1d3406fc";
             builder.Database = "acsm_49aeb6a572de874";
-           
-             MySqlConnection conn = new MySqlConnection(builder.ToString());
-            MySqlCommand cmd = conn.CreateCommand();
+            using (
+              MySqlConnection conn = new MySqlConnection(builder.ToString())) { 
+                MySqlCommand cmd = conn.CreateCommand();
             conn.Open();
+            
             return conn;
-
+            }
         }
 
         public static productomodel ObtenerProducto(int id)
