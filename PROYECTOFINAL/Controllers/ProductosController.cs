@@ -15,100 +15,150 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult Index()
         {
             int idLocal =Convert.ToInt16(Session["idLocal"]);
-            var lista = producto.ListarProductos(idLocal);
-            return View(lista);
+
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                var lista = producto.ListarProductos(idLocal);
+                return View(lista);
+            }
         }
-        
+
         public ActionResult Agreg()
         {
-            return View();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult Editar(int id)
         {
-            TempData.Add("idEditar", id);
-            productomodel prod = new productomodel();
-            prod=  producto.ObtenerProducto(id);
-            return View(prod);
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                TempData.Add("idEditar", id);
+                productomodel prod = new productomodel();
+                prod = producto.ObtenerProducto(id);
+                return View(prod);
+            }
         }
+
         public ActionResult Agregar(FormCollection formulario)
         {
-            var nombre = Request.Form["nombre"];
-            var categoria = Request.Form["categoria"];
-            var proveedor = Request.Form["proveedor"];
-            var precio = Request.Form["precio"];
-            var stockminimo = Request.Form["stockMinimo"];
-            var accion = Request.Form["accion"];
-            int idLocal = Convert.ToInt16(Session["idLocal"]);
-
-
-
-            //agrega los productos a la base de datos y despues los lista y retorna a index
-            using (MySqlConnection con = producto.AbrirConexion()) { 
-                MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "crearArticulo";
-            cmd.Parameters.AddWithValue("Nomb", nombre);
-            cmd.Parameters.AddWithValue("cate", categoria);
-            cmd.Parameters.AddWithValue("prec", precio);
-            cmd.Parameters.AddWithValue("prove", proveedor);
-            cmd.Parameters.AddWithValue("stkMinimo", stockminimo);
-            cmd.Parameters.AddWithValue("idLocal", idLocal);
-
-
-                int registros = cmd.ExecuteNonQuery();
-            con.Close();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
             }
-            if (accion == null)
-            { return View("Index"); }
             else
-           { return View("../Proveedores/Compra"); }
-            
+            {
+                var nombre = Request.Form["nombre"];
+                var categoria = Request.Form["categoria"];
+                var proveedor = Request.Form["proveedor"];
+                var precio = Request.Form["precio"];
+                var stockminimo = Request.Form["stockMinimo"];
+                var accion = Request.Form["accion"];
+                idLocal = Convert.ToInt16(Session["idLocal"]);
+
+
+
+                //agrega los productos a la base de datos y despues los lista y retorna a index
+                using (MySqlConnection con = producto.AbrirConexion())
+                {
+                    MySqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "crearArticulo";
+                    cmd.Parameters.AddWithValue("Nomb", nombre);
+                    cmd.Parameters.AddWithValue("cate", categoria);
+                    cmd.Parameters.AddWithValue("prec", precio);
+                    cmd.Parameters.AddWithValue("prove", proveedor);
+                    cmd.Parameters.AddWithValue("stkMinimo", stockminimo);
+                    cmd.Parameters.AddWithValue("idLocal", idLocal);
+
+
+                    int registros = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (accion == null)
+                { return View("Index"); }
+                else
+                { return View("../Proveedores/Compra"); }
+
+            }
         }
         [HttpPost]
         public ActionResult Editar(FormCollection formulario)
         {
-            var id = TempData["idEditar"];
-            var nombre = Request.Form["nombre"];
-            var categoria = Request.Form["categoria"];
-            var precio = Request.Form["precio"];
-            var proveedor = Request.Form["proveedor"];
-            var stockActual = Request.Form["stockActual"];
-            var stockminimo = Request.Form["stockMinimo"];
-
-            using (MySqlConnection con = producto.AbrirConexion()) { 
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;            
-            cmd.CommandText = "ActualizarArticulo";
-            cmd.Parameters.AddWithValue("idArti", id);
-            cmd.Parameters.AddWithValue("Nomb", nombre);
-            cmd.Parameters.AddWithValue("cate", categoria);
-            cmd.Parameters.AddWithValue("prec", precio);
-            cmd.Parameters.AddWithValue("stkActual", stockActual);
-            cmd.Parameters.AddWithValue("stkMinimo", stockminimo);
-            cmd.Parameters.AddWithValue("prove", proveedor);
-
-            int registros = cmd.ExecuteNonQuery();
-            con.Close();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
             }
-            TempData.Remove("idEditar");
-            return View("Index");
+            else
+            {
+                var id = TempData["idEditar"];
+                var nombre = Request.Form["nombre"];
+                var categoria = Request.Form["categoria"];
+                var precio = Request.Form["precio"];
+                var proveedor = Request.Form["proveedor"];
+                var stockActual = Request.Form["stockActual"];
+                var stockminimo = Request.Form["stockMinimo"];
+
+                using (MySqlConnection con = producto.AbrirConexion())
+                {
+                    MySqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "ActualizarArticulo";
+                    cmd.Parameters.AddWithValue("idArti", id);
+                    cmd.Parameters.AddWithValue("Nomb", nombre);
+                    cmd.Parameters.AddWithValue("cate", categoria);
+                    cmd.Parameters.AddWithValue("prec", precio);
+                    cmd.Parameters.AddWithValue("stkActual", stockActual);
+                    cmd.Parameters.AddWithValue("stkMinimo", stockminimo);
+                    cmd.Parameters.AddWithValue("prove", proveedor);
+
+                    int registros = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                TempData.Remove("idEditar");
+                return View("Index");
+            }
         }
-       
         public ActionResult Eliminar(int id)
         {
             //elimina el producto de la base de datos
             //pregunta si es cero, sino no lo elimina
-            int registros = producto.EliminarProducto(id);
-            if (registros > 0)
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
             {
-                return View("Index");
+                return RedirectToAction("Index", "Usuarios");
             }
             else
             {
-                return View("");
+                int registros = producto.EliminarProducto(id);
+                if (registros > 0)
+                {
+                    return View("Index");
+                }
+                else
+                {
+                    return View("");
+                }
+
             }
-            
         }
 
     }

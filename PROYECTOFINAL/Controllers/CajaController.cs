@@ -20,85 +20,114 @@ namespace PROYECTOFINAL.Controllers
 
         public ActionResult Inicio(FormCollection formulario)
         {
-            bool existe= false;            
+            bool existe = false;
             int registros = -1;
             var idLocal = Session["idLocal"];
-            int cajaI =Convert.ToInt16(Request.Form["cajaInicial"]);
-            using (MySqlConnection con = producto.AbrirConexion())
+            if (Session["idLocal"] == null)
             {
-                MySqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "ObtenerCajaExistente";
-                cmd.Parameters.AddWithValue("fech", DateTime.Today);
-                cmd.Parameters.AddWithValue("idLocal", Convert.ToInt16(idLocal));
-                MySqlDataReader lector = cmd.ExecuteReader();
-
-                while (lector.Read())
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                int cajaI = Convert.ToInt16(Request.Form["cajaInicial"]);
+                using (MySqlConnection con = producto.AbrirConexion())
                 {
-                    existe = true;
+                    MySqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "ObtenerCajaExistente";
+                    cmd.Parameters.AddWithValue("fech", DateTime.Today);
+                    cmd.Parameters.AddWithValue("idLocal", Convert.ToInt16(idLocal));
+                    MySqlDataReader lector = cmd.ExecuteReader();
+
+                    while (lector.Read())
+                    {
+                        existe = true;
+
+                    }
+                    con.Close();
 
                 }
-                con.Close();
-
-            }
 
 
 
-            if (existe == false)
-            {
-                using (MySqlConnection con2 = producto.AbrirConexion())
-                { 
-                MySqlCommand cmd2 = con2.CreateCommand();
-                cmd2.CommandType = CommandType.StoredProcedure;
-                cmd2.CommandText = "InsertarCajaInicial";
-                cmd2.Parameters.AddWithValue("fecha", DateTime.Today);
-                cmd2.Parameters.AddWithValue("montoCaja", cajaI);
-                cmd2.Parameters.AddWithValue("idLocal",idLocal);    
-                registros = cmd2.ExecuteNonQuery();
-                con2.Close();
+                if (existe == false)
+                {
+                    using (MySqlConnection con2 = producto.AbrirConexion())
+                    {
+                        MySqlCommand cmd2 = con2.CreateCommand();
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.CommandText = "InsertarCajaInicial";
+                        cmd2.Parameters.AddWithValue("fecha", DateTime.Today);
+                        cmd2.Parameters.AddWithValue("montoCaja", cajaI);
+                        cmd2.Parameters.AddWithValue("idLocal", idLocal);
+                        registros = cmd2.ExecuteNonQuery();
+                        con2.Close();
+                    }
                 }
+
+
+
+                return View(registros);
             }
-
-
-
-            return View(registros);
         }
 
         public ActionResult CerrarCaja()
         {
             //averigua si la caja del dia de la fecha esta cerrada y sino la cierra
             int idLocal = Convert.ToInt16(Session["idLocal"]);
-            int cajafinal = caja.ObtenerCajaFinal(idLocal);
-            if (cajafinal ==-1)
+            if (Session["idLocal"] == null)
             {
-                using (MySqlConnection con2 = producto.AbrirConexion())
-                {
-
-                    MySqlCommand cmd2 = con2.CreateCommand();
-                    cmd2.CommandType = CommandType.StoredProcedure;
-                    cmd2.CommandText = "CerrarCaja";
-                    cmd2.Parameters.AddWithValue("idLocal", idLocal);
-                    int registros = cmd2.ExecuteNonQuery();
-                    con2.Close();
-                }
-                cajafinal = caja.ObtenerCajaFinal(idLocal);
+                return RedirectToAction("Index", "Usuarios");
             }
-            
-            return View(cajafinal);
+            else
+            {
+                int cajafinal = caja.ObtenerCajaFinal(idLocal);
+                if (cajafinal == -1)
+                {
+                    using (MySqlConnection con2 = producto.AbrirConexion())
+                    {
+
+                        MySqlCommand cmd2 = con2.CreateCommand();
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.CommandText = "CerrarCaja";
+                        cmd2.Parameters.AddWithValue("idLocal", idLocal);
+                        int registros = cmd2.ExecuteNonQuery();
+                        con2.Close();
+                    }
+                    cajafinal = caja.ObtenerCajaFinal(idLocal);
+                }
+
+                return View(cajafinal);
+            }
         }
 
         public ActionResult ListarMovimientosCaja()
         {
-            return View();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult MostrarMovDia(DateTime fecha)
         {
             //seleccionar los movimientos de la caja de un dia           
-            ViewBag.Fecha = fecha;
-            List<movimientosmodel>lmov = caja.ListarMovimientosCajaXDia(fecha);
-            
-            return View(lmov);
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                ViewBag.Fecha = fecha;
+                List<movimientosmodel> lmov = caja.ListarMovimientosCajaXDia(fecha);
+                return View(lmov);
+            }
         }
         
     }

@@ -196,7 +196,7 @@ namespace PROYECTOFINAL.Models
             con3.Close();
 
         }
-        public static List<productomodel> ObtenerProductosPorProveedor( int idProveedor)
+        public static List<productomodel> ObtenerProductosPorProveedor( int idProveedor, int idLocal)
         {
             List<productomodel> lista = new List<productomodel>();
 
@@ -205,6 +205,8 @@ namespace PROYECTOFINAL.Models
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ListarProductosxProveedor";
             cmd.Parameters.AddWithValue("id", idProveedor);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
+
             MySqlDataReader lector = cmd.ExecuteReader();
             
 

@@ -13,7 +13,14 @@ namespace PROYECTOFINAL.Controllers
         // GET: Caja
         public ActionResult Index()
         {
-            return View();
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult MostrarVentas(DateTime? fecha= null)
@@ -59,10 +66,17 @@ namespace PROYECTOFINAL.Controllers
              }
         }
 
-        
+
         public ActionResult VentasMensual()
         {
-            return View();
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult MostrarVentasMensuales(FormCollection formulario)
         {
@@ -96,8 +110,7 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult Eliminar(int id=0)
         {
                 int ret = venta.EliminarVenta(id);
-                return RedirectToAction("Index");
-            
+                return RedirectToAction("Index");            
 
         }
     }

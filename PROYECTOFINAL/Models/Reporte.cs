@@ -56,8 +56,8 @@ namespace PROYECTOFINAL.Models
             List<ventamodel> detalle = new List<ventamodel>();
             List<productomodel> lista2 = new List<productomodel>();
             ventamodel venta = new ventamodel();
-            string mediop;
-            int montototal;
+            
+        
             using (MySqlConnection con = producto.AbrirConexion())
             {
                 MySqlCommand cmd = con.CreateCommand();
@@ -70,7 +70,7 @@ namespace PROYECTOFINAL.Models
                 while (lector.Read())
                 {
                     productomodel prodi = new productomodel();
-                    prodi.id = Convert.ToInt16(lector["IdArticulos"]);
+                   prodi.id = Convert.ToInt16(lector["idArticulo"]);
                     prodi.nombre = (string)lector["Nombre"];
                     prodi.Categoria = (string)lector["Categoria"];
                     prodi.cantidad = (int)lector["Cantidad"];
@@ -78,15 +78,15 @@ namespace PROYECTOFINAL.Models
                     prodi.Fecha = (DateTime)lector["Fecha"];
                     prodi.MedioPago = (string)lector["MedioPago"];
                     //agregar monto total
-                    montototal= (int)lector["MontoTotal"];
+                    
                     lista2.Add(prodi);
                 }
                 
-                venta.ListaArticulos=(lista2);
-                venta.MedioPago = mediop;
-                venta.MontoTotal = montototal;
+                venta.ListaArticulos=(lista2);               
+                venta.MedioPago = lista2[1].MedioPago;
+                venta.MontoTotal = lista2[1].MontoTotal;
+                detalle.Add(venta);
                 return detalle;
-
             }
         }
 

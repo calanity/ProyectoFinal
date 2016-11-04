@@ -11,103 +11,196 @@ namespace PROYECTOFINAL.Controllers
         // GET: Proveedores
         public ActionResult Index()
         {
-           return View();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Agreg()
         {
-            return View();
+            TempData.Remove("idEditar");
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult Agregar(FormCollection form)
         {
-            var nombre = Request.Form["nombre"];
-            var telefono = Convert.ToInt32(Request.Form["telefono"]);
-            proveedor.CrearProveedor(nombre, telefono);
-            return View("Index");
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                var nombre = Request.Form["nombre"];
+                var telefono = Convert.ToInt32(Request.Form["telefono"]);
+                proveedor.CrearProveedor(nombre, telefono);
+                return View("Index");
+            }
         }
         // GET: Proveedores/Edit/5
         public ActionResult Editar(int id)
         {
-            TempData.Remove("idEditar");
-            TempData.Add("idEditar", id);
-            proveedormodel prove = new proveedormodel();
-            prove = proveedor.ObtenerProveedor(id);
-           
-            return View(prove);
-            
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                TempData.Remove("idEditar");
+                TempData.Add("idEditar", id);
+                proveedormodel prove = new proveedormodel();
+                prove = proveedor.ObtenerProveedor(id);
+
+                return View(prove);
+            }
         }
         [HttpPost]
         public ActionResult Editar(FormCollection formulario)
         {
-            var nombre = Request.Form["nombre"];
-            var telefono = Convert.ToInt32(Request.Form["telefono"]);
-            var id = (int)TempData["idEditar"];
-            proveedor.EditarProveedor(id, nombre, telefono);
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                var nombre = Request.Form["nombre"];
+                var telefono = Convert.ToInt32(Request.Form["telefono"]);
+                var id = (int)TempData["idEditar"];
+                proveedor.EditarProveedor(id, nombre, telefono);
 
-            TempData.Remove("idEditar");
+                TempData.Remove("idEditar");
 
-            return View("Index");
+                return View("Index");
+            }
         }
 
 
         public ActionResult Eliminar(int id)
         {
-            int registros = proveedor.EliminarProveedor(id);
-                       
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                int registros = proveedor.EliminarProveedor(id);
+
                 return View("Index");
-            
+            }
         }
 
 
         public ActionResult Compra()
         {
-            return View();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
 
         [HttpPost]
-        public ActionResult Comprar(FormCollection form )
+        public ActionResult Comprar(FormCollection form)
         {
-            var id = Convert.ToInt16(Request.Form["prove"]);
-            var monto = Convert.ToInt16(Request.Form["monto"]);
-            int producto = Convert.ToInt16(Request.Form["prod"]);
-            int cantidad = Convert.ToInt16(Request.Form["cantidad"]);
-            int unitario = Convert.ToInt16(Request.Form["unitario"]);
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                var id = Convert.ToInt16(Request.Form["prove"]);
+                var monto = Convert.ToInt16(Request.Form["monto"]);
+                int producto = Convert.ToInt16(Request.Form["prod"]);
+                int cantidad = Convert.ToInt16(Request.Form["cantidad"]);
+                int unitario = Convert.ToInt16(Request.Form["unitario"]);
 
-            int registros = proveedor.RegistrarCompra(id, monto, producto, cantidad, unitario);
-            return View("Index");
+                int registros = proveedor.RegistrarCompra(id, monto, producto, cantidad, unitario);
+                return View("Index");
+            }
         }
 
         public ActionResult Pago()
         {
-            return View();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
         public ActionResult Pagar(FormCollection form)
         {
-            var id = Convert.ToInt16(Request.Form["prove"]);
-            var monto = Convert.ToInt16(Request.Form["monto"]);
-            int registros = proveedor.EditarSaldo(id, monto);
-            return View("Index");
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                var id = Convert.ToInt16(Request.Form["prove"]);
+                var monto = Convert.ToInt16(Request.Form["monto"]);
+                int registros = proveedor.EditarSaldo(id, monto);
+                return View("Index");
+            }
         }
 
         public ActionResult ProductosXProveedor()
         {
-            List<proveedormodel> lista = proveedor.ListarProveedores();
-            return View(lista);
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                List<proveedormodel> lista = proveedor.ListarProveedores();
+                return View(lista);
+            }
         }
 
         public ActionResult SelectProveedor(int id)
         {
-                    
-            List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id);
-            return PartialView("_selectProve" , lista);
-        }
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id,Convert.ToInt16(idLocal));
+                return PartialView("_selectProve", lista);
+            } }
         public ActionResult SelectProducto(int id)
         {
-
-            List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id);
+            var idLocal = Session["idLocal"];
+            List<productomodel> lista = proveedor.ObtenerProductosPorProveedor(id, Convert.ToInt16(idLocal));
             return PartialView("_selectProducto", lista);
         }
 

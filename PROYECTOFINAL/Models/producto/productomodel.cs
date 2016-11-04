@@ -29,6 +29,7 @@ namespace PROYECTOFINAL.Models
         public int idLocal { get; set; }
         public int subtotal { get; set; }
         public int totalProductos { get; set; }
+        public int MontoTotal { get; set; }
 
         public int stockminimo { get; set; }
         public int stockactual { get; set; }

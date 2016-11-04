@@ -12,7 +12,14 @@ namespace PROYECTOFINAL.Controllers
         // GET: Movimientos
         public ActionResult Index()
         {
-            return View();
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Movimientos/Details/5
@@ -75,59 +82,96 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult mostrar(FormCollection hola, int monto)
         {
             var idLocal = Session["idLocal"];
-
-            //cargo en la tabla la salida
-            DateTime fecha = DateTime.Now;
-            string idConc = Request.Form["concepto"];
-            int func = movimientos.AgregarMovimiento(monto, idConc, fecha, "Movimiento",Convert.ToInt16(idLocal));
-            return View("Index");
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                //cargo en la tabla la salida
+                DateTime fecha = DateTime.Now;
+                string idConc = Request.Form["concepto"];
+                int func = movimientos.AgregarMovimiento(monto, idConc, fecha, "Movimiento", Convert.ToInt16(idLocal));
+                return View("Index");
+            }
         }
 
         public ActionResult MostrarMovMensuales(FormCollection formulario)
         {
 
-            var mes = (Request.Form["mes"]);
-            var año = (Request.Form["año"]);
-            if (mes == null && año == null)
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
             {
-                return View("Index");
+                return RedirectToAction("Index", "Usuarios");
             }
             else
             {
-                List<movimientosmodel> lista = movimientos.ListarMovxMes(Convert.ToInt16(mes), Convert.ToInt16(año));
-                TempData.Keep();
-                return View(lista);
+                var mes = (Request.Form["mes"]);
+                var año = (Request.Form["año"]);
+                if (mes == null && año == null)
+                {
+                    return View("Index");
+                }
+                else
+                {
+                    List<movimientosmodel> lista = movimientos.ListarMovxMes(Convert.ToInt16(mes), Convert.ToInt16(año));
+                    TempData.Keep();
+                    return View(lista);
+                }
             }
         }
 
         public ActionResult ElegirMes()
         {
-            return View();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
 
+            }
         }
 
         public ActionResult MostrarMovDia(DateTime fecha)
         {
-           /* var dia =(Request.Form["dia"]);
-            var mes = (Request.Form["mes"]);*/
-           
-            if (fecha== null)
+            /* var dia =(Request.Form["dia"]);
+             var mes = (Request.Form["mes"]);*/
+
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
             {
-                return View("Index");
+                return RedirectToAction("Index", "Usuarios");
             }
             else
             {
-                List<movimientosmodel> lista = movimientos.ListarMovxDia(fecha);
-                TempData.Keep();
-                return View(lista);
+                if (fecha == null)
+                {
+                    return View("Index");
+                }
+                else
+                {
+                    List<movimientosmodel> lista = movimientos.ListarMovxDia(fecha);
+                    TempData.Keep();
+                    return View(lista);
+                }
             }
-            
 
         }
 
         public ActionResult ElegirDia()
         {
-            return View();
+            var idLocal = Session["idLocal"];
+            if (Session["idLocal"] == null)
+            {
+                return RedirectToAction("Index", "Usuarios");
+            }
+            else
+            {
+                return View();
+            }
         }
 
     }
