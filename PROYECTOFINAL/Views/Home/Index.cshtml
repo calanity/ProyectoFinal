@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "FIFOS";
 }
- <% Page Language="C#" Debug="true" %>
+
 <script>
 
     function valcate(value)
@@ -109,7 +109,7 @@
                     <select class="form-control" name="cate" id="cate" required onchange="valcate(value);">
                         <option value="0">Seleccionar</option>
 
-                        @foreach (categoriamodel item in categoria.ListarCategorias(1))
+                        @foreach (categoriamodel item in categoria.ListarCategorias(Convert.ToInt16(Session["idLocal"])))
                         {
                             if (cat == 0)
                             {
