@@ -145,7 +145,7 @@ namespace PROYECTOFINAL.Models
             return registros;
         }
 
-        public static int RegistrarCompra(int idProve, int total, int produc, int cantidad, int unitario)
+        public static int RegistrarCompra(int idProve, int total, int produc, int cantidad, int unitario, int idLocal)
         {
             proveedormodel saldoActual = ObtenerSaldo(idProve);
             int total2 = saldoActual.saldo + total;
@@ -168,7 +168,9 @@ namespace PROYECTOFINAL.Models
             cmd2.CommandText = "AltaProductos";
             cmd2.Parameters.AddWithValue("idProd", produc);
             cmd2.Parameters.AddWithValue("stockAc", stActual);
-            
+            cmd2.Parameters.AddWithValue("idLocal", idLocal);
+
+
 
             int registros2 = cmd2.ExecuteNonQuery();
             con.Close();

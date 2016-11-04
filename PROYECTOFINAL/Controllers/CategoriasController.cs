@@ -88,7 +88,7 @@ namespace PROYECTOFINAL.Controllers
             }
             else
             {
-                var id = TempData["idEditar"];
+                var id = Request.Form["idEditar"];
                 var nombre = Request.Form["nombre"];
 
 

@@ -100,7 +100,7 @@
     <select name="categoria" class="form-control" id="categoria" disabled >
 
         <option value="0">Seleccionar</option>
-        @foreach (categoriamodel item in categoria.ListarCategorias())
+        @foreach (categoriamodel item in categoria.ListarCategorias(Convert.ToInt16(Session["idLocal"])))
         {
             <option value="@item.id">@item.nombre</option>
         }

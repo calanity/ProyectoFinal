@@ -17,6 +17,7 @@
     <label for="Nombr" class="col-sm-1 control-label TextoAgregar">Nombre</label>
     <input type="text" name="nombre" class="form-control" id="nombre" value="@Model.nombre">
     <br /> <br />
-    <h6 hidden name="nombre" id="nombre" value="@Model.id"></h6>
-    <input type="submit" value="Actualizar categoria" />
+    <input type="hidden" name="idEditar" id="idEditar" value="@Model.id"/>
+    <br />
+    <input type="submit"  class="btn btn-default" value="Actualizar categoria" />
 </form>

@@ -106,7 +106,7 @@ namespace PROYECTOFINAL.Models
             return l2;
 
         }
-        public static List<movimientosmodel> ListarMovxMes(int mes, int año)
+        public static List<movimientosmodel> ListarMovxMes(int mes, int año, int idLocal)
         {
             List<movimientosmodel> l2 = new List<movimientosmodel>();
             using (MySqlConnection con = producto.AbrirConexion())
@@ -116,8 +116,10 @@ namespace PROYECTOFINAL.Models
             cmd.CommandText = "ListarMovimentosPorMes";
             cmd.Parameters.AddWithValue("mes", mes);
             cmd.Parameters.AddWithValue("año", año);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
 
-            MySqlDataReader lector = cmd.ExecuteReader();
+
+                MySqlDataReader lector = cmd.ExecuteReader();
 
             while (lector.Read())
             {
@@ -190,7 +192,7 @@ namespace PROYECTOFINAL.Models
             return totalSalida; 
         }
 
-        public static List<movimientosmodel> ListarMovxDia(DateTime fecha)
+        public static List<movimientosmodel> ListarMovxDia(DateTime fecha, int idLocal)
         {
             fecha = fecha.Date;
             List<movimientosmodel> l2 = new List<movimientosmodel>();
@@ -199,6 +201,9 @@ namespace PROYECTOFINAL.Models
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ListarMovimentosPorDia";                      
             cmd.Parameters.AddWithValue("fech", fecha);
+            cmd.Parameters.AddWithValue("idLocal", idLocal);
+
+
 
             MySqlDataReader lector = cmd.ExecuteReader();
 

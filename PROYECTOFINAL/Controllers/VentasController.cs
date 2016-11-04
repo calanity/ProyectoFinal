@@ -109,7 +109,10 @@ namespace PROYECTOFINAL.Controllers
         }
         public ActionResult Eliminar(int id=0)
         {
-                int ret = venta.EliminarVenta(id);
+
+            var idLocal = Session["idLocal"];
+
+            int ret = venta.EliminarVenta(id, Convert.ToInt16(idLocal));
                 return RedirectToAction("Index");            
 
         }

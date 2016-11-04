@@ -49,6 +49,8 @@ namespace PROYECTOFINAL.Controllers
             }
             else
             {
+                TempData.Remove("idEditar");
+
                 TempData.Add("idEditar", id);
                 productomodel prod = new productomodel();
                 prod = producto.ObtenerProducto(id);

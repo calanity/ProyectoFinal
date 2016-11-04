@@ -52,6 +52,7 @@ namespace PROYECTOFINAL.Models
             {
                 if (lector.FieldCount > 0)
                 {
+                    categ.id = (int)lector["idCategorias"];
                     categ.nombre = (string)lector["nombre"];
                 }
             }

@@ -70,21 +70,24 @@ namespace PROYECTOFINAL.Models
                 while (lector.Read())
                 {
                     productomodel prodi = new productomodel();
-                   prodi.id = Convert.ToInt16(lector["idArticulo"]);
+                    prodi.id = Convert.ToInt16(lector["idArticulo"]);
                     prodi.nombre = (string)lector["Nombre"];
                     prodi.Categoria = (string)lector["Categoria"];
                     prodi.cantidad = (int)lector["Cantidad"];
                     prodi.precio = Convert.ToInt16(lector["Precio"]);
                     prodi.Fecha = (DateTime)lector["Fecha"];
                     prodi.MedioPago = (string)lector["MedioPago"];
+                    prodi.MontoTotal = (int)lector["MontoTotal"];
+
+
                     //agregar monto total
-                    
+
                     lista2.Add(prodi);
                 }
                 
                 venta.ListaArticulos=(lista2);               
-                venta.MedioPago = lista2[1].MedioPago;
-                venta.MontoTotal = lista2[1].MontoTotal;
+                venta.MedioPago = lista2[0].MedioPago;
+                venta.MontoTotal = lista2[0].MontoTotal;
                 detalle.Add(venta);
                 return detalle;
             }

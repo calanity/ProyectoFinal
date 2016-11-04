@@ -136,7 +136,7 @@ namespace PROYECTOFINAL.Controllers
                 int cantidad = Convert.ToInt16(Request.Form["cantidad"]);
                 int unitario = Convert.ToInt16(Request.Form["unitario"]);
 
-                int registros = proveedor.RegistrarCompra(id, monto, producto, cantidad, unitario);
+                int registros = proveedor.RegistrarCompra(id, monto, producto, cantidad, unitario, Convert.ToInt16(idLocal));
                 return View("Index");
             }
         }
@@ -207,7 +207,8 @@ namespace PROYECTOFINAL.Controllers
         public ActionResult ReporteProveedores()
         {
             //var path = Server.MapPath(@"~/Reporte/Report1.rdlc");
-            var path = Server.MapPath("Report1.rdlc");
+            
+            var path = Server.MapPath(@"~/Reporte/Report1.rdlc");
 
             LocalReport reporte = new LocalReport();
             reporte.ReportPath = path;

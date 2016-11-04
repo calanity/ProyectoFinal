@@ -36,8 +36,8 @@ namespace PROYECTOFINAL.Models
         {
             productomodel oprod = new productomodel();
             //obtiene el producto a partir de un id "ObtenerProducto"
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
+                MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "ObtenerProducto";
             cmd.Parameters.AddWithValue("idArti", id);
@@ -54,13 +54,14 @@ namespace PROYECTOFINAL.Models
                 oprod.IdProveedor = (int)lector["IdProve"];
             }
             con.Close();
+            }
             return oprod;
         }
         public static List<productomodel> ListarProductos(int local)
         {
             
             List<productomodel> lprod = new List<productomodel>();
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarArticulos";
@@ -86,14 +87,14 @@ namespace PROYECTOFINAL.Models
                 lprod.Add(prod);
             }
             con.Close();
-
+            }
             return lprod;
 
         }
         public static List<productomodel> ListarProductosXCategoria(int cate, int loc)
         {
             List<productomodel> lProd = new List<productomodel>();
-            MySqlConnection con = producto.AbrirConexion();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "listarProductosxCate";
@@ -110,6 +111,7 @@ namespace PROYECTOFINAL.Models
                 lProd.Add(prod);
             }
             con.Close();
+            }
             return lProd;
         }
 
@@ -117,8 +119,8 @@ namespace PROYECTOFINAL.Models
         {
             int precio = 0;
             List<productomodel> lProd = new List<productomodel>();
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
+            using (MySqlConnection con = producto.AbrirConexion()) { 
+                MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "precioProducto";
             cmd.Parameters.AddWithValue("idArti", id);
@@ -129,20 +131,24 @@ namespace PROYECTOFINAL.Models
                 precio = (int)lector["Precio"];
             }
             con.Close();
+            }
             return precio;
         }
 
-        public static int AltaProductos(int id, int stockActual)
+        public static int AltaProductos(int id, int stockActual, int idLocal)
         {
-            MySqlConnection con = producto.AbrirConexion();
-            MySqlCommand cmd = con.CreateCommand();
+            int registros2;
+            using (MySqlConnection con = producto.AbrirConexion()) { 
+                MySqlCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "AltaProductos";
             cmd.Parameters.AddWithValue("idProd", id);
             cmd.Parameters.AddWithValue("stockAc", stockActual);
+                cmd.Parameters.AddWithValue("idLocal", idLocal);
             
-            int registros2 = cmd.ExecuteNonQuery();
+            registros2 = cmd.ExecuteNonQuery();
             con.Close();
+            }
             return (registros2);
            
         }

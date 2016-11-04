@@ -114,7 +114,7 @@ namespace PROYECTOFINAL.Controllers
                 }
                 else
                 {
-                    List<movimientosmodel> lista = movimientos.ListarMovxMes(Convert.ToInt16(mes), Convert.ToInt16(año));
+                    List<movimientosmodel> lista = movimientos.ListarMovxMes(Convert.ToInt16(mes), Convert.ToInt16(año), Convert.ToInt16(idLocal));
                     TempData.Keep();
                     return View(lista);
                 }
@@ -153,7 +153,7 @@ namespace PROYECTOFINAL.Controllers
                 }
                 else
                 {
-                    List<movimientosmodel> lista = movimientos.ListarMovxDia(fecha);
+                    List<movimientosmodel> lista = movimientos.ListarMovxDia(fecha, Convert.ToInt16(idLocal));
                     TempData.Keep();
                     return View(lista);
                 }

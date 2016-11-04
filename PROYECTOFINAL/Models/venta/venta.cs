@@ -330,13 +330,13 @@ using System.Web;
         }
 
 
-        public static int EliminarVenta(int id)
+        public static int EliminarVenta(int id, int idLocal)
         {
             /*pregunto si es efectivo o tarjeta
             sumo el stock de los productos
             saco el movimiento, resto la plata de la venta          
              */
-
+            
             //obtengo la venta
             ventamodel venta = new ventamodel();
             venta = ObtenerDetalleVenta(id);
@@ -351,7 +351,7 @@ using System.Web;
                 
                 int stockActual = producto.ObtenerStockActual(item.id);
                 stockActual += item.cantidad;
-                producto.AltaProductos(item.id, stockActual);
+                producto.AltaProductos(item.id, stockActual, Convert.ToInt16(idLocal));
             }
             int mediopag;
             if (venta.MedioPago == "Efectivo")
