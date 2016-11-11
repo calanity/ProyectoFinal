@@ -5,6 +5,7 @@ using System.Web;
 
 namespace PROYECTOFINAL.Models
 {
+    [Serializable]
     public class usuariomodel
     {
         public int IdUsuario { get; set; }

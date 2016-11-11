@@ -6,6 +6,7 @@ using System.Web;
 
 namespace PROYECTOFINAL.Models
 {
+    [Serializable]
     public class productomodel
     {
         
