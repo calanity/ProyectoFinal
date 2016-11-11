@@ -14,6 +14,7 @@ using System.Diagnostics;
 
 namespace PROYECTOFINAL.Models
 {
+    [Serializable]
     public class producto
     {
 
