@@ -8,7 +8,10 @@
 @using PROYECTOFINAL.Models
 @using Libreria;
 @model productomodel
-
+@{
+    var idLocal = Session["idLocal"];
+    idLocal = Convert.ToInt16(idLocal);
+ }
 <h2>Editar</h2>
 
 
@@ -49,7 +52,7 @@
 
                 <option value="0"> Seleccionar</option>
 
-                @foreach (categoriamodel item in categoria.ListarCategorias(Convert.ToInt16(Session["idLocal"])))
+                @foreach (categoriamodel item in categoria.ListarCategorias(Convert.ToInt16(idLocal)))
                 {
                     if (item.id == Model.IdCategoria)
                     {
