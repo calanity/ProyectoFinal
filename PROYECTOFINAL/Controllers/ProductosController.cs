@@ -14,7 +14,7 @@ namespace PROYECTOFINAL.Controllers
         // GET: Productos
         public ActionResult Index()
         {
-            int idLocal =Convert.ToInt16(Session["idLocal"]);
+            var idLocal =(Session["idLocal"]);
 
             if (Session["idLocal"] == null)
             {
@@ -22,7 +22,7 @@ namespace PROYECTOFINAL.Controllers
             }
             else
             {
-                var lista = producto.ListarProductos(Convert.ToInt16(idLocal));
+                var lista = producto.ListarProductos(Convert.ToInt32(idLocal));
                 return View(lista);
             }
         }
