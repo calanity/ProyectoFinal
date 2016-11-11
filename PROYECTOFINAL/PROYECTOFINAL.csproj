@@ -106,10 +106,6 @@
       <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.0\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Web.RedisSessionStateProvider, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.RedisSessionStateProvider-Bundled.2.2.0.5\lib\net45\Microsoft.Web.RedisSessionStateProvider.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
