@@ -3,8 +3,12 @@
     ViewBag.Title = "Index";
 }
 @using System.Data;
+@HttpContext.Current.Session
 @using PROYECTOFINAL.Models;
 @model List<productomodel>
+    @{ 
+        var idLocal = Convert.ToInt16(Session["idLocal"]);
+    }
 
 <h2>Productos</h2>
 
@@ -25,7 +29,7 @@
 
     </tr>
 
-    @foreach (productomodel item in @producto.ListarProductos(Convert.ToInt16(Session["idLocal"])))
+    @foreach (productomodel item in @producto.ListarProductos(idLocal))
     {
         <tr>
             <td>@item.nombre</td>
