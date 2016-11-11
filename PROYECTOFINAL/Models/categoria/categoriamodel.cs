@@ -5,6 +5,7 @@ using System.Web;
 
 namespace PROYECTOFINAL.Models
 {
+    [Serializable]
     public class categoriamodel
     {
         public int id { get; set; }

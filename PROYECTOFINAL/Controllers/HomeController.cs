@@ -32,14 +32,16 @@ namespace PROYECTOFINAL.Controllers
         }
         public ActionResult Index()
         {
-            if (Session["idLocal"] == null{
-           }
+            if (Session["idLocal"] == null)
+           {
+                return RedirectToAction("Index", "Usuarios", 0);
+            }
             else
             { 
                 TempData.Keep();
                     return View();
             }
-            return RedirectToAction("Index", "Usuarios", 0);
+           
 
 
         }

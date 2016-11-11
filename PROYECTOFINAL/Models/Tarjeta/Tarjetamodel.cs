@@ -5,6 +5,7 @@ using System.Web;
 
 namespace PROYECTOFINAL.Models
 {
+    [Serializable]
     public class Tarjetamodel
     {
         //tipo(cred/deb) lote monto cuotas cupon
