@@ -10,7 +10,7 @@
 @model productomodel
 @{
     var idLocal = Session["idLocal"];
-    idLocal = Convert.ToInt16(idLocal);
+    var idLocal2 = Convert.ToInt16(idLocal);
  }
 <h2>Editar</h2>
 
@@ -52,7 +52,7 @@
 
                 <option value="0"> Seleccionar</option>
 
-                @foreach (categoriamodel item in categoria.ListarCategorias(Convert.ToInt16(idLocal)))
+                @foreach (categoriamodel item in categoria.ListarCategorias(Convert.ToInt16(idLocal2)))
                 {
                     if (item.id == Model.IdCategoria)
                     {
