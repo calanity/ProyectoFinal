@@ -22,7 +22,7 @@ namespace PROYECTOFINAL.Controllers
             }
             else
             {
-                var lista = producto.ListarProductos(Convert.ToInt32(idLocal));
+                var lista = producto.ListarProductos(Convert.ToInt16(idLocal));
                 return View(lista);
             }
         }
