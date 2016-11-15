@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROYECTOFINAL", "PROYECTOFI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libreria", "ClassLibrary1\Libreria.csproj", "{C2EF923A-9E1A-409A-9566-2B252E8EF572}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41A10E3A-89BD-46EA-9532-1FD01707574E}"
+	ProjectSection(SolutionItems) = preProject
+		F:\logo1.png = F:\logo1.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
