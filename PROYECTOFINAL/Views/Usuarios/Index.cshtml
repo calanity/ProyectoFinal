@@ -15,9 +15,13 @@
 
     <label>Ingrese su usuario</label>
     <select name="nombre" class="form-control" id="nombre">
-
-        <option value="1">Concepcion</option>
-        <option value="2">Gualeguaychu</option>
+        <option value="0">Seleccionar</option>
+        @foreach (usuariomodel item in usuario.ListarUsuarios())
+        {
+            <option value="@item.IdUsuario">@item.Usuario</option>
+        }
+        
+      
     </select>
     <br />
     <label>Ingrese la contraseña</label>

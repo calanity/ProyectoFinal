@@ -20,6 +20,14 @@ namespace PROYECTOFINAL.Controllers
             }
             return View(0);
         }
+
+        public ActionResult CerrarSesion()
+        {
+            Session.Abandon();
+
+            return View("../Home/Index");
+
+        }
         public ActionResult Ingresar(FormCollection form)
         {
             
@@ -53,11 +61,11 @@ namespace PROYECTOFINAL.Controllers
                 Session["nombre"] = us.Usuario;
                 Session["contraseña"] = contraseña;
             }
+
             else
             {
                 return View("../Usuarios/Index",1);
-            }
-          
+            }          
             
             return View("../Home/Index");
         }
