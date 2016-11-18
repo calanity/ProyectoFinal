@@ -71,10 +71,7 @@
                     </li>
                     <li class="hola"><a class="" data-toggle="modal" data-target=".bootstrapmodal"> Ingresar </a></li>   
                    
-                    @if (Session != null)
-                    {
-                        <li><a href="#">@Session["nombre"]</a></li>
-                    }
+                   <!--if (Session != null){<li><a href="#">Session["nombre"]</a></li>-->
 
                     <li><a href="../Usuarios/CerrarSesion">Cerrar sesion</a></li>    
                    
@@ -98,6 +95,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @using PROYECTOFINAL.Models;
     @RenderSection("scripts", required: false)
 
     <div class="modal fade bootstrapmodal">
@@ -118,9 +116,13 @@
 
                         <label>Ingrese su usuario</label>
                         <select name="nombre" class="form-control" id="nombre">
+                            <option value="0">Seleccionar</option>
+                            @foreach (usuariomodel item in usuario.ListarUsuarios())
+                            {
+                                <option value="@item.IdUsuario">@item.Usuario</option>
+                            }
 
-                            <option value="1">Concepcion</option>
-                            <option value="2">Gualeguaychu</option>
+
                         </select>
                         <br />
                         <label>Ingrese la contraseña</label>
