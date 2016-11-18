@@ -1,0 +1,21 @@
+3 carpetas: 
+
+	-analisis: lo que era para la demo,todos los cososs del trello
+	
+	-diseño:der
+ 
+	-codigo:carpeta de github, instructivo de instalación (conexion con azure y github)
+
+
+presentacion: lo de la expo, que es, motivacion, que hace, 
+plantearlo como que esta hecho a medida y se podria modificar para otro local, grandes funcionalidades, que hay para mejorar
+terminar con reportes, agregar productos
+
+   <sessionState mode="SQLServer"
+    sqlConnectionString="Server=tcp:fifos.database.windows.net;Database=sqlSessionDb;User ID=florencia@fifos.database.windows.net;Password=Yabra2016;Trusted_Connection=False;Encrypt=True;"
+cookieless="false" timeout="20" allowCustomSqlDatabase="true" />
+
+PRIMERO QUE ES
+FUNCIONALIDADES PPPALES
+MOTIVACION 
+TECNOLOGIAS

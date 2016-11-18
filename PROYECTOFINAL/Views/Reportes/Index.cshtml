@@ -58,7 +58,7 @@
 <br />
 
 
-<form method="post" action="/Reportes/ReporteProductos">
+<form method="post" id="formulario" action="/Reportes/ReporteProductos">
    
     <label>Fecha 1</label>
     <input type="date" name="fecha1" id="fecha1" required/>
@@ -109,6 +109,30 @@
 
     <br />
     <br />
-    <input type="submit" class="btn btn-default"  value="Descargar"/>
+    <input type="submit" class="btn btn-default" id="aceptar" value="Descargar"/>
 
 </form>
+<script>
+    function validarFechas() {
+        var fechaInicial = document.getElementById("fecha1").value;
+        var fechaFinal = document.getElementById("fecha2").value;        
+        
+        valuesStart = fechaInicial.split("/");
+        valuesEnd = fechaFinal.split("/");
+
+        // Verificamos que la fecha no sea posterior a la actual
+        var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
+        var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
+        if (dateStart >= dateEnd) {
+
+            alert("La primera fecha no debe ser mayor que la segunda");
+            
+
+        }
+        else
+        {
+            $('#formulario').submit();
+        }
+    }
+    
+</script>
