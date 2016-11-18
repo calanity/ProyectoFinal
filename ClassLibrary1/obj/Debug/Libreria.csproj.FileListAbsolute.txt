@@ -1,0 +1,12 @@
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\Properties\DataSources\Libreria.proveedormodel.datasource
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\Microsoft.ReportViewer.Common.dll
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\Microsoft.ReportViewer.WebForms.DLL
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\RDLCReportRunner.dll
+D:\ProyectoFinal\ClassLibrary1\bin\Debug\Microsoft.ReportViewer.WinForms.xml
+D:\ProyectoFinal\ClassLibrary1\obj\Debug\Libreria.csprojResolveAssemblyReference.cache
+D:\ProyectoFinal\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+D:\ProyectoFinal\ClassLibrary1\obj\Debug\ClassLibrary1.pdb

@@ -28,16 +28,7 @@
             </tr>
 
         }
-        <tfoot>
-            <tr>
-                <th>Subotal</th>
-                <td>@foreach(ventamodel item in Model)
-                {
-                    venta.ObtenerTotalVendidoXDia((DateTime)(item.Fecha), Convert.ToInt16(Session["idLocal"]));
-                }
-                </td>
-            </tr>
-        </tfoot>
+       
 
     </table>
     <h5>Total vendido con tarjeta:      
