@@ -298,7 +298,7 @@ namespace PROYECTOFINAL.Controllers
                     if (listaEnviar.Count > 0)
                     {
 
-                        producto.EnviarMailFaltaStock(listaEnviar);
+                        producto.EnviarMailFaltaStock(listaEnviar, Convert.ToString(Session["nombre"]));
                     }
                 }
                 l2.id = idVentaActual;

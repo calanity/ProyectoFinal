@@ -269,7 +269,7 @@ namespace PROYECTOFINAL.Models
             return registros;
         }
 
-        public static void EnviarMailFaltaStock(List<productomodel> listaEnviar)
+        public static void EnviarMailFaltaStock(List<productomodel> listaEnviar, string Local)
         {
             //string path = "D:/ProyectoFinal/archivo.pdf";
             string path = @"~/ ProyectoFinal/archivo.txt";
@@ -283,7 +283,8 @@ namespace PROYECTOFINAL.Models
             {
                 productomodel prod = new productomodel();
                // prod = producto.obtenerNombre();
-                MiObjetoArchivo.WriteLine("Nombre del producto: " + item.nombre + ", " + "Stock actual" + item.stockactual + ", " + "Proveedor" +  producto.ObtenerNombreProveedor(item.id));
+                MiObjetoArchivo.WriteLine("Nombre del producto: " + item.nombre + ", " + "Stock actual" + item.stockactual + ", " + "Proveedor" +  producto.ObtenerNombreProveedor(item.id)
+                +"Local: " + Local    );
             }
 
             MiObjetoArchivo.Close();
@@ -303,8 +304,8 @@ namespace PROYECTOFINAL.Models
             SmtpClient smtp = new SmtpClient();
             var credential = new NetworkCredential
             {
-                UserName = "calanity@gmail.com", // reemplazar por un valor valido
-                Password = ""//reemplazar por un valor valido
+                UserName = "yabraflor@gmail.com", // reemplazar por un valor valido
+                Password = "proyecto2016"//reemplazar por un valor valido
             };
 
             smtp.Credentials = credential;
