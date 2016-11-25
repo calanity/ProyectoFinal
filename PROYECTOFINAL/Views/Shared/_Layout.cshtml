@@ -69,11 +69,21 @@
                             
                         </ul>
                     </li>
-                    <li class="hola"><a class="" data-toggle="modal" data-target=".bootstrapmodal"> Ingresar </a></li>   
+                    @if (Session["idLocal"] != null)
+                    {
+                        <li><a href="../Usuarios/CerrarSesion">Cerrar sesion</a></li>
+                        <li><a href= "#">@Session["nombre"]</a></li>
+                    }
+                    else
+                    {
+                        <li class="hola"><a class="" data-toggle="modal" data-target=".bootstrapmodal"> Ingresar </a></li>
+                    }
+
+                     
                    
                    <!--if (Session != null){<li><a href="#">Session["nombre"]</a></li>-->
 
-                    <li><a href="../Usuarios/CerrarSesion">Cerrar sesion</a></li>    
+                     
                    
 
                 </ul>

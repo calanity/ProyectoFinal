@@ -126,8 +126,6 @@ D:\ProyectoFinal\PROYECTOFINAL\bin\es\Microsoft.Owin.Security.Google.resources.d
 D:\ProyectoFinal\PROYECTOFINAL\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 D:\ProyectoFinal\PROYECTOFINAL\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 D:\ProyectoFinal\PROYECTOFINAL\obj\Debug\PROYECTOFINAL.csprojResolveAssemblyReference.cache
-D:\ProyectoFinal\PROYECTOFINAL\obj\Debug\RdlCompile.cache
-D:\ProyectoFinal\PROYECTOFINAL\obj\Debug\RdlCompile.compiled
 D:\ProyectoFinal\PROYECTOFINAL\obj\Debug\PROYECTOFINAL.dll
 D:\ProyectoFinal\PROYECTOFINAL\obj\Debug\PROYECTOFINAL.pdb
 D:\ProyectoFinal\PROYECTOFINAL\bin\Microsoft.AI.ServerTelemetryChannel.dll

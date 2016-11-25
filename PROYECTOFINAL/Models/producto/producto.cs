@@ -272,7 +272,7 @@ namespace PROYECTOFINAL.Models
         public static void EnviarMailFaltaStock(List<productomodel> listaEnviar, string Local)
         {
             //string path = "D:/ProyectoFinal/archivo.pdf";
-            string path = @"~/ ProyectoFinal/archivo.txt";
+            string path = @"~/archivo.txt";
             StreamWriter MiObjetoArchivo = new StreamWriter(path);
              
 
